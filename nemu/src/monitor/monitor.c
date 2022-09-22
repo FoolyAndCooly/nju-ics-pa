@@ -32,8 +32,6 @@ static void welcome() {
   Log("Build time: %s, %s", __TIME__, __DATE__);
   printf("Welcome to %s-NEMU!\n", ANSI_FMT(str(__GUEST_ISA__), ANSI_FG_YELLOW ANSI_BG_RED));
   printf("For help, type \"help\"\n");
-  Log("Exercise: Please remove me in the source code and compile NEMU again.");
-  assert(0);
 }
 
 #ifndef CONFIG_TARGET_AM
@@ -128,7 +126,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Initialize the simple debugger. */
   init_sdb();
 
-  IFDEF(CONFIG_ITRACE, init_disasm(
+IFDEF(CONFIG_ITRACE, init_disasm(
     MUXDEF(CONFIG_ISA_x86,     "i686",
     MUXDEF(CONFIG_ISA_mips32,  "mipsel",
     MUXDEF(CONFIG_ISA_riscv32, "riscv32",
@@ -138,7 +136,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Display welcome message. */
   welcome();
 }
-#else // CONFIG_TARGET_AM
+#else  //CONFIG_TARGET_AM
 static long load_img() {
   extern char bin_start, bin_end;
   size_t size = &bin_end - &bin_start;
