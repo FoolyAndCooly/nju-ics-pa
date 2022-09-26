@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include "memory/vaddr.h"
 
 static int is_batch_mode = false;
 
@@ -65,6 +66,11 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
+  vaddr_t val_EXPR;
+  strtok(args," ");
+  char *EXPR=args+strlen(args)+1;
+  sscanf(EXPR,"%x",&val_EXPR);
+  vaddr_read(val_EXPR,atoi(args));
   return 0;
 }
 
