@@ -70,7 +70,9 @@ static int cmd_x(char *args){
   strtok(args," ");
   char *EXPR=args+strlen(args)+1;
   sscanf(EXPR,"%x",&val_EXPR);
-  vaddr_read(val_EXPR,atoi(args));
+  for (int i=0;i<atoi(args);i++){
+  printf("0x%08x\t0x%08x\n", val_EXPR + i * 4, vaddr_read(val_EXPR + i * 4, 4));
+  }  
   return 0;
 }
 
