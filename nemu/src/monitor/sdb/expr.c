@@ -158,6 +158,7 @@ uint32_t search_op(int p, int q){
 		//search the first '('
 		if (tokens[i].type == '(') {
 		a=i;
+		Log("%d",a);
 		break;
 		}
 	}
@@ -165,6 +166,7 @@ uint32_t search_op(int p, int q){
 	for (int i=p;i<=q;i++){
                 if (tokens[i].type == ')') {
                 b=i;
+		Log("%d",b);
                 }
         }
 	for (int i=p;i<=q;i++){
