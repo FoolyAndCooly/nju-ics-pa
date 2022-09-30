@@ -225,7 +225,7 @@ int eval(int p,int q){
                 if (success) return val0;
                 else Log("reg not found");
                 }
-       else if (p+1 ==q || (tokens[p].type == TK_N && (tokens[q].type == TK_NUMBER || tokens[q].type == TK_HNUM))){
+       else if (p+1 ==q || (tokens[p].type == TK_N && (tokens[q].type == TK_NUMBER))){
                 switch (tokens[q].type){
                 case TK_NUMBER: return 0-atoi(tokens[q].str);
                 case TK_HNUM:
