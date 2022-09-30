@@ -205,11 +205,11 @@ uint32_t eval(int p,int q){
 		//}
 		//return atoi(token[p].str)
 		switch (tokens[p].type){
-		case TK_NUMBER: return atoi(tokens[p].str);
+		case TK_NUMBER: return atoi(tokens[p].str);break;
 		case TK_HNUM: 
 		int a;
 		sscanf(tokens[p].str,"%x",&a);
-		return a;
+		return a;break;
 		default: printf("Bad expression"); assert(0);
 		}
 	}
