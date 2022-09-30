@@ -20,7 +20,7 @@
  */
 #include <regex.h>
 enum {
-  TK_NOTYPE = 1, TK_EQ, TK_NUMBER, TK_NEQ, TK_AND, TK_P, TK_REG, TK_HNUM
+  TK_NOTYPE = 1, TK_EQ, TK_NUMBER, TK_NEQ, TK_AND, TK_P, TK_REG, TK_HNUM,TK_N
 
   /* TODO: Add more token types */
 
@@ -119,6 +119,11 @@ static bool make_token(char *e) {
     		tokens[i].type = TK_P;
 		Log("change tokens[%d] from *  to TK_P",i);
   		}
+         if (tokens[i].type == '-' && (tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/'|| tokens[i-1].type == TK_EQ||tokens[i-1].type ==TK_NEQ||tokens[i-1].type ==TK_AND || tokens[i-1].type=='(')) {
+                tokens[i].type = TK_P;
+                Log("change tokens[%d] from *  to TK_N",i);
+                }
+
 	}
         break;
       }
@@ -189,7 +194,7 @@ uint32_t search_op(int p, int q){
 	return 0;
 }
 
-uint32_t eval(int p,int q){
+int eval(int p,int q){
 	if (p >q){
 		printf("Bad expression");
 		assert(0);
@@ -218,8 +223,20 @@ uint32_t eval(int p,int q){
                 int val0;
                 val0=isa_reg_str2val(tokens[q].str, success);
                 if (success) return val0;
-                else printf("reg not found");
+                else Log("reg not found");
                 }
+       else if (p+1 ==q && (tokens[p].type == TK_N && (tokens[q].type == TK_NUMBER && tokens[q].type == TK_HNUM))){
+                switch (tokens[p].type){
+                case TK_NUMBER: return 0-atoi(tokens[p].str);
+                case TK_HNUM:
+                int a;
+                sscanf(tokens[p].str,"%x",&a);
+                return 0-a;
+                default:assert(0);
+                }
+
+                }
+
 
 	else{
 		uint32_t op;
