@@ -19,9 +19,8 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 100, TK_EQ, TK_NUMBER, TK_NEQ, TK_AND, TK_P, TK_REG, TK_HNUM
 
   /* TODO: Add more token types */
 
@@ -38,7 +37,17 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equal
+  {"\\-", '-'},
+  {"\\*", '*'},
+  {"/", '/'},
+  {"\\(", '('},
+  {"\\)",')'},
+  {"^[0-9]*$",TK_NUMBER},
+  {"==", TK_EQ},  // equal
+  {"!=",TK_NEQ},
+  {"&&",TK_AND},
+  {"\\$?[a-zA-Z]+[0-9]*",TK_REG},
+  {"0[xX][0-9a-fA-F]+",TK_HNUM}
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -72,7 +81,7 @@ static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
   int position = 0;
-  int i;
+  int i,j;
   regmatch_t pmatch;
 
   nr_token = 0;
@@ -93,11 +102,21 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
         switch (rules[i].token_type) {
-          default: TODO();
+	case TK_NOTYPE:break;
+	case TK_HNUM:substr_start+=2;
+	case TK_REG:
+	case TK_NUMBER:
+	for(j=0;j<substr_len;j++){
+		tokens[nr_token].str[j]=*(substr_start+j);}
+		tokens[nr_token].str[j]='\0';
+          default: tokens[nr_token].type=rules[i].token_type;nr_token++;
         }
-
+	for (i = 0; i < nr_token; i ++) {
+ 	 if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/') ) {
+    		tokens[i].type = TK_P;
+  		}
+	}
         break;
       }
     }
@@ -111,15 +130,126 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_parentheses(int p, int q){
+	int cnt=0,cnt0=0;
+	bool judge = true;
+	while (tokens[p+cnt].type == '(') cnt++;
+	if (cnt == 0) judge=false;
+        for (int i=p ;i<=q;i++){
+	if (tokens[i].type == ')') cnt--;
+	if (cnt == 0 && i!=q) judge=false;
+	if (cnt < 0) {
+                printf("Bad expression");
+                assert(0);
+	}
+	}
+
+	while (tokens[q-cnt0].type == ')') cnt0++;
+	for (int i=q;i>=p;i--){
+		if (tokens[i].type == ')') cnt--;
+		if (cnt < 0) {
+                printf("Bad expression");
+                assert(0);
+		}
+	}
+       return judge;	
+}
+
+uint32_t search_op(int p, int q){
+	int a=0,b=0;
+	char wait[32]={0};
+	int waitn[32]={0};
+	int cnt1=0;
+	for (int i=p;i<=q;i++){
+		//search the first '('
+		if (tokens[i].type == '(') {
+		a=i;
+		break;
+		}
+	}
+		//search the last ')'
+	for (int i=p;i<=q;i++){
+                if (tokens[i].type == ')') {
+                b=i;
+                }
+        }
+	for (int i=p;i<=q;i++){
+		if(tokens[i].type != TK_NUMBER && (i<a || i>b)){
+		wait[cnt1]=tokens[i].type;
+		waitn[cnt1]=i;
+		}
+	}
+        for (int i=cnt1;i>=0;i--){
+		switch (wait[i]){
+			case TK_AND: return waitn[i];
+			case TK_EQ :
+			case TK_NEQ: return waitn[i];
+			case '+':
+			case '-': return waitn[i]; 
+			case '*':
+			case '/': return waitn[i];
+		}
+        }
+	return 0;
+}
+
+uint32_t eval(int p,int q){
+	if (p > q){
+		printf("Bad expression");
+		assert(0);
+	}
+	else if (p == q){
+		//if(tokens[p].type != TK_NUMBER && tokens[p].type != TK_HNUM){
+		//	printf("Bad expression");
+		//	assert(0);
+		//}
+		//return atoi(token[p].str)
+		switch (tokens[p].type){
+		case TK_NUMBER: return atoi(tokens[p].str);
+		case TK_HNUM: 
+		int a;
+		sscanf(tokens[p].str,"%x",&a);
+		return a;
+		default: printf("Bad expression"); assert(0);
+		}
+	}
+	else if (check_parentheses(p,q) == true){
+		return eval(p+1,q-1);
+	}
+        else if (p+1 ==q && (tokens[p].type == TK_P && tokens[q].type == TK_REG)){
+                bool *success=(bool*)malloc(sizeof(bool));
+		*success= true;
+                int val0;
+                val0=isa_reg_str2val(tokens[q].str, success);
+                if (success) return val0;
+                else printf("reg not found");
+                }
+
+	else{
+		uint32_t op;
+		int val1,val2;
+		op = search_op(p,q);
+		val1 = eval(p,op-1);
+		val2 = eval(op+1,q);
+
+		switch (tokens[op].type){
+		case '+': return val1 + val2;
+      		case '-': return val1 - val2;
+      		case '*': return val1 * val2;
+      		case '/': return val1 / val2;
+		case TK_EQ: return val1 == val2;
+		case TK_NEQ: return val1 != val2;
+		case TK_AND: return val1 && val2;
+      		default: assert(0);
+		}
+	}
+	return 0;
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
-
-  /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  return eval(1,nr_token);
 }
