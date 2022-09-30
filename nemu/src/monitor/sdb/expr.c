@@ -211,7 +211,7 @@ uint32_t eval(int p,int q){
 		int a;
 		sscanf(tokens[p].str,"%x",&a);
 		return a;
-		default: printf("Bad expression"); assert(0);
+		//default:assert(0);
 		}
 	}
 	else if (check_parentheses(p,q) == true){
