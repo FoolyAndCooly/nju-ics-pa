@@ -175,14 +175,15 @@ uint32_t search_op(int p, int q){
 		}
 	}
         for (int i=0;i<cnt1;i++){
-	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ) return waitn[i];
+	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ){Log("op=1"); return waitn[i];}
 	}
 	for (int i=0;i<cnt1;i++){
-        if (wait[i] == '+' || wait[i]=='-') return waitn[i];
+        if (wait[i] == '+' || wait[i]=='-') {Log("op=2");return waitn[i];}
         }
         for (int i=0;i<cnt1;i++){
-        if (wait[i] == '*' || wait[i]== '/' ) return waitn[i];
+        if (wait[i] == '*' || wait[i]== '/' ){Log("op=3"); return waitn[i];}
         }
+	Log("can't find op");
 	return 0;
 }
 
