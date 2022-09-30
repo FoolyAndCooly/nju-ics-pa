@@ -115,7 +115,7 @@ static bool make_token(char *e) {
 		   Log("write into tokens[%d] successfully,%d",nr_token-1,tokens[nr_token-1].type);
         }
 	for (i = 0; i < nr_token; i ++) {
- 	 if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/'|| tokens[i-1].type == TK_EQ||tokens[i-1].type ==TK_NEQ||tokens[i-1].type ==TK_AND)) {
+ 	 if (tokens[i].type == '*' && (tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/'|| tokens[i-1].type == TK_EQ||tokens[i-1].type ==TK_NEQ||tokens[i-1].type ==TK_AND || tokens[i-1].type=='(')) {
     		tokens[i].type = TK_P;
 		Log("change tokens[%d] from *  to TK_P",i);
   		}
