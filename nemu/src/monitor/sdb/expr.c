@@ -171,19 +171,17 @@ uint32_t search_op(int p, int q){
 		if(tokens[i].type != TK_NUMBER && (i<a || i>b)){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
+		cnt1++;
 		}
 	}
-        for (int i=cnt1;i>=0;i--){
-		switch (wait[i]){
-			case TK_AND:Log("op = &&"); return waitn[i];
-			case TK_EQ :Log("op = ==");return waitn[i];
-			case TK_NEQ: Log("op = !=");return waitn[i];
-			case '+':Log("op=+");return waitn[i];
-			case '-':Log("op=-"); return waitn[i]; 
-			case '*':Log("op=*");return waitn[i];
-			case '/':Log("op=/"); return waitn[i];
-		}
-		Log("cannot find op");
+        for (int i=0;i<cnt1;i++){
+	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ) return waitn[i];
+	}
+	for (int i=0;i<cnt1;i++){
+        if (wait[i] == '+' || wait[i]=='-') return waitn[i];
+        }
+        for (int i=0;i<cnt1;i++){
+        if (wait[i] == '*' || wait[i]== '/' ) return waitn[i];
         }
 	return 0;
 }
