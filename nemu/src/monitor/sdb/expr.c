@@ -111,8 +111,8 @@ static bool make_token(char *e) {
 		tokens[nr_token].str[j]=*(substr_start+j);}
 		tokens[nr_token].str[j]='\0';
           default: tokens[nr_token].type=rules[i].token_type;nr_token++;
+		   Log("write into tokens[%d] successfully,%d",nr_token-1,tokens[nr_token-1].type);
         }
-	Log("write into tokens[%d] successfully,%d",nr_token-1,tokens[nr_token-1].type);
 	for (i = 0; i < nr_token; i ++) {
  	 if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/') ) {
     		tokens[i].type = TK_P;
