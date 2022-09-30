@@ -227,7 +227,7 @@ int eval(int p,int q){
                 }
        else if (p+1 ==q && (tokens[p].type == TK_N && (tokens[q].type == TK_NUMBER || tokens[q].type == TK_HNUM))){
                 switch (tokens[q].type){
-                case TK_NUMBER: return 0-atoi(tokens[q].str);
+                case TK_NUMBER:Log("1"); return 0-atoi(tokens[q].str);
                 case TK_HNUM:
                 int a;
                 sscanf(tokens[q].str,"%x",&a);
