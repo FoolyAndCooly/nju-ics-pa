@@ -121,7 +121,7 @@ static bool make_token(char *e) {
   		}
          if (tokens[i].type == '-' && (i==0 || tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/'|| tokens[i-1].type == TK_EQ||tokens[i-1].type ==TK_NEQ||tokens[i-1].type ==TK_AND || tokens[i-1].type=='(')) {
                 tokens[i].type = TK_P;
-                Log("change tokens[%d] from *  to TK_N",i);
+                Log("change tokens[%d] from -  to TK_N",i);
                 }
 
 	}
@@ -226,8 +226,9 @@ int eval(int p,int q){
                 else Log("reg not found");
                 }
        else if (p+1 ==q && (tokens[p].type == TK_N && (tokens[q].type == TK_NUMBER || tokens[q].type == TK_HNUM))){
+	       Log("1");
                 switch (tokens[q].type){
-                case TK_NUMBER:Log("1"); return 0-atoi(tokens[q].str);
+                case TK_NUMBER: return 0-atoi(tokens[q].str);
                 case TK_HNUM:
                 int a;
                 sscanf(tokens[q].str,"%x",&a);
