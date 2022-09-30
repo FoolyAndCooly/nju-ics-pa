@@ -195,7 +195,7 @@ uint32_t search_op(int p, int q){
 }
 
 uint32_t eval(int p,int q){
-	if (p > q){
+	if (p <q){
 		printf("Bad expression");
 		assert(0);
 	}
@@ -252,5 +252,5 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  return eval(0,1);
+  return eval(0,nr_token);
 }
