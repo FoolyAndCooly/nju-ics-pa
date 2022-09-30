@@ -47,7 +47,8 @@ static struct rule {
   {"&&",TK_AND},
   {"\\$?[a-zA-Z]+[0-9]*",TK_REG},
   {"0[xX][0-9a-fA-F]+",TK_HNUM},
-  {"[0-9]+",TK_NUMBER}
+  {"[0-9]+",TK_NUMBER},
+  {"\\*",TK_P}
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -116,6 +117,7 @@ static bool make_token(char *e) {
 	for (i = 0; i < nr_token; i ++) {
  	 if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/') ) {
     		tokens[i].type = TK_P;
+		Log("change tokens[%d] from *  to TK_P",i);
   		}
 	}
         break;
