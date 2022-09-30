@@ -175,13 +175,13 @@ uint32_t search_op(int p, int q){
 	}
         for (int i=cnt1;i>=0;i--){
 		switch (wait[i]){
-			case TK_AND: return waitn[i];
-			case TK_EQ :
-			case TK_NEQ: return waitn[i];
-			case '+':
-			case '-': return waitn[i]; 
-			case '*':
-			case '/': return waitn[i];
+			case TK_AND:Log("op = &&"); return waitn[i];
+			case TK_EQ :Log("op = ==");
+			case TK_NEQ: Log("op = !=");return waitn[i];
+			case '+':Log("op=+");
+			case '-':Log("op=-"); return waitn[i]; 
+			case '*':Log("op=*");
+			case '/':Log("op=/"); return waitn[i];
 		}
         }
 	return 0;
