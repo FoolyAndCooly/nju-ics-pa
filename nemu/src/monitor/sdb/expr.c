@@ -211,7 +211,7 @@ uint32_t eval(int p,int q){
 		int a;
 		sscanf(tokens[p].str,"%x",&a);
 		return a;
-		//default:assert(0);
+		default:assert(0);
 		}
 	}
 	else if (check_parentheses(p,q) == true){
@@ -252,5 +252,5 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  return eval(1,nr_token);
+  return eval(0,nr_token);
 }
