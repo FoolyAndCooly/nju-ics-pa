@@ -195,9 +195,10 @@ uint32_t search_op(int p, int q){
 }
 
 uint32_t eval(int p,int q){
-	if (p <q){
-		printf("Bad expression");
-		assert(0);
+	if (p >q){
+	//	printf("Bad expression");
+	//	assert(0);
+	;
 	}
 	else if (p == q){
 		//if(tokens[p].type != TK_NUMBER && tokens[p].type != TK_HNUM){
