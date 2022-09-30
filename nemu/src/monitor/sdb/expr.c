@@ -185,7 +185,7 @@ uint32_t search_op(int p, int q){
         for (int i=0;i<cnt1;i++){
         if (wait[i] == '*' || wait[i]== '/' ){Log("op=3"); return waitn[i];}
         }
-	Log("can't find op,%c",wait[0]);
+	Log("can't find op,%d",wait[0]);
 	return 0;
 }
 
