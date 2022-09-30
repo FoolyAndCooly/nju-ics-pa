@@ -42,12 +42,12 @@ static struct rule {
   {"/", '/'},
   {"\\(", '('},
   {"\\)",')'},
-  {"[0-9]+",TK_NUMBER},
   {"==", TK_EQ},  // equal
   {"!=",TK_NEQ},
   {"&&",TK_AND},
   {"\\$?[a-zA-Z]+[0-9]*",TK_REG},
-  {"0[xX][0-9a-fA-F]+",TK_HNUM}
+  {"0[xX][0-9a-fA-F]+",TK_HNUM},
+  {"[0-9]+",TK_NUMBER}
 };
 
 #define NR_REGEX ARRLEN(rules)
