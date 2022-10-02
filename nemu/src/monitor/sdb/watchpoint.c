@@ -20,7 +20,7 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-  char *str;
+  char str[32];
   int val;
   /* TODO: Add more members if necessary */
 
@@ -52,7 +52,7 @@ void new_wp(char* expr,int val0){
 	new=free_;
 	new->val=val0;
 	Log("0");
-	sprintf(new->str,"%s",expr);
+	strcpy(new->str,expr);
 	Log("1");
 	new->next=NULL;
 	free_=free_->next;
