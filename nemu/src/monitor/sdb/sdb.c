@@ -24,6 +24,8 @@ static int is_batch_mode = false;
 void init_regex();
 void init_wp_pool();
 
+void new_wp(char* ,int );
+void free_wp(int);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -80,13 +82,8 @@ static int cmd_x(char *args){
 static int cmd_w(char* args){
 #ifdef CONFIG_WATCHPOINT
 	bool* suc0=(bool*)malloc(sizeof(bool));
-	WP* new0;
-	*suc0=true;
-	int valw=expr(args,suc0);
-	new0=new_wp();
-	sprintf(new0->str,"%s",EXPR);
-	new0->val=valw;
-	Log("add the watchpoint %d :%s successfully",new0->No,new0->str);
+	int val0=expr(args,suc0);
+	new_wp(args,val0);
 	return 0;
 #else
 	Log("didn't open watchpoint");
@@ -95,15 +92,9 @@ static int cmd_w(char* args){
 }
 static int cmd_d(char* args){
 #ifdef CONFIG_WATCHPOINT
-	WP* f=get_head();
-	for (int i=0;i<atoi(args)-1;i++){
-	f=f->next;
-	}
-	free_wp(f);
-	Log("clear the watch point %d :%s successfully", f->NO,f->str);
-	return 0;
+	free_wp(atoi(args));
 #else
-	Log("didn't open watchpoint");
+	printf("didn't open watchpoint");
 #endif
 	return 0;
 }

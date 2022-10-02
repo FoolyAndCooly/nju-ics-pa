@@ -42,7 +42,7 @@ void init_wp_pool() {
 static bool in=false;
 
 /* TODO: Implement the functionality of watchpoint */
-WP* new_wp(){
+void new_wp(char* expr,int val0){
 	WP* new,*be;
 	if(!in){
 	init_wp_pool();
@@ -50,6 +50,8 @@ WP* new_wp(){
 	}
 	be=NULL;
 	new=free_;
+	new->val=val0;
+	sprintf(new->str,"%s",expr);
 	new->next=NULL;
 	free_=free_->next;
 	if (head ==NULL){head=new;}
@@ -58,15 +60,26 @@ WP* new_wp(){
 		while(be->next!=NULL){be=be->next;}
 		be->next=new;
 	}
-	return new;
+	printf("add the watchpoint %d :%s successfully",new->NO,new->str);
+
 }
-void free_wp(WP* wp){
-	WP* be1;
+void free_wp(int nu){
+	WP *be1,*wp;
 	be1=head;
+	wp=head;
+	for(int i=0;i<nu;i++){
+	wp=wp->next;
+	}
+	if(wp!=head){
 	while(be1->next!=wp){be1=be1->next;}
 	be1->next=NULL;
+	}
+	else{
+	head=NULL;
+	}
 	wp->next=free_;
 	free_=wp;
+	printf("clear the watchpoint %d :%s successfully",wp->NO,wp->str);
 }
 
 WP* get_head(){return head;}
