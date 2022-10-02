@@ -19,7 +19,6 @@
 #include <readline/history.h>
 #include "sdb.h"
 #include "memory/vaddr.h"
-
 static int is_batch_mode = false;
 
 void init_regex();
@@ -78,6 +77,43 @@ static int cmd_x(char *args){
   return 0;
 }
 
+static int cmd_w(char* args){
+#ifdef CONFIG_WATCHPOINT
+	bool* suc0=(bool*)malloc(sizeof(bool));
+	WP* new0;
+	*suc0=true;
+	int valw=expr(args,suc0);
+	new0=new_wp();
+	sprintf(new0->str,"%s",EXPR);
+	new0->val=valw;
+	Log("add the watchpoint %d :%s successfully",new0->No,new0->str);
+	return 0;
+#else
+	Log("didn't open watchpoint");
+#endif
+	return 0;
+}
+static int cmd_d(char* args){
+#ifdef CONFIG_WATCHPOINT
+	WP* f=get_head();
+	for (int i=0;i<atoi(args)-1;i++){
+	f=f->next;
+	}
+	free_wp(f);
+	Log("clear the watch point %d :%s successfully", f->NO,f->str);
+	return 0;
+#else
+	Log("didn't open watchpoint");
+#endif
+	return 0;
+}
+static int cmd_p(char* args){
+	bool* succ=(bool*)malloc(sizeof(bool));
+	*succ=true;
+	Log("%d",expr(args,succ));
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -90,7 +126,10 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   {"si", "Step NEMU", cmd_si},
   {"info", "print NEMU", cmd_info},
-  {"x", "scan memory", cmd_x}
+  {"x", "scan memory", cmd_x},
+  {"w","set watch point",cmd_w},
+  {"d","clear watch point",cmd_d},
+  {"p","compute",cmd_p}
   /* TODO: Add more commands */
 
 };

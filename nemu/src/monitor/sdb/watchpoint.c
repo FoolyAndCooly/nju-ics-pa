@@ -20,8 +20,8 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-  char *expr;
-  int val;//old val
+  char *str;
+  int val;
   /* TODO: Add more members if necessary */
 
 } WP;
@@ -39,6 +39,49 @@ void init_wp_pool() {
   head = NULL;
   free_ = wp_pool;
 }
+static bool in=false;
 
 /* TODO: Implement the functionality of watchpoint */
+WP* new_wp(){
+	WP* new,*be;
+	if(!in){
+	init_wp_pool();
+	in=true;
+	}
+	be=NULL;
+	new=free_;
+	new->next=NULL;
+	free_=free_->next;
+	if (head ==NULL){head=new;}
+	else{
+		be=head;
+		while(be->next!=NULL){be=be->next;}
+		be->next=new;
+	}
+	return new;
+}
+void free_wp(WP* wp){
+	WP* be1;
+	be1=head;
+	while(be1->next!=wp){be1=be1->next;}
+	be1->next=NULL;
+	wp->next=free_;
+	free_=wp;
+}
+
+WP* get_head(){return head;}
+void check_watch_point(){
+  WP* wp0;
+  wp0=get_head();
+  bool* su=(bool*)malloc(sizeof(bool));
+  *su=true;
+  while(wp0->next !=NULL ){
+          if(wp0->val != expr(wp0->str,su)){
+                 Log("old val %d", expr(wp0->str,su));
+                Log("new val %d",wp0->val);
+                nemu_state.state=NEMU_STOP;
+          }
+          wp0=wp0->next;
+  }
+}
 
