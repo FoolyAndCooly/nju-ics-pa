@@ -48,11 +48,11 @@ void new_wp(char* expr,int val0){
 	init_wp_pool();
 	in=true;
 	}
-	Log("1");
 	be=NULL;
 	new=free_;
 	new->val=val0;
 	sprintf(new->str,"%s",expr);
+	Log("1");
 	new->next=NULL;
 	free_=free_->next;
 	if (head ==NULL){head=new;}
