@@ -48,6 +48,7 @@ void new_wp(char* expr,int val0){
 	init_wp_pool();
 	in=true;
 	}
+	Log("1");
 	be=NULL;
 	new=free_;
 	new->val=val0;
