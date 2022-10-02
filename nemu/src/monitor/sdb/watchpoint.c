@@ -62,7 +62,7 @@ void new_wp(char* expr,int val0){
 		while(be->next!=NULL){be=be->next;}
 		be->next=new;
 	}
-	printf("add the watchpoint %d :%s successfully",new->NO,new->str);
+	printf("add the watchpoint %d :%s successfully\n",new->NO,new->str);
 
 }
 void free_wp(int nu){
@@ -81,7 +81,7 @@ void free_wp(int nu){
 	}
 	wp->next=free_;
 	free_=wp;
-	printf("clear the watchpoint %d :%s successfully",wp->NO,wp->str);
+	printf("clear the watchpoint %d :%s successfully\n",wp->NO,wp->str);
 }
 
 WP* get_head(){return head;}
@@ -92,8 +92,8 @@ void check_watch_point(){
   *su=true;
   while(wp0->next !=NULL ){
           if(wp0->val != expr(wp0->str,su)){
-                 Log("old val %d", expr(wp0->str,su));
-                Log("new val %d",wp0->val);
+                 printf("old val %d\n", expr(wp0->str,su));
+                printf("new val %d\n",wp0->val);
                 nemu_state.state=NEMU_STOP;
           }
           wp0=wp0->next;
