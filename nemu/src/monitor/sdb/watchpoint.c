@@ -51,6 +51,7 @@ void new_wp(char* expr,int val0){
 	be=NULL;
 	new=free_;
 	new->val=val0;
+	Log("0");
 	sprintf(new->str,"%s",expr);
 	Log("1");
 	new->next=NULL;
