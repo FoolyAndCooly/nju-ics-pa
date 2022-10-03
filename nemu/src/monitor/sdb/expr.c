@@ -165,7 +165,7 @@ bool exclu(int *a,int *b,int po,int cnt){
 }
 uint32_t search_op(int p, int q){
 	int i;
-	int a[20],b[20];
+	int a[20],b[20],*a0,*b0;
 	char wait[100]={0};
 	int waitn[100]={0};
 	int cnta=0,cnt1=0;
@@ -179,8 +179,12 @@ uint32_t search_op(int p, int q){
 		if(cnt1 == 0){b[cnta]=i;Log("b=%d",i);ch=false;}
 		}
 		}
+		a0=a;
+		b0=b;
+	Log("a0%d",*a);
+	Log("bo%d",*b);		
 	for (i=p;i<=q;i++){
-		if(tokens[i].type != TK_NUMBER && exclu(a,b,i,cnta-1)){
+		if(tokens[i].type != TK_NUMBER && exclu(a0,b0,i,cnta-1)){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
 		cnt1++;
