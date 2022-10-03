@@ -70,9 +70,8 @@ static int cmd_x(char *args){
   vaddr_t val_EXPR;
   strtok(args," ");
   char *EXPR=args+strlen(args)+1;
-  bool* suc=(bool*)malloc(sizeof(bool));
-  *suc = true;
-  val_EXPR=expr(EXPR,suc);
+  bool suc=true;
+  val_EXPR=expr(EXPR,&suc);
   for (int i=0;i<atoi(args);i++){
   printf("0x%08x\t0x%08x\n", val_EXPR + i * 4, vaddr_read(val_EXPR + i * 4, 4));
   }  
@@ -81,8 +80,8 @@ static int cmd_x(char *args){
 
 static int cmd_w(char* args){
 #ifdef CONFIG_WATCHPOINT
-	bool* suc0=(bool*)malloc(sizeof(bool));
-	int val0=expr(args,suc0);
+	bool suc0=true;
+	int val0=expr(args,&suc0);
 	new_wp(args,val0);
 	return 0;
 #else
@@ -99,9 +98,8 @@ static int cmd_d(char* args){
 	return 0;
 }
 static int cmd_p(char* args){
-	bool* succ=(bool*)malloc(sizeof(bool));
-	*succ=true;
-	Log("%d",expr(args,succ));
+	bool succ=true;
+	Log("%d",expr(args,&succ));
 	return 0;
 }
 
