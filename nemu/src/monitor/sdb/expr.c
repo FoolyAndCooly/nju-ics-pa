@@ -139,11 +139,11 @@ static bool make_token(char *e) {
 }
 
 bool check_parentheses(int p, int q){
-	int cnt=0;
+	int cnt=0,i;
 	bool judge = true;
 	while (tokens[p+cnt].type == '(') {cnt++;}
 	if (cnt == 0) {judge=false;return judge;}
-        for (int i=p ;i<=q;i++){
+        for (i=p ;i<=q;i++){
 	if (tokens[i].type == ')') cnt--;
 	if (cnt == 0 && i!=q) {judge=false;return judge;}
 	if (cnt < 0) {
