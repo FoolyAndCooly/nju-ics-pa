@@ -58,29 +58,16 @@ static void gen_rand_expr() {
   }
 }
 
-static void gen_my_expr(){
-	char my_expr[100];
-	scanf("%s",my_expr);
-	pbuf+=sprintf(pbuf,"%s",my_expr);
-}
-
 int main(int argc, char *argv[]) {
   int seed = time(0);
-  int  way;
   srand(seed);
   int loop = 1;
   if (argc > 1) {
     sscanf(argv[1], "%d", &loop);
   }
   int i;
-  scanf("%d",&way);
   for (i = 0; i < loop; i ++) {
-    if(way){
     gen_rand_expr();
-    }
-    else{
-    gen_my_expr();
-    }
     *pbuf='\0';
     pbuf=buf;
     sprintf(code_buf, code_format, buf);

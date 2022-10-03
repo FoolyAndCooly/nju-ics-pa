@@ -77,7 +77,7 @@ typedef struct token {
   char str[32];
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[100] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -156,8 +156,8 @@ bool check_parentheses(int p, int q){
 
 uint32_t search_op(int p, int q){
 	int a=0,b=0,i;
-	char wait[32]={0};
-	int waitn[32]={0};
+	char wait[100]={0};
+	int waitn[100]={0};
 	int cnt1=0;
 	for (i=p;i<=q;i++){
 		//search the first '('
