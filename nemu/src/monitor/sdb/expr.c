@@ -182,13 +182,13 @@ uint32_t search_op(int p, int q){
 		}
 	}
         for (i=0;i<cnt1;i++){
-	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ){Log("op=1"); return waitn[i];}
+	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ){return waitn[i];}
 	}
 	for (i=0;i<cnt1;i++){
-        if (wait[i] == '+' || wait[i]=='-') {Log("op=2");return waitn[i];}
+        if (wait[i] == '+' || wait[i]=='-') {return waitn[i];}
         }
         for (i=0;i<cnt1;i++){
-        if (wait[i] == '*' || wait[i]== '/' ){Log("op=3"); return waitn[i];}
+        if (wait[i] == '*' || wait[i]== '/' ){ return waitn[i];}
         }
 	//Log("can't find op,%d",wait[0]);
 	return 0;
