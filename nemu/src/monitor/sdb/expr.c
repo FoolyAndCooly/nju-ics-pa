@@ -170,11 +170,11 @@ uint32_t search_op(int p, int q){
 	bool ch=false;
 	for (i=p;i<=q;i++){
 		if(tokens[i].type=='('){
-		if(!ch){a[cnta]=i;ch=true;cnta++;}
+		if(!ch){a[cnta]=i;Log("a=%d",i);ch=true;cnta++;}
 		cnt1++;}
 		if(tokens[i].type==')'){
 		cnt1--;
-		if(cnt1 == 0){b[cnta]=i;ch=false;}
+		if(cnt1 == 0){b[cnta]=i;Log("b=%d",i);ch=false;}
 		}
 		}
 	for (i=p;i<=q;i++){
