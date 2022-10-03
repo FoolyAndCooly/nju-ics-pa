@@ -188,10 +188,10 @@ uint32_t search_op(int p, int q){
 	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ){Log("op1");return waitn[i];}
 	}
 	for (i=0;i<cnt1;i++){
-        if (wait[i] == '+' || wait[i]=='-') {Log("op2");return waitn[i];}
+        if (wait[i] == '+' || wait[i]=='-') {Log("op2,position%d",waitn[i]);return waitn[i];}
         }
         for (i=0;i<cnt1;i++){
-        if (wait[i] == '*' || wait[i]== '/' ){ Log("op3");return waitn[i];}
+        if (wait[i] == '*' || wait[i]== '/' ){ Log("op3,position%d",waitn[i]);return waitn[i];}
         }
 	//Log("can't find op,%d",wait[0]);
 	return 0;
