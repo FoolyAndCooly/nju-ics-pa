@@ -195,6 +195,7 @@ uint32_t search_op(int p, int q){
 }
 
 int eval(int p,int q){
+	int a;
 	if (p >q){
 		printf("Bad expression");
 		assert(0);
@@ -205,10 +206,10 @@ int eval(int p,int q){
 		//	assert(0);
 		//}
 		//return atoi(token[p].str)
+		
 		switch (tokens[p].type){
 		case TK_NUMBER: return atoi(tokens[p].str);
 		case TK_HNUM: 
-		int a;
 		sscanf(tokens[p].str,"%x",&a);
 		return a;
 		default:assert(0);
@@ -228,7 +229,6 @@ int eval(int p,int q){
                 switch (tokens[q].type){
                 case TK_NUMBER: return 0-atoi(tokens[q].str);
                 case TK_HNUM:
-                int a;
                 sscanf(tokens[q].str,"%x",&a);
                 return 0-a;
                 default:assert(0);
