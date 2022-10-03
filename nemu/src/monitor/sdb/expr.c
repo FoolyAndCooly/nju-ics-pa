@@ -194,7 +194,7 @@ uint32_t search_op(int p, int q){
 	return 0;
 }
 
-int eval(int p,int q){
+uint32_t eval(int p,int q){
 	int a;
 	if (p >q){
 		printf("Bad expression");
