@@ -155,11 +155,11 @@ bool check_parentheses(int p, int q){
 }
 
 uint32_t search_op(int p, int q){
-	int a=0,b=0;
+	int a=0,b=0,i;
 	char wait[32]={0};
 	int waitn[32]={0};
 	int cnt1=0;
-	for (int i=p;i<=q;i++){
+	for (i=p;i<=q;i++){
 		//search the first '('
 		if (tokens[i].type == '(') {
 		a=i;
@@ -168,26 +168,26 @@ uint32_t search_op(int p, int q){
 		}
 	}
 		//search the last ')'
-	for (int i=p;i<=q;i++){
+	for (i=p;i<=q;i++){
                 if (tokens[i].type == ')') {
                 b=i;
 		Log("%d",b);
                 }
         }
-	for (int i=p;i<=q;i++){
+	for (i=p;i<=q;i++){
 		if(tokens[i].type != TK_NUMBER && (i<a || i>b)){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
 		cnt1++;
 		}
 	}
-        for (int i=0;i<cnt1;i++){
+        for (i=0;i<cnt1;i++){
 	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ){Log("op=1"); return waitn[i];}
 	}
-	for (int i=0;i<cnt1;i++){
+	for (i=0;i<cnt1;i++){
         if (wait[i] == '+' || wait[i]=='-') {Log("op=2");return waitn[i];}
         }
-        for (int i=0;i<cnt1;i++){
+        for (i=0;i<cnt1;i++){
         if (wait[i] == '*' || wait[i]== '/' ){Log("op=3"); return waitn[i];}
         }
 	Log("can't find op,%d",wait[0]);
