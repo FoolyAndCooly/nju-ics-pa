@@ -182,6 +182,7 @@ uint32_t search_op(int p, int q){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
 		cnt1++;
+		Log("write into wait[%d] succussfully",i);
 		}
 	}
         for (i=0;i<cnt1;i++){
