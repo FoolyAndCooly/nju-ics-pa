@@ -178,7 +178,7 @@ uint32_t search_op(int p, int q){
 		}
 		}
 	for (i=p;i<=q;i++){
-		if(tokens[i].type != TK_NUMBER && exclu(a,b,i,cnta)){
+		if(tokens[i].type != TK_NUMBER && exclu(a,b,i,cnta-1)){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
 		cnt1++;
