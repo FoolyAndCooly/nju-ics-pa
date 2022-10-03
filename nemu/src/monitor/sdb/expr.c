@@ -218,10 +218,9 @@ int eval(int p,int q){
 		return eval(p+1,q-1);
 	}
         else if (p+1 ==q && (tokens[p].type == TK_P && tokens[q].type == TK_REG)){
-                bool *success=(bool*)malloc(sizeof(bool));
-		*success= true;
+                bool success=true;
                 int val0;
-                val0=isa_reg_str2val(tokens[q].str, success);
+                val0=isa_reg_str2val(tokens[q].str, &success);
                 if (success) return val0;
                 else Log("reg not found");
                 }
