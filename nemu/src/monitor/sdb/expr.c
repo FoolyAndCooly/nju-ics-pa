@@ -112,16 +112,16 @@ static bool make_token(char *e) {
 		tokens[nr_token].str[j]=*(substr_start+j);}
 		tokens[nr_token].str[j]='\0';
           default: tokens[nr_token].type=rules[i].token_type;nr_token++;
-		  // Log("write into tokens[%d] successfully,%d",nr_token-1,tokens[nr_token-1].type);
+		   Log("write into tokens[%d] successfully,%d",nr_token-1,tokens[nr_token-1].type);
         }
 	for (i = 0; i < nr_token; i ++) {
  	 if (tokens[i].type == '*' && (i==0||tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/'|| tokens[i-1].type == TK_EQ||tokens[i-1].type ==TK_NEQ||tokens[i-1].type ==TK_AND || tokens[i-1].type=='(')) {
     		tokens[i].type = TK_P;
-		//Log("change tokens[%d] from *  to TK_P",i);
+		Log("change tokens[%d] from *  to TK_P",i);
   		}
          if (tokens[i].type == '-' && (i==0 || tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/'|| tokens[i-1].type == TK_EQ||tokens[i-1].type ==TK_NEQ||tokens[i-1].type ==TK_AND || tokens[i-1].type=='(')) {
                 tokens[i].type = TK_P;
-                //Log("change tokens[%d] from -  to TK_N",i);
+                Log("change tokens[%d] from -  to TK_N",i);
                 }
 
 	}
@@ -182,13 +182,13 @@ uint32_t search_op(int p, int q){
 		}
 	}
         for (i=0;i<cnt1;i++){
-	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ){return waitn[i];}
+	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ){Log("op1");return waitn[i];}
 	}
 	for (i=0;i<cnt1;i++){
-        if (wait[i] == '+' || wait[i]=='-') {return waitn[i];}
+        if (wait[i] == '+' || wait[i]=='-') {Log("op2");return waitn[i];}
         }
         for (i=0;i<cnt1;i++){
-        if (wait[i] == '*' || wait[i]== '/' ){ return waitn[i];}
+        if (wait[i] == '*' || wait[i]== '/' ){ Log("op3");return waitn[i];}
         }
 	//Log("can't find op,%d",wait[0]);
 	return 0;
