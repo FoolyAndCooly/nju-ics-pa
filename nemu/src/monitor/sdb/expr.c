@@ -154,29 +154,31 @@ bool check_parentheses(int p, int q){
 	Log("t");
        return judge;	
 }
-
+bool exclu(int *a,int *b,int po,int cnt){
+	int i;
+	for(i=0;i<=cnt;i++){
+	if(po>a[i] && po<b[i]){ return false;}
+	}
+	return true;
+}
 uint32_t search_op(int p, int q){
-	int a=0,b=0,i;
+	int i;
+	int a[20],b[20];
 	char wait[100]={0};
 	int waitn[100]={0};
-	int cnt1=0;
+	int cnta=0,cnt1=0;
+	bool ch=false;
 	for (i=p;i<=q;i++){
-		//search the first '('
-		if (tokens[i].type == '(') {
-		a=i;
-		Log("%d",a);
-		break;
+		if(tokens[i].type=='('){
+		if(!ch){a[cnta]=i;ch=true;cnta++;}
+		cnt1++;}
+		if(tokens[i].type==')'){
+		cnt1--;
+		if(cnt1 == 0){b[cnta]=i;ch=false;}
 		}
-	}
-		//search the last ')'
+		}
 	for (i=p;i<=q;i++){
-                if (tokens[i].type == ')') {
-                b=i;
-                }
-        }
-        Log("%d",b);
-	for (i=p;i<=q;i++){
-		if(tokens[i].type != TK_NUMBER && (i<a || i>b)){
+		if(tokens[i].type != TK_NUMBER && exclu(a,b,i,cnta)){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
 		cnt1++;
