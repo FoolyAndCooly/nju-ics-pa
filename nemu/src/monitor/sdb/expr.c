@@ -157,7 +157,7 @@ bool check_parentheses(int p, int q){
 bool exclu(int *a,int *b,int po,int cnt){
 	int i;
 	for(i=0;i<=cnt;i++){
-	if(po>a[i] && po<b[i]){ return false;}
+	if(po>=a[i] && po<=b[i]){ return false;}
 	}
 	return true;
 }
@@ -182,7 +182,7 @@ uint32_t search_op(int p, int q){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
 		cnt1++;
-		Log("write into wait[%d] succussfully",i);
+		Log("write into wait[%d] succussfully",cnt1);
 		}
 	}
         for (i=0;i<cnt1;i++){
