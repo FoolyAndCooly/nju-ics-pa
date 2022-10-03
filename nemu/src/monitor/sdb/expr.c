@@ -82,7 +82,7 @@ static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
   int position = 0;
-  int i,j;
+  int i,j,k;
   regmatch_t pmatch;
 
   nr_token = 0;
@@ -115,14 +115,14 @@ static bool make_token(char *e) {
           default: tokens[nr_token].type=rules[i].token_type;nr_token++;
 		   //Log("write into tokens[%d] successfully,%d",nr_token-1,tokens[nr_token-1].type);
         }
-	for (i = 0; i < nr_token; i ++) {
- 	 if (tokens[i].type == '*' && (i==0||tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/'|| tokens[i-1].type == TK_EQ||tokens[i-1].type ==TK_NEQ||tokens[i-1].type ==TK_AND || tokens[i-1].type=='(')) {
-    		tokens[i].type = TK_P;
+	for (k = 0; k < nr_token; k ++) {
+ 	 if (tokens[k].type == '*' && (k==0||tokens[k - 1].type == '+'||tokens[k - 1].type =='-'||tokens[k - 1].type =='*'||tokens[k - 1].type =='/'|| tokens[k-1].type == TK_EQ||tokens[k-1].type ==TK_NEQ||tokens[k-1].type ==TK_AND || tokens[k-1].type=='(')) {
+    		tokens[k].type = TK_P;
 		Log("change tokens[%d] from *  to TK_P",i);
   		}
-         if (tokens[i].type == '-' && (i==0 || tokens[i - 1].type == '+'||tokens[i - 1].type =='-'||tokens[i - 1].type =='*'||tokens[i - 1].type =='/'|| tokens[i-1].type == TK_EQ||tokens[i-1].type ==TK_NEQ||tokens[i-1].type ==TK_AND || tokens[i-1].type=='(')) {
-                tokens[i].type = TK_P;
-                Log("change tokens[%d] from -  to TK_N",i);
+         if (tokens[k].type == '-' && (k==0 || tokens[k - 1].type == '+'||tokens[k - 1].type =='-'||tokens[k - 1].type =='*'||tokens[k - 1].type =='/'|| tokens[k-1].type == TK_EQ||tokens[k-1].type ==TK_NEQ||tokens[k-1].type ==TK_AND || tokens[k-1].type=='(')) {
+                tokens[k].type = TK_P;
+                Log("change tokens[%d] from -  to TK_N",k);
                 }
 
 	}
@@ -131,8 +131,8 @@ static bool make_token(char *e) {
     }
 
     if (i == NR_REGEX) {
-      //printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
-      //return false;
+      printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+      return false;
     }
   }
 
