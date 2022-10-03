@@ -88,11 +88,10 @@ WP* get_head(){return head;}
 void check_watch_point(){
   WP* wp0;
   wp0=get_head();
-  bool* su=(bool*)malloc(sizeof(bool));
-  *su=true;
+  bool su=true;
   while(wp0->next !=NULL ){
-          if(wp0->val != expr(wp0->str,su)){
-                 printf("old val %d\n", expr(wp0->str,su));
+          if(wp0->val != expr(wp0->str,&su)){
+                 printf("old val %d\n", expr(wp0->str,&su));
                 printf("new val %d\n",wp0->val);
                 nemu_state.state=NEMU_STOP;
           }
