@@ -155,6 +155,8 @@ bool check_parentheses(int p, int q){
        return judge;	
 }
 bool exclu(int *a,int *b,int po,int cnt){
+	Log("%d",*a);
+	Log("%d",*b);
 	int i;
 	for(i=0;i<=cnt;i++){
 	if(po>=a[i] && po<=b[i]){ return false;}
