@@ -99,7 +99,7 @@ static int cmd_d(char* args){
 }
 static int cmd_p(char* args){
 	bool succ=true;
-	printf("%d",expr(args,&succ));
+	printf("%d\n",expr(args,&succ));
 	return 0;
 }
 
