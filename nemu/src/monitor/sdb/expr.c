@@ -171,8 +171,8 @@ uint32_t search_op(int p, int q){
 	for (i=p;i<=q;i++){
                 if (tokens[i].type == ')') {
                 b=i;
-		Log("%d",b);
                 }
+                Log("%d",b);
         }
 	for (i=p;i<=q;i++){
 		if(tokens[i].type != TK_NUMBER && (i<a || i>b)){
