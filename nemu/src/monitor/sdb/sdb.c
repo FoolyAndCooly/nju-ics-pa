@@ -98,7 +98,6 @@ static int cmd_d(char* args){
 	return 0;
 }
 static int cmd_p(char* args){
-	Log("%c",*(args+16));
 	bool succ=true;
 	printf("%d\n",expr(args,&succ));
 	return 0;
