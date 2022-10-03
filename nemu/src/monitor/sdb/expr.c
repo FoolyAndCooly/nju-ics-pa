@@ -142,10 +142,10 @@ bool check_parentheses(int p, int q){
 	int cnt=0,i;
 	bool judge = true;
 	while (tokens[p+cnt].type == '(') {cnt++;}
-	if (cnt == 0) {judge=false;Log("f");return judge;}
+	if (cnt == 0) {judge=false;return judge;}
         for (i=p ;i<=q;i++){
 	if (tokens[i].type == ')') cnt--;
-	if (cnt == 0 && i!=q) {judge=false;Log("f");return judge;}
+	if (cnt == 0 && i!=q) {judge=false;return judge;}
 	if (cnt < 0) {
                 printf("Bad expression");
                 assert(0);
@@ -172,15 +172,13 @@ uint32_t search_op(int p, int q){
 	bool ch=false;
 	for (i=p;i<=q;i++){
 		if(tokens[i].type=='('){
-		if(!ch){cnta++;a[cnta]=i;Log("a=%d",i);ch=true;}
+		if(!ch){cnta++;a[cnta]=i;ch=true;}
 		cnt1++;}
 		if(tokens[i].type==')'){
 		cnt1--;
-		if(cnt1 == 0){b[cnta]=i;Log("b=%d",i);ch=false;}
+		if(cnt1 == 0){b[cnta]=i;ch=false;}
 		}
-		}
-	//Log("a0%d",*a);
-	//Log("bo%d",*b);		
+		}		
 	for (i=p;i<=q;i++){
 		if(tokens[i].type != TK_NUMBER && exclu(a,b,i,cnta)){
 		wait[cnt1]=tokens[i].type;
