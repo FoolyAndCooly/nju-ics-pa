@@ -86,10 +86,9 @@ void free_wp(int nu){
 
 void check_watch_point(){
   WP* wp0;
-  wp0=head;
+  wp0=head;printf("ok");
   bool su=true;
   while(wp0->next !=NULL && head!=NULL){
-  printf("ok\n");
           if(wp0->val != expr(wp0->str,&su)){
                  printf("old val %d\n", expr(wp0->str,&su));
                 printf("new val %d\n",wp0->val);
