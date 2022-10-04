@@ -86,7 +86,7 @@ void free_wp(int nu){
 
 void check_watch_point(){
   printf("ok\n");
-  WP* wp0;
+  WP* wp0;printf("well\n");
   wp0=head;
   bool su=true;
   while(wp0->next !=NULL && head!=NULL){
