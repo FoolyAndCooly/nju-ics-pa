@@ -140,9 +140,14 @@ static bool make_token(char *e) {
 }
 
 bool check_parentheses(int p, int q){
-	bool judge = false;
-	if (tokens[p].type=='(' && tokens[q].type==')') judge=true;
-       return judge;	
+	int i,cnt=0;
+	if (tokens[p].type!='(' || tokens[q].type!=')') return false;
+	for(i=p;i<=q;i++){
+	if (tokens[i].type=='(') cnt++;
+	else if(tokens[i].type==')') cnt--;
+	if(cnt==0 && i!=q) return false;
+	}
+       return true;	
 }
 bool exclu(int *a,int *b,int po,int cnt){
 	//Log("%d",*a);
