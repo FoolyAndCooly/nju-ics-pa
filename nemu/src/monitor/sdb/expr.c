@@ -140,19 +140,8 @@ static bool make_token(char *e) {
 }
 
 bool check_parentheses(int p, int q){
-	int cnt=0,i;
-	bool judge = true;
-	while (tokens[p+cnt].type == '(') {cnt++;}
-	if (cnt == 0) {judge=false;Log("f");return judge;}
-        for (i=p ;i<=q;i++){
-	if (tokens[i].type == ')') cnt--;
-	if (cnt == 0 && i!=q) {judge=false;Log("f");return judge;}
-	if (cnt < 0) {
-                printf("Bad expression");
-                assert(0);
-	}
-	}
-	Log("t");
+	bool judge = false;
+	if (tokens[p].type=='(' && tokens[q].type==')') judge=true;
        return judge;	
 }
 bool exclu(int *a,int *b,int po,int cnt){
