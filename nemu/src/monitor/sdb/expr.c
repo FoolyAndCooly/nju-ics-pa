@@ -201,6 +201,22 @@ uint32_t eval(int p,int q){
 		printf("Bad expression");
 		assert(0);
 	}
+        else if (p+1 ==q && (tokens[p].type == TK_P && tokens[q].type == TK_REG)){
+                bool success=true;
+                int val0;
+                val0=isa_reg_str2val(tokens[q].str, &success);
+                if (success) return val0;
+                else Log("reg not found");
+                }
+       else if (p+1 ==q || (tokens[p].type == TK_N && (tokens[q].type == TK_NUMBER || tokens[q].type == TK_HNUM))){
+                switch (tokens[q].type){
+                case TK_NUMBER: return 0-atoi(tokens[q].str);
+                case TK_HNUM:
+                sscanf(tokens[q].str,"%x",&a);
+                return 0-a;
+                default:assert(0);
+                }
+                }
 	else if (p == q){
 		//if(tokens[p].type != TK_NUMBER && tokens[p].type != TK_HNUM){
 		//	printf("Bad expression");
@@ -219,23 +235,6 @@ uint32_t eval(int p,int q){
 	else if (check_parentheses(p,q) == true){
 		return eval(p+1,q-1);
 	}
-        else if (p+1 ==q && (tokens[p].type == TK_P && tokens[q].type == TK_REG)){
-                bool success=true;
-                int val0;
-                val0=isa_reg_str2val(tokens[q].str, &success);
-                if (success) return val0;
-                else Log("reg not found");
-                }
-       else if (p+1 ==q || (tokens[p].type == TK_N && (tokens[q].type == TK_NUMBER || tokens[q].type == TK_HNUM))){
-                switch (tokens[q].type){
-                case TK_NUMBER: return 0-atoi(tokens[q].str);
-                case TK_HNUM:
-                sscanf(tokens[q].str,"%x",&a);
-                return 0-a;
-                default:assert(0);
-                }
-
-                }
 
 
 	else{
