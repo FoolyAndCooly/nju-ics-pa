@@ -185,19 +185,19 @@ uint32_t search_op(int p, int q){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
 		cnt1++;
-		//Log("write %d into wait[%d] succussfully",tokens[i].type,cnt1);
+		Log("write %d into wait[%d] succussfully",tokens[i].type,cnt1);
 		}
 	}
         for (i=0;i<cnt1;i++){
 	if (wait[i] == TK_AND || wait[i]== TK_EQ ||wait[i]== TK_NEQ){return waitn[i];}
 	}
 	for (i=0;i<cnt1;i++){
-        if (wait[i] == '+' || wait[i]=='-') {return waitn[i];}
+        if (wait[i] == '+' || wait[i]=='-') {Log("op1");return waitn[i];}
         }
         for (i=0;i<cnt1;i++){
-        if (wait[i] == '*' || wait[i]== '/' ){ return waitn[i];}
+        if (wait[i] == '*' || wait[i]== '/' ){ Log("op2");return waitn[i];}
         }
-	//Log("can't find op,%d",wait[0]);
+	Log("can't find op,%d",wait[0]);
 	return 0;
 }
 
