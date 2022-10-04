@@ -22,6 +22,7 @@ void init_mem();
 void init_difftest(char *ref_so_file, long img_size, int port);
 void init_device();
 void init_sdb();
+void init_wp_pool();
 void init_disasm(const char *triple);
 
 static void welcome() {
@@ -116,7 +117,8 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Perform ISA dependent initialization. */
   init_isa();
-
+  
+  init_wp_pool();
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
 

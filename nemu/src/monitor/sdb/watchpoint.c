@@ -39,15 +39,10 @@ void init_wp_pool() {
   head = NULL;
   free_ = wp_pool;
 }
-static bool in=false;
 
 /* TODO: Implement the functionality of watchpoint */
 void new_wp(char* expr,int val0){
 	WP* new,*be;
-	if(!in){
-	init_wp_pool();
-	in=true;
-	}
 	be=NULL;
 	new=free_;
 	new->val=val0;
@@ -87,7 +82,7 @@ void free_wp(int nu){
 void check_watch_point(){
   printf("ok\n");
   WP* wp0;printf("well\n");
-  wp0=head;
+  wp0=head;printf("gethead\n");
   bool su=true;
   while(wp0->next !=NULL && head!=NULL){
           if(wp0->val != expr(wp0->str,&su)){
