@@ -36,8 +36,8 @@ printf("%s\n",s);
   for (int j=0;j<32;j++){
   printf("%s\n",*(regs+j));
   if (!strcmp(s,*(regs+j))){*success=true; return cpu.gpr[j];}
-  else {*success=false;return 0;}
   }
+  *success=false;
   return 0;
 }
 
