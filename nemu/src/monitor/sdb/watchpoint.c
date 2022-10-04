@@ -84,10 +84,9 @@ void free_wp(int nu){
 	printf("clear the watchpoint %d :%s successfully\n",wp->NO,wp->str);
 }
 
-WP* get_head(){return head;}
 void check_watch_point(){
   WP* wp0;
-  wp0=get_head();
+  wp0=head;printf("ok\n");
   bool su=true;
   while(wp0->next !=NULL ){
           if(wp0->val != expr(wp0->str,&su)){
