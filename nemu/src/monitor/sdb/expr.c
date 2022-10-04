@@ -229,7 +229,7 @@ uint32_t eval(int p,int q){
 		case TK_HNUM: 
 		sscanf(tokens[p].str,"%x",&a);
 		return a;
-		default:assert(0);
+		default://assert(0);
 		}
 	}
 	else if (check_parentheses(p,q) == true){
