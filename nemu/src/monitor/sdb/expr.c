@@ -143,16 +143,16 @@ bool check_parentheses(int p, int q){
 	int cnt=0,i;
 	bool judge = true;
 	while (tokens[p+cnt].type == '(') {cnt++;}
-	if (cnt == 0) {judge=false;return judge;}
+	if (cnt == 0) {judge=false;Log("f");return judge;}
         for (i=p ;i<=q;i++){
 	if (tokens[i].type == ')') cnt--;
-	if (cnt == 0 && i!=q) {judge=false;return judge;}
+	if (cnt == 0 && i!=q) {judge=false;Log("f");return judge;}
 	if (cnt < 0) {
                 printf("Bad expression");
                 assert(0);
 	}
 	}
-	//Log("t");
+	Log("t");
        return judge;	
 }
 bool exclu(int *a,int *b,int po,int cnt){
