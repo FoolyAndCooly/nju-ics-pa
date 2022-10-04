@@ -34,7 +34,6 @@ void isa_reg_display() {
 word_t isa_reg_str2val(const char *s, bool *success) {
 printf("%s\n",s);
   for (int j=0;j<32;j++){
-  printf("%s\n",*(regs+j));
   if (!strcmp(s,*(regs+j))){*success=true; return cpu.gpr[j];}
   }
   *success=false;
