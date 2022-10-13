@@ -141,9 +141,9 @@ static bool make_token(char *e) {
 
 bool check_parentheses(int p, int q){
 	int i,cnt=0;
+	if (tokens[p].type!='(') return false;
 	for(i=p;i<=q;i++){
 	if (tokens[i].type=='(') cnt++;
-	if (cnt==1 && i!=p) return false;
 	else if(tokens[i].type==')') cnt--;
 	if(cnt==0 && i!=q) return false;
 	}
