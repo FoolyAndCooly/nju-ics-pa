@@ -46,9 +46,9 @@ void new_wp(char* expr,int val0){
 	be=NULL;
 	new=free_;
 	new->val=val0;
-	Log("0");
+	//Log("0");
 	strcpy(new->str,expr);
-	Log("1");
+	//Log("1");
 	new->next=NULL;
 	free_=free_->next;
 	if (head ==NULL){head=new;}
