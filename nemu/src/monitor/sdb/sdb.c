@@ -55,10 +55,9 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args){
-int so=0;
   if (args == NULL)
   { cpu_exec(1);}
-  else{   sscanf(args,"%d",&so);cpu_exec(so);}
+  else{ cpu_exec(atoi(args));printf("%d",atoi(args));}
   return 0;
 }
 
