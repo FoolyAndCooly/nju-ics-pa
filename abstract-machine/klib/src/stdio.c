@@ -12,7 +12,7 @@ void itoa(char* str,int num){
 	char buf[100]={0};
 	int i=0,j=0;
 	while(num){
-	buf[i++]=num%10+'\0';
+	buf[i++]=num%10+'0';
 	num/=10;
 	}
 	i--;
