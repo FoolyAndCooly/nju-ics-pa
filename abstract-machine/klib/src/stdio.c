@@ -30,23 +30,24 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	while(*fmt++){
 	if(*fmt != '%'){*out++ = *fmt;}
 	else{
-	switch(*++fmt){
-	case 'c':
-	c=(char)va_arg(ap,int);
-	*out++ =c;
-	break;
-	case 'd':
-	i=va_arg(ap,int);
-	itoa(buf,i);
-	strcat(out,buf);
-	out=out+strlen(buf);
-	break;
-	case 's':
-	s=va_arg(ap,char *);
-	strcat(out,s);
-	out=out+strlen(s);
-	}
-	}
+		switch(*++fmt){
+			case 'c':
+				c=(char)va_arg(ap,int);
+				*out++ =c;
+				break;
+			case 'd':
+				i=va_arg(ap,int);
+				itoa(buf,i);
+				strcat(out,buf);
+				out=out+strlen(buf);
+				break;
+			case 's':
+				s=va_arg(ap,char *);
+				strcat(out,s);
+				out=out+strlen(s);
+			break;
+			}
+		}
 	}
 	*out='\0';
 	return out-t-1; 
