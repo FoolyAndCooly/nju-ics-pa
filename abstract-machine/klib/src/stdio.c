@@ -8,14 +8,26 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-  panic("Not implemented");
+	panic("Not implemented");
 }
-
+void itoa(char* str,int num){
+	char buf[100]={0};
+	int i=0,j=0;
+	while(num){
+	buf[i++]=num%10+'\0';
+	num/=10;
+	}
+	i--;
+	for(;i>=0;i--){
+	str[j++]=buf[i];
+	}
+	str[j]='\0';
+}
 int vsprintf(char *out, const char *fmt, va_list ap) {
 	int i;
 	char c;
-	char *s;
-	while(*fmt!='\0'){
+	char *s,buf[100]={0};
+	while(*fmt++){
 	if(*fmt != '%'){*out++ = *fmt;}
 	else{
 	switch(*++fmt){
@@ -25,7 +37,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	break;
 	case 'd':
 	i=va_arg(ap,int);
-	*out++ =i;
+	itoa(buf,i);
+	strcat(out,buf);
+	out=out+strlen(buf);
 	break;
 	case 's':
 	s=va_arg(ap,char *);
@@ -33,8 +47,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	out=out+strlen(s);
 	}
 	}
-	*out='\0';
 	}
+	*out='\0';
 	panic("Not implemented");
 }
 
