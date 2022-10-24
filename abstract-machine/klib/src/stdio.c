@@ -27,7 +27,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	t=out;
 	char c;
 	char *s,buf[100]={0};
-	while(*fmt){
+	while(*fmt != '\0'){
 	if(*fmt != '%'){*out++ = *fmt;}
 	else{
 		switch(*++fmt){
@@ -48,8 +48,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			break;
 			}
 		}
-	fmt++;
 	}
+	fmt++;
 	*out='\0';
 	return out-t-1; 
 	panic("Not implemented");
