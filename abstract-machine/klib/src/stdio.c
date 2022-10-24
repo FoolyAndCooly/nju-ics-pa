@@ -34,6 +34,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			case 'd':
 				i=va_arg(ap,int);
 				itoa(buff,i);
+				*out='\0';
 				strcat(out,buff);
 				out=out+strlen(buff);
 				break;
@@ -44,6 +45,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				break;
 			case 's':
 				s=va_arg(ap,char *);
+				*out = '\0';
 				strcat(out,s);
 				out=out+strlen(s);
 				break;
