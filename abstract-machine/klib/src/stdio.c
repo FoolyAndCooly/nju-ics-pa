@@ -23,8 +23,8 @@ void itoa(char* str,int num){
 }
 int vsprintf(char *out, const char *fmt, va_list ap) {
 	int i;
-	char *t;
-	t=out;
+	//char *t;
+	//t=out;
 	char c;
 	char *s,buf[100]={0};
 	while(*fmt != '\0'){
@@ -52,7 +52,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	fmt++;
 	}
 	*out='\0';
-	return out-t-1; 
+	return 0; 
 	panic("Not implemented");
 }
 
