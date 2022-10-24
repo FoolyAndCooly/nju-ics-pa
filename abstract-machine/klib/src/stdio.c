@@ -48,8 +48,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			break;
 			}
 		}
-	}
 	fmt++;
+	}
 	*out='\0';
 	return out-t-1; 
 	panic("Not implemented");
