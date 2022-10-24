@@ -15,7 +15,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	int i;
 	char c;
 	char *s;
-	while(*fmt){
+	while(*fmt!='\0'){
 	if(*fmt != '%'){*out++ = *fmt;}
 	else{
 	switch(*++fmt){
