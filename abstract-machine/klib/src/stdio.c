@@ -24,6 +24,7 @@ void itoa(char* str,int num){
 int vsprintf(char *out, const char *fmt, va_list ap) {
 	int i;
 	char *t;
+	char c;
 	t=out;
 	char *s,buf[100]={0};
 	while(*fmt != '\0'){
@@ -37,6 +38,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				out=out+strlen(buf);
 				break;
 			case 'c':
+				c=(char)va_arg(ap,int);
+				*out=c;
+				out++;
+				break;
 			case 's':
 				s=va_arg(ap,char *);
 				strcat(out,s);
