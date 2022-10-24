@@ -8,7 +8,7 @@
 int printf(const char *fmt, ...) {
 	panic("Not implemented");
 }
-void itoa(char* str,int num){
+int itoa(char* str,int num){
 	char buf[100]={0};
 	int i=0,j=0;
 	while(num){
@@ -20,6 +20,7 @@ void itoa(char* str,int num){
 	str[j++]=buf[i];
 	}
 	str[j]='\0';
+	return 0;
 }
 int vsprintf(char *out, const char *fmt, va_list ap) {
 	int i;
