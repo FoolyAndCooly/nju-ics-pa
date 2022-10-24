@@ -27,7 +27,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	t=out;
 	char c;
 	char *s,buf[100]={0};
-	while(*fmt++){
+	while(*fmt){
 	if(*fmt != '%'){*out++ = *fmt;}
 	else{
 		switch(*++fmt){
@@ -48,6 +48,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			break;
 			}
 		}
+	fmt++;
 	}
 	*out='\0';
 	return out-t-1; 
