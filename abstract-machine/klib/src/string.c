@@ -90,6 +90,7 @@ void *memset(void *s, int c, size_t n) {
 	*(char*)s=c;
 	s=(char*)s+1;
   }
+  *(char*)s='\0';
   return p; 
   panic("Not implemented");
 }
