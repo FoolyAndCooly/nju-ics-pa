@@ -33,7 +33,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 		switch(*++fmt){
 			case 'c':
 				c=(char)va_arg(ap,int);
-				strcat(out,&c);
+				*out=c;
 				out++;
 				break;
 			case 'd':
