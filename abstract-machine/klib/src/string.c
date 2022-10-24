@@ -27,15 +27,11 @@ char *strcpy(char *dst, const char *src) {
 }
 
 char *strncpy(char *dst, const char *src, size_t n) {
-  char *t;
-  uint32_t i=0;
-  size_t cnt=0;
-  t = dst;
-  while (*(src+i) != '\0' && cnt < n){
-	*dst = *(src+i);
+  char *t=dst ;
+  while (*src != '\0' && n--){
+	*dst = *src;
 	dst++ ;
-	i++ ;
-	cnt++ ;
+	src++ ;
   }
   *dst = '\0';
   return t;
@@ -68,15 +64,12 @@ int strcmp(const char *s1, const char *s2) {
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
-	uint32_t i=0;
 	if(!n) return 0;
-	while( ((*(s1+i) != '\0') && (*(s1+i) ==*(s2+i)) ) && n>0 ){
-	i++;
-	n--;
+	while( ((*s1 != '\0') && (*s1 ==*s2) ) && n-- ){
+	s1++;
+	s2++;
 	}
-	if(*(s1+i) >*(s2+i)){return *(s1+i)-*(s2+i);}
-	else if(*(s1+i) < *(s2+i)){return *(s1+i) - *(s2+i);}
-	else {return 0;}
+	return *s1-*s2;
 
 	panic("Not implemented");
 }
