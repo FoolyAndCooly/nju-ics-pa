@@ -16,11 +16,10 @@ size_t strlen(const char *s) {
 
 char *strcpy(char *dst, const char *src) {
   char *t=dst;
-  uint32_t i=0;
-  while (*(src+i) != '\0'){
+  while (*src != '\0'){
 	*dst = *src;
 	dst++ ;
-	i++ ;
+	src++ ;
   }
   *dst = '\0';
   return t;
@@ -45,14 +44,15 @@ char *strncpy(char *dst, const char *src, size_t n) {
 }
 
 char *strcat(char *dst, const char *src) {
-	int cnt =0,i=0;
-	while(*(dst + cnt) != '\0'){cnt++;}
-	while(*(src+i)!='\0'){
-		*(dst+cnt+i)=*(src+i);
-		i++;
+	char* p=dst;
+	while(*dst != '\0'){dst ++;}
+	while(*src!='\0'){
+		*dst=*src;
+		dst ++;
+		src ++;
 	}
-	*(dst+cnt+i)='\0';
-	return dst;
+	*dst ='\0';
+	return p;
   panic("Not implemented");
 }
 
