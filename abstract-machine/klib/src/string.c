@@ -85,12 +85,12 @@ void *memset(void *s, int c, size_t n) {
   if(s == NULL || n <0){
 	return NULL;
   }
-  char *p=(char*)s;
-  while(n>0){
-	*p++=c;
-	n--;
+  void *p = s;
+  while(n--){
+	*(char*)s=c;
+	s=(char*)s+1;
   }
-  return s; 
+  return p; 
   panic("Not implemented");
 }
 
@@ -126,12 +126,12 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  	uint32_t i=0;
-	while(n-- && (*((char*)s1+i) ==*((char*)s2+i))){
-	i++;
+	while(n-- && (*((char*)s1) ==*((char*)s2))){
+	s1=(char*)s1+1;
+	s2=(char*)s2+1;
 	}
-	if(*((char*)s1+i) >*((char*)s2+i)){return 1;}
-	else if(*((char*)s1+i) < *((char*)s2+i)){return -1;}
+	if(*((char*)s1) >*((char*)s2)){return 1;}
+	else if(*((char*)s1) < *((char*)s2)){return -1;}
 	else {return 0;}
 
   panic("Not implemented");
