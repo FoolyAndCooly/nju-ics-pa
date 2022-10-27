@@ -48,6 +48,7 @@ static void trace_iring(Decode* _this){
   char (*p)[128] = iringbuf;
   for(int i=0;i<16;i++){
   puts(*p);
+  p++;
   }
 }
 
