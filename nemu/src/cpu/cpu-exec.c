@@ -86,6 +86,7 @@ static void execute(uint64_t n) {
   int *cnt=(int*)malloc(sizeof(int));
   *cnt=0;
   for (;n > 0; n --) {
+  printf("first ");
     exec_once(&s, cpu.pc,cnt);
      if (!(*cnt%16)){
      cnt=cnt-15; 
