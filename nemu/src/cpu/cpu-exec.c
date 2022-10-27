@@ -29,7 +29,7 @@ CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
-
+char iringbuf[16][128];
 void check_watch_point();
 
 void device_update();
@@ -45,7 +45,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #endif
 }
 static void trace_iring(Decode* _this){
-  char (*p)[128] = _this -> iringbuf;
+  char (*p)[128] = iringbuf;
   for(int i=0;i<16;i++){
   puts(*p);
   }
@@ -61,7 +61,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   char *p = s->logbuf;
   char (*q)[128];
   int cnt=0;
-  q=s->iringbuf;
+  q=iringbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
   int i;
