@@ -87,7 +87,7 @@ static void execute(uint64_t n) {
   *cnt=0;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc,cnt);
-     if (!(*cnt%16)){
+     if (!((*cnt)%16)){
      cnt=cnt-15; 
      }
      else{
