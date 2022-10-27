@@ -96,6 +96,7 @@ static void execute(uint64_t n) {
      }
      else{
      q++;
+     printf("ok\n");
      }
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
