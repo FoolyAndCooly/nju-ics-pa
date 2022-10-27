@@ -86,12 +86,11 @@ static void execute(uint64_t n) {
   *cnt=0;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc,cnt);
+    *cnt=*cnt+1;
      if (*cnt == 16){
-     *cnt=*cnt-15; 
+     *cnt=*cnt-16; 
      }
-     else{
-     *cnt=*cnt+1;
-     }
+     
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) {
