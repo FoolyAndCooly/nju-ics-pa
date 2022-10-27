@@ -46,7 +46,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 }
 static void trace_iring(){
   for(int i=0;i<16;i++){
-  printf("%s\n",iringbuf[2]);
+  printf("%s\n",iringbuf[i]);
   }
 }
 
@@ -77,7 +77,7 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt, char (*q)[128]) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-  memcpy(q, s->logbuf, p-(s->logbuf)+10);
+  strcpy(*q, s->logbuf);
   *cnt=*cnt+1;
 #endif
 }
