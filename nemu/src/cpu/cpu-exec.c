@@ -75,7 +75,7 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-      printf("ok\n");
+      printf("ok%d\n",*cnt);
   strcpy(iringbuf[*cnt], s->logbuf);
   *cnt=*cnt+1;
 #endif
@@ -87,7 +87,7 @@ static void execute(uint64_t n) {
   *cnt=0;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc,cnt);
-     if (!((*cnt)%16)){
+     if (!(*cnt%16)){
      cnt=cnt-15; 
      }
      else{
