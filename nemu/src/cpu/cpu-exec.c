@@ -44,11 +44,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   check_watch_point();
 #endif
 }
-static void trace_iring(Decode* _this){
-  char (*p)[128] = iringbuf;
+static void trace_iring(){
   for(int i=0;i<16;i++){
-  printf("%s\n",*p);
-  p++;
+  printf("%s\n",iringbuf[i]);
   }
 }
 
