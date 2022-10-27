@@ -79,7 +79,7 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt, char (*q)[128]) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-  memcpy(q, s->logbuf, p-(s->logbuf)+10);
+  memcpy(q, s->logbuf, p-(s->logbuf)+1);
   *cnt=*cnt+1;
 #endif
 }
@@ -93,7 +93,6 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc,cnt,q);
      if (!(*cnt%16)){
      q=q-15; 
-          printf("ok\n");
      }
      else{
      q++;
