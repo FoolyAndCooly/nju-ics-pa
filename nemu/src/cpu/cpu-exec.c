@@ -46,7 +46,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 }
 static void trace_iring(){
   for(int i=0;i<16;i++){
-  printf("%s\n",iringbuf[i]);
+  puts(iringbuf[i]);
   }
 }
 
