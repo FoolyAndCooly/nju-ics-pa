@@ -57,7 +57,7 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
   isa_exec_once(s);
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
-char *p=s->logbuf;
+  char*p =s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
   int i;
