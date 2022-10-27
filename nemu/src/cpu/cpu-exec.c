@@ -87,7 +87,8 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt, char (*q)[128]) {
 static void execute(uint64_t n) {
   Decode s;
   char (*q)[128];
-  int *cnt=0;
+  int *cnt=(int*)malloc(sizeof(int));
+  *cnt=0;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc,cnt,q);
      if (!(*cnt%16)){
