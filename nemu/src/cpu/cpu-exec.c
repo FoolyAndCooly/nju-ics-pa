@@ -87,6 +87,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   }
   else{
   q++;
+  printf("ok\n");
   }
 #endif
 }
