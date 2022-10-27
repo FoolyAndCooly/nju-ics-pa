@@ -93,10 +93,11 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc,cnt,q);
      if (!(*cnt%16)){
      q=q-15; 
+          printf("ok\n");
      }
      else{
      q++;
-     printf("ok\n");
+
      }
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
