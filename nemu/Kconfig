@@ -123,6 +123,9 @@ menu "Testing and Debugging"
 config WATCHPOINT
   bool "Open watchpoint"
  default n
+config MTRACE
+  bool "Open mtrace"
+  default n
 
 config TRACE
   bool "Enable tracer"
