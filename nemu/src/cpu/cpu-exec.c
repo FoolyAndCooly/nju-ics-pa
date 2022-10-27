@@ -51,15 +51,13 @@ static void trace_iring(){
 }
 
 
-static void exec_once(Decode *s, vaddr_t pc,int *cnt, char (*q)[128]) {
+static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
   s->pc = pc;
   s->snpc = pc;
   isa_exec_once(s);
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
-  char *p = s->logbuf;
- 
-  q=iringbuf;
+char *p=s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
   int i;
@@ -77,24 +75,22 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt, char (*q)[128]) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-  strcpy(*q, s->logbuf);
+  strcpy(iringbuf[*cnt], s->logbuf);
   *cnt=*cnt+1;
 #endif
 }
 
 static void execute(uint64_t n) {
   Decode s;
-  char (*q)[128];
   int *cnt=(int*)malloc(sizeof(int));
   *cnt=0;
   for (;n > 0; n --) {
-    exec_once(&s, cpu.pc,cnt,q);
+    exec_once(&s, cpu.pc,cnt);
      if (!(*cnt%16)){
-     q=q-15; 
+     cnt=cnt-15; 
      }
      else{
-     q++;
-
+     cnt++;
      }
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
