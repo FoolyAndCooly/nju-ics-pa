@@ -76,7 +76,6 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   strcpy(iringbuf[*cnt], s->logbuf);
-  *cnt=*cnt+1;
 #endif
 }
 
