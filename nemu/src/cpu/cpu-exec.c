@@ -97,7 +97,7 @@ static void execute(uint64_t n) {
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) {
-    if (g_print_step) { IFDEF(CONFIG_ITRACE,trace_iring(&s)) ; }
+    IFDEF(CONFIG_ITRACE,trace_iring(&s));
     break;}
     IFDEF(CONFIG_DEVICE, device_update());
   }
