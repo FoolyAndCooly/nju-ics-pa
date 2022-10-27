@@ -82,9 +82,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   memcpy(q, s->logbuf, p-(s->logbuf)+10);
   cnt++;
-    printf("ok\n");
+
   if (!(cnt%16)){
-  q=q-15;
+  q=q-15;  printf("ok\n");
   }
   else{
   q++;
