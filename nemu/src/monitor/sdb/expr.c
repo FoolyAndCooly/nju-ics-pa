@@ -179,7 +179,7 @@ uint32_t search_op(int p, int q){
 		wait[cnt1]=tokens[i].type;
 		waitn[cnt1]=i;
 		cnt1++;
-		Log("write %d into wait[%d] succussfully",tokens[i].type,cnt1);
+		//Log("write %d into wait[%d] succussfully",tokens[i].type,cnt1);
 		}
 	}
         for (i=cnt1-1;i>=0;i--){
@@ -191,7 +191,7 @@ uint32_t search_op(int p, int q){
         for (i=cnt1-1;i>=0;i--){
         if (wait[i] == '*' || wait[i]== '/' ){ Log("op2");return waitn[i];}
         }
-	Log("can't find op,%d",wait[0]);
+	//Log("can't find op,%d",wait[0]);
 	return 0;
 }
 
