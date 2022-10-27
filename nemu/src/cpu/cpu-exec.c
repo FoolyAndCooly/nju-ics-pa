@@ -22,7 +22,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INST_TO_PRINT 200
+#define MAX_INST_TO_PRINT 2000
 
 
 CPU_state cpu = {};
@@ -44,6 +44,13 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   check_watch_point();
 #endif
 }
+static void trace_iring(Decode* _this){
+  char (*p)[128] = _this -> iringbuf;
+  for(int i=0;i<16;i++){
+  puts(*p);
+  }
+}
+
 
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
@@ -52,6 +59,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
+  char (*q)[128];
+  int cnt=0;
+  q=s->iringbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
   int i;
@@ -69,6 +79,14 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
+  memcpy(q, s->logbuf, p-(s->logbuf));
+  cnt++;
+  if (cnt%16){
+  q=q-15;
+  }
+  else{
+  q++;
+  }
 #endif
 }
 
@@ -78,7 +96,9 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
-    if (nemu_state.state != NEMU_RUNNING) break;
+    if (nemu_state.state != NEMU_RUNNING) {
+    if (g_print_step) { IFDEF(CONFIG_ITRACE,trace_iring(&s)) ; }
+    break;}
     IFDEF(CONFIG_DEVICE, device_update());
   }
 }
