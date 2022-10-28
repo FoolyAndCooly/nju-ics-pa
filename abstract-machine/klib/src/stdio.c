@@ -6,12 +6,14 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
+	putch('o');
 	char *p=(char*)malloc(100*sizeof(char));
 	va_list ap;
 	va_start(ap, fmt);
 	vsprintf(p, fmt, ap);
 	va_end(ap);
-	while(*p++ !='\0'){putch('\n');putch(*p);}
+	putch('k');
+	while(*p++ !='\0'){putch(*p);}
 	panic("Not implemented");
 }
 void itoa(char* str,int num){
