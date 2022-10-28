@@ -10,9 +10,10 @@ int printf(const char *fmt, ...) {
 	char buff[100]={0};
 	char *p=buff;
 	va_list ap;
+	putch('o');
 	va_start(ap, fmt);
 	ret=vsprintf(p,fmt, ap);
-	putch('o');
+	
 	va_end(ap);
 	
 	return ret;
