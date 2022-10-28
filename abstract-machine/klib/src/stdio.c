@@ -12,7 +12,7 @@ int printf(const char *fmt, ...) {
 	p=NULL;
 	vsprintf(p, fmt, ap);
 	va_end(ap);
-	while(*p !='\0'){putch(*p);}
+	while(*p++ !='\0'){putch(*p);}
 	panic("Not implemented");
 }
 void itoa(char* str,int num){
