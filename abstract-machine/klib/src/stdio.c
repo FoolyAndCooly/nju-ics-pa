@@ -11,7 +11,7 @@ int printf(const char *fmt, ...) {
 	va_start(ap, fmt);
 	vsprintf(p, fmt, ap);
 	va_end(ap);
-	while(*p++ !='\0'){putch(*p);}
+	while(*p++ !='\0'){putch('\n');putch(*p);}
 	panic("Not implemented");
 }
 void itoa(char* str,int num){
