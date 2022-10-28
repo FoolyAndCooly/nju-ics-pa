@@ -8,7 +8,8 @@
 int printf(const char *fmt, ...) {
 	va_list ap;
 	va_start(ap, fmt);
-	char p[128];
+	char *p;
+	p=NULL;
 	vsprintf(p, fmt, ap);
 	va_end(ap);
 	putch(*p);
