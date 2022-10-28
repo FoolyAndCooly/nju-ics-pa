@@ -6,19 +6,14 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-putch('o');
 	int ret=-1;
-		
 	char buff[100]={0};
 	char *p=buff;
-		
 	va_list ap;
-
 	va_start(ap, fmt);
 	ret=vsprintf(p,fmt, ap);
-	
 	va_end(ap);
-	
+	while(*p++){putch(*p);}
 	return ret;
 	}
 void itoa(char* str,int num){
