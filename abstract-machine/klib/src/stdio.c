@@ -9,7 +9,7 @@ int printf(const char *fmt, ...) {
 	int ret=-1;
 	char buff[100]={0};
 	char *p=buff;
-		putch('o');
+		//putch('o');
 	va_list ap;
 
 	va_start(ap, fmt);
