@@ -7,15 +7,17 @@
 
 int printf(const char *fmt, ...) {
 	putch('o');
+	int ret=-1;
 	char *p=(char*)malloc(100*sizeof(char));
 	va_list ap;
 	va_start(ap, fmt);
-	vsprintf(p, fmt, ap);
+	ret=vsprintf(p, fmt, ap);
 	va_end(ap);
 	putch('k');
 	while(*p++ !='\0'){putch(*p);}
-	panic("Not implemented");
-}
+	//panic("Not implemented");
+	return ret;
+	}
 void itoa(char* str,int num){
 	char buf[100]={0};
 	int i=0,j=0;
