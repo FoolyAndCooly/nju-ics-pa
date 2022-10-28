@@ -12,8 +12,9 @@ int printf(const char *fmt, ...) {
 	va_list ap;
 	va_start(ap, fmt);
 	ret=vsprintf(p,fmt, ap);
-	va_end(ap);
 	putch('o');
+	va_end(ap);
+	
 	return ret;
 	}
 void itoa(char* str,int num){
