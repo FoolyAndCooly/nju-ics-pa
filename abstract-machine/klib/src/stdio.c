@@ -6,8 +6,9 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
+putch('o');
 	int ret=-1;
-		putch('o');
+		
 	char buff[100]={0};
 	char *p=buff;
 		
