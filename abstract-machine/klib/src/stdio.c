@@ -6,7 +6,6 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-	putch('o');
 	int ret=-1;
 	char *p=(char*)malloc(100*sizeof(char));
 	va_list ap;
@@ -65,7 +64,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	}
 	*out='\0';
 	return out-t; 
-	panic("Not implemented");
+	//panic("Not implemented");
 }
 
 int sprintf(char *out, const char *fmt, ...) {
