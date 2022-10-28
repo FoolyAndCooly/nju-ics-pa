@@ -7,15 +7,13 @@
 
 int printf(const char *fmt, ...) {
 	int ret=-1;
-	char out[100]={0};
-	char*p=out;
+	char buff[100]={0};
+	char *p=buff;
 	va_list ap;
 	va_start(ap, fmt);
-	ret=vsprintf(out, fmt, ap);
+	ret=vsprintf(p,fmt, ap);
 	va_end(ap);
-	putch('k');
-	while(*p++ !='\0'){putch(*p);}
-	//panic("Not implemented");
+	while(p++){putch(*p);}
 	return ret;
 	}
 void itoa(char* str,int num){
