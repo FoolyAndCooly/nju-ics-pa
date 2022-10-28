@@ -7,14 +7,13 @@
 
 int printf(const char *fmt, ...) {
 	int ret=-1;
-	char *p;
-	p=NULL;
+	char *out=(char *)malloc(100*sizeof(char));
 	va_list ap;
 	va_start(ap, fmt);
-	ret=vsprintf(p, fmt, ap);
+	ret=vsprintf(out, fmt, ap);
 	va_end(ap);
 	putch('k');
-	while(*p++ !='\0'){putch(*p);}
+	while(*out++ !='\0'){putch(*out);}
 	//panic("Not implemented");
 	return ret;
 	}
