@@ -6,10 +6,9 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
+	char *p=(char*)malloc(100*sizeof(char));
 	va_list ap;
 	va_start(ap, fmt);
-	char *p;
-	p=NULL;
 	vsprintf(p, fmt, ap);
 	va_end(ap);
 	while(*p++ !='\0'){putch(*p);}
