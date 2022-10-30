@@ -44,11 +44,13 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   check_watch_point();
 #endif
 }
+#ifdef CONFIG_ITRACE
 static void trace_iring(){
   for(int i=0;i<16;i++){
   puts(iringbuf[i]);
   }
 }
+#endif
 
 
 static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
