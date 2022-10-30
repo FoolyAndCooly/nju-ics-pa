@@ -22,7 +22,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INST_TO_PRINT 2000
+#define MAX_INST_TO_PRINT -1
 
 
 CPU_state cpu = {};
