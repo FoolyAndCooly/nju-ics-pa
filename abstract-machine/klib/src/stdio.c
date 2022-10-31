@@ -19,10 +19,11 @@ int printf(const char *fmt, ...) {
 void itoa(char* str,int num){
 	char buf[100]={0};
 	int i=0,j=0;
-	do {
+	if(!num) buf[i++]='0';
+	while(num) {
 	buf[i++]=num%10+'0';
 	num/=10;
-	} while(num);
+	} 
 	i--;
 	for(;i>=0;i--){
 	str[j++]=buf[i];
