@@ -126,6 +126,10 @@ config WATCHPOINT
 config MTRACE
   bool "Open mtrace"
   default n
+  
+config DTRACE
+  bool "Open dtrace"
+  default n
 
 config TRACE
   bool "Enable tracer"

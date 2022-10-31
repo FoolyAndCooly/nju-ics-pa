@@ -61,7 +61,7 @@ word_t paddr_read(paddr_t addr, int len) {
   IFDEF(MTRACE,printf("read the pmem[0x%08x]", guest_to_host(addr)-pmem));
   return pmem_read(addr, len);
   }
-  IFDEF(MTRACE,printf("read the mmio[0x%08x]", guest_to_host(addr)-mmio));
+  IFDEF(DTRACE,printf("read the mmio[0x%08x]", guest_to_host(addr)-mmio));
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
   out_of_bound(addr);
   return 0;
@@ -69,9 +69,9 @@ word_t paddr_read(paddr_t addr, int len) {
 
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { 
-  IFDEF(MTRACE,printf("read the pmem[0x%08x]", guest_to_host(addr)-pmem));
+  IFDEF(MTRACE,printf("write the pmem[0x%08x]", guest_to_host(addr)-pmem));
   pmem_write(addr, len, data); return; }
-  IFDEF(MTRACE,printf("read the pmem[0x%08x]", guest_to_host(addr)-mmio));
+  IFDEF(DTRACE,printf("write the mmio[0x%08x]", guest_to_host(addr)-mmio));
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
   out_of_bound(addr);
 }
