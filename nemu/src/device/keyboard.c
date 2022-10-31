@@ -76,7 +76,6 @@ void send_key(uint8_t scancode, bool is_keydown) {
 static uint32_t key_dequeue() {
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   uint32_t am_scancode = ev.keycode | (ev.keydown ? KEYDOWN_MASK : 0);
-  printf("%u\n",am_scancode);
   return am_scancode;
 }
 #endif
