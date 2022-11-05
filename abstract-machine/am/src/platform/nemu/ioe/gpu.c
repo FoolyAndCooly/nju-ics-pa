@@ -22,13 +22,13 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  int i, j, pi, pj;
+  int i=ctl->y, j=ctl->x, h0=0, w0=0;
   uint32_t* pixels = ctl->pixels;
   uint32_t wh_data = inl(VGACTL_ADDR);
   uint32_t width = (wh_data >> 16) & 0xffff;
-  for (i = ctl->y, pi = 0; pi < ctl->h; ++ i, ++pi) {
-    for (j = ctl->x, pj = 0; pj < ctl->w; ++ j, ++pj) {
-      outl(FB_ADDR + (i * width + j) * 4, *(pixels + pi* ctl->w + pj));
+  for (; h0 < ctl->h; ++ i, ++h0) {
+    for (; w0 < ctl->w; ++ j, ++w0) {
+      outl(FB_ADDR + (i * width + j) * 4, *(pixels + h0* ctl->w + w0));
     }
   }
   if (ctl->sync) {
