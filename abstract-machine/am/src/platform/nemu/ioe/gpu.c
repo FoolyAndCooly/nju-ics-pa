@@ -23,7 +23,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t val=inl(VGACTL_ADDR);
-  int i=ctl->x,j=ctl->y,w0=0,h0=0;
+  int i=ctl->y,j=ctl->x,w0=0,h0=0;
   uint32_t width=val>>16;
   for(;i<ctl->y + ctl->h;i++){
   	w0=0;
