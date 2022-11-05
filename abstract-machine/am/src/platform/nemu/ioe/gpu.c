@@ -22,6 +22,16 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
+  uint32_t val=inl(VGACTL_ADDR);
+  int i=ctl->x,j=ctl->y,w0=0,h0=0;
+  uint32_t width=val>>16;
+  for(;i<ctl->y + ctl->h;i++){
+  	for(;j<ctl->x + ctl->w;j++){
+  	outl(FB_ADDR + (i * width +j)*4,*((int*)ctl->pixels+w0*ctl->w+h0));
+  	h0++;
+  	}
+  	w0++;
+  }
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
