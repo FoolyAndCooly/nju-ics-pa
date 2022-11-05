@@ -110,11 +110,11 @@ void *memmove(void *dst, const void *src, size_t n) {
 
 void *memcpy(void *out, const void *in, size_t n) {
   void* p=out;
-  while(n--){
+  do{
 	*(char*)out=*(char*)in;
 	out=(char*)out+1;
 	in=(char*)in+1;
-  }
+  }while(n--);
 	return p;
   panic("Not implemented");
 }
