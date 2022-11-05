@@ -24,11 +24,11 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t val=inl(VGACTL_ADDR);
   int i=ctl->y,j=ctl->x,w0=0,h0=0;
-  uint32_t width=val>>16 & 0xffff;
+  uint32_t width=val>>16;
   for(;i<ctl->y + ctl->h;i++){
   	w0=0;
   	for(;j<ctl->x + ctl->w;j++){
-  	outl(FB_ADDR + (i * width +j)*4,*((uint32_t*)ctl->pixels+h0*ctl->w+w0));
+  	outl(FB_ADDR + (i * width +j)*4,*((uint32_t*)ctl->pixels+h0*(ctl->w/2)+w0));
   	w0++;
   	}
   	h0++;
