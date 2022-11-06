@@ -110,7 +110,7 @@ void *memmove(void *dst, const void *src, size_t n) {
 
 void *memcpy(void *out, const void *in, size_t n) {
   void* p=out;
-  while(n--){
+  for(int i=0;i<n;i++){
 	*(char*)out=*(char*)in;
 	out=(char*)out+1;
 	in=(char*)in+1;
