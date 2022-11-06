@@ -123,6 +123,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 	s1=(char*)s1+1;
 	s2=(char*)s2+1;
 	}
+	else{break;}
 	}
 	return *((char*)s1)-*((char*)s2);
 
