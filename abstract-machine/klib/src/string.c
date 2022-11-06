@@ -120,9 +120,11 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-	while(--n && (*((char*)s1) ==*((char*)s2))){
+	for(int i=0; i<n;i++){
+	if (*((char*)s1) ==*((char*)s2)){
 	s1=(char*)s1+1;
 	s2=(char*)s2+1;
+	}
 	}
 	if(*((char*)s1) >*((char*)s2)){return 1;}
 	else if(*((char*)s1) < *((char*)s2)){return -1;}
