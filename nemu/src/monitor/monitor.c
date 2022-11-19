@@ -15,6 +15,7 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
+#include "elf.h"
 
 void init_rand();
 void init_log(const char *log_file);
@@ -44,6 +45,7 @@ static char *log_file = NULL;
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
+static char *elf_file = NULL;
 
 static long load_img() {
   if (img_file == NULL) {
@@ -67,6 +69,47 @@ static long load_img() {
   return size;
 }
 
+/*Elf32_Shdr *getstrtab(Elf32_Ehdr* ehdr){
+	char *name = NULL;
+	Elf32_Shdr *shdr=(Elf32_Shdr *)((char*)ehdr + ehdr->e_shoff);
+	for(int i=0;i< ehdr->e_shnum ;shdr++,i++){
+		name=(char*)ehdr + shdr->sh_offset +shdr ->sh_name;
+		if(!strcmp(".strtab",name)){
+		return shdr;
+		}
+	}
+	printf("cannot find strtab\n");
+	return 0;
+}
+Elf32_Shdr *getsymtab(Elf32_Ehdr* ehdr){
+	Elf32_Shdr *strtab=getstrtab(ehdr);
+	Elf32_Shdr *shdr=(Elf32_Shdr *)((char*)ehdr + ehdr->e_shoff);
+	for(int i=0;i< ehdr->e_shnum ;shdr++,i++){
+		name=(char*)ehdr + strtab->sh_offset +shdr ->sh_name;
+		if(!strcmp(".strtab",name)){
+		return shdr;
+		}
+	}	
+	printf("cannot find strtab\n");
+	return 0;
+}
+
+void ftrace(uint32_t addr，uint32_t addr0){
+	Elf32_Ehdr *ehdr=(Elf32_Ehdr *)fopen(elf_file,"r");//elf head
+	Elf32_Shdr *shdr = (Elf32_Shdr *)((char *)ehdr + ehdr->e_shoff);//section headers
+	Elf32_Sym * symtab =(Elf32_Sym*) getstrtab(ehdr);
+	char * strtab = (char*)getsymtab(ehdr);
+	char* str;
+	Elf32_Shdr* symtab0=getsymtab(ehdr);
+	uint32_t cnt=symtab0->sh_size / symtab0 -> sh_entsize;
+	
+	for(int i=0;i<cnt;i++,symtab++){
+	if(symtab -> st_info == STT_FUNC && (addr >= symtab->st_value && addr < symtab->st_value +symtab->st_size)){
+	str = strtab + symtab ->st_name;
+	printf("0x%x: %s %x",addr,str,symtab->value);
+	}
+}*/
+
 static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
     {"batch"    , no_argument      , NULL, 'b'},
@@ -84,7 +127,7 @@ static int parse_args(int argc, char *argv[]) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
-	  //case 'e': elf_file =optarg; break;
+	  case 'e': elf_file =optarg; break;
       case 1: img_file = optarg; return 0;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
@@ -92,6 +135,7 @@ static int parse_args(int argc, char *argv[]) {
         printf("\t-l,--log=FILE           output log to FILE\n");
         printf("\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n");
         printf("\t-p,--port=PORT          run DiffTest with port PORT\n");
+		printf("\t-e,--elf=FILE           ftrace\n");
         printf("\n");
         exit(0);
     }
