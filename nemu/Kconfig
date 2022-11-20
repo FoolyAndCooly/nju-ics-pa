@@ -131,6 +131,10 @@ config DTRACE
   bool "Open dtrace"
   default n
 
+config FTRACE
+  bool "Open dtrace"
+  default n
+
 config TRACE
   bool "Enable tracer"
   default y
