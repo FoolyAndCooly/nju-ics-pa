@@ -112,6 +112,7 @@ void pftrace(uint32_t addr,uint32_t addr0){
 		str0 = strtab + symtab ->st_name;
 	if(strcmp(str,str0))
 	printf("0x%x: from %s to %s ",addr,str0,str);
+	}
 }
 #endif
 
