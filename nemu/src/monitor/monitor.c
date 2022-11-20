@@ -114,7 +114,7 @@ int pftrace(uint32_t addr,uint32_t addr0){
 	if(symtab -> st_info == STT_FUNC && (addr0 >= symtab->st_value && addr0 < symtab->st_value +symtab->st_size)) 
 		str0 = strtab + symtab ->st_name;
 	if(strcmp(str,str0))
-	printf("0x%x: from %s to %s ",addr,str0,str);
+	printf("0x%x: from %s to %s ",addr0,str0,str);
 	}
 	return 0;
 }
@@ -131,7 +131,7 @@ static int parse_args(int argc, char *argv[]) {
     {0          , 0                , NULL,  0 },
   };
   int o;
-  while ( (o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1) {
+  while ( (o = getopt_long(argc, argv, "-bhl:e:d:p:", table, NULL)) != -1) {
     switch (o) {
       case 'b': sdb_set_batch_mode(); break;
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
