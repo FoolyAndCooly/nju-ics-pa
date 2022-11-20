@@ -22,7 +22,7 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
-  void pftrace(uint32_t addr,uint32_t addr0);
+void pftrace(uint32_t addr,uint32_t addr0);
 enum {
   TYPE_I, TYPE_U, TYPE_S,
   TYPE_N, TYPE_J,TYPE_B,TYPE_R // none
