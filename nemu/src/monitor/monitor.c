@@ -98,7 +98,6 @@ Elf32_Shdr *getsymtab(Elf32_Ehdr* ehdr){
 
 int pftrace(uint32_t addr,uint32_t addr0){
 	if (elf_file == NULL) {
-    	Log("No image is given. Use the default build-in image.");
     	return 1; 
   	}
 	Elf32_Ehdr *ehdr=(Elf32_Ehdr *)fopen(elf_file,"r");//elf head
