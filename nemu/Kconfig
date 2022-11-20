@@ -132,7 +132,7 @@ config DTRACE
   default n
 
 config FTRACE
-  bool "Open dtrace"
+  bool "Open ftrace"
   default n
 
 config TRACE

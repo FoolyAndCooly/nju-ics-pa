@@ -85,6 +85,7 @@ Elf32_Shdr *getstrtab(Elf32_Ehdr* ehdr){
 Elf32_Shdr *getsymtab(Elf32_Ehdr* ehdr){
 	Elf32_Shdr *strtab=getstrtab(ehdr);
 	Elf32_Shdr *shdr=(Elf32_Shdr *)((char*)ehdr + ehdr->e_shoff);
+	char* name;
 	for(int i=0;i< ehdr->e_shnum ;shdr++,i++){
 		name=(char*)ehdr + strtab->sh_offset +shdr ->sh_name;
 		if(!strcmp(".symtab",name)){
@@ -95,12 +96,12 @@ Elf32_Shdr *getsymtab(Elf32_Ehdr* ehdr){
 	return 0;
 }
 
-void pftrace(uint32_t addr，uint32_t addr0){
+void pftrace(uint32_t addr,uint32_t addr0){
 	Elf32_Ehdr *ehdr=(Elf32_Ehdr *)fopen(elf_file,"r");//elf head
-	Elf32_Shdr *shdr = (Elf32_Shdr *)((char *)ehdr + ehdr->e_shoff);//section headers
-	Elf32_Sym * symtab =(Elf32_Sym*) getstrtab(ehdr);
-	char * strtab = (char*)getsymtab(ehdr);
-	char* str,str0;
+	//Elf32_Shdr *shdr = (Elf32_Shdr *)((char *)ehdr + ehdr->e_shoff);//section headers
+	Elf32_Sym * symtab =(Elf32_Sym*) getsymtab(ehdr);
+	char * strtab = (char*)getstrtab(ehdr);
+	char* str,*str0;
 	Elf32_Shdr* symtab0=getsymtab(ehdr);
 	uint32_t cnt=symtab0->sh_size / symtab0 -> sh_entsize;
 	
@@ -121,7 +122,7 @@ static int parse_args(int argc, char *argv[]) {
     {"diff"     , required_argument, NULL, 'd'},
     {"port"     , required_argument, NULL, 'p'},
     {"help"     , no_argument      , NULL, 'h'},
-	{"elf"      , required_argument, NULL, 'e'},
+    {"elf"      , required_argument, NULL, 'e'},
     {0          , 0                , NULL,  0 },
   };
   int o;
@@ -188,6 +189,7 @@ IFDEF(CONFIG_ITRACE, init_disasm(
   /* Display welcome message. */
   welcome();
 }
+
 #else  //CONFIG_TARGET_AM
 static long load_img() {
   extern char bin_start, bin_end;
