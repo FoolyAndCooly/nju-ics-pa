@@ -97,7 +97,7 @@ Elf32_Shdr *getsymtab(Elf32_Ehdr* ehdr){
 }
 
 void pftrace(uint32_t addr,uint32_t addr0){
-	Elf32_Ehdr *ehdr=(Elf32_Ehdr *)fopen(elf_file,"r");//elf head
+	/*Elf32_Ehdr *ehdr=(Elf32_Ehdr *)fopen(elf_file,"r");//elf head
 	//Elf32_Shdr *shdr = (Elf32_Shdr *)((char *)ehdr + ehdr->e_shoff);//section headers
 	Elf32_Sym * symtab =(Elf32_Sym*) getsymtab(ehdr);
 	char * strtab = (char*)getstrtab(ehdr);
@@ -112,7 +112,7 @@ void pftrace(uint32_t addr,uint32_t addr0){
 		str0 = strtab + symtab ->st_name;
 	if(strcmp(str,str0))
 	printf("0x%x: from %s to %s ",addr,str0,str);
-	}
+	}*/
 }
 #endif
 
