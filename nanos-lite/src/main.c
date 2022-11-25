@@ -8,8 +8,8 @@ void init_fs(void);
 void init_proc(void);
 
 int main() {
-  //extern const char logo[];
-  //printf("%s\n", logo);
+  extern const char logo[];
+  printf("%s\n", logo);
   Log("'Hello World!' from Nanos-lite");
   Log("Build time: %s, %s", __TIME__, __DATE__);
 
@@ -23,7 +23,7 @@ int main() {
   init_irq();
 #endif
 
-  //init_fs();
+  init_fs();
 
   init_proc();
 
