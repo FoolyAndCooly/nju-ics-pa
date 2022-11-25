@@ -32,6 +32,6 @@ int main() {
 #ifdef HAS_CTE
   yield();
 #endif
-
+return 0;
   panic("Should not reach here");
 }
