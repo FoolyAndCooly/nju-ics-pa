@@ -132,7 +132,7 @@ static int decode_exec(Decode *s) {
   case 0x300:
   t=cpu.csr.mstatus;
   cpu.csr.mstatus=t | src1;
-  R(dest) = 0x1800;break;
+  R(dest) = t;break;
   });
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I,
   switch(imm ){
