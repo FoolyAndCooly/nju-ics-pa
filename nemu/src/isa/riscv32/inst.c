@@ -127,11 +127,11 @@ static int decode_exec(Decode *s) {
   R(dest) = t;break;
   case 0x342:
   t=cpu.csr.mcause;
-  cpu.csr.mtvec = t | src1;
+  cpu.csr.mcause=t | src1;
   R(dest) = t;break;
   case 0x300:
   t=cpu.csr.mstatus;
-  cpu.csr.mtvec = t | src1;
+  cpu.csr.mstatus=t | src1;
   R(dest) = t;break;
   });
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I,
@@ -146,11 +146,11 @@ static int decode_exec(Decode *s) {
   R(dest) = t;break;
   case 0x342:
   t=cpu.csr.mcause;
-  cpu.csr.mtvec = src1;
+  cpu.csr.mcause = src1;
   R(dest) = t;break;
   case 0x300:
   t=cpu.csr.mstatus;
-  cpu.csr.mtvec = src1;
+  cpu.csr.mstatus = src1;
   R(dest) = t;break;
   });
   INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, s->dnpc = isa_raise_intr(0xb,s->pc));
