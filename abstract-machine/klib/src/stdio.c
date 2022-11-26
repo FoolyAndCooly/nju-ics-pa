@@ -79,7 +79,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				out=out+strlen(buff);
 				break;
 			case 'p':
-				i=va_arg(ap,unsigned int);
+				i=va_arg(ap,long int);
 				itox(buff,i);
 				*out='\0';
 				strcat(out,buff);
