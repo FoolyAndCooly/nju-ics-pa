@@ -16,12 +16,12 @@ int printf(const char *fmt, ...) {
 	while(*p){putch(*p);p++;}
 	return ret;
 	}
-void itoa(char* str,int num,int n){
+void itoa(char* str,int num){
 	char buf[256]={0};
 	int i=0,j=0;
 	do{
-	buf[i++]=num%n+'0';
-	num/=n;
+	buf[i++]=num%10+'0';
+	num/=10;
 	} while(num);
 	i--;
 	for(;i>=0;i--){
@@ -41,7 +41,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 		switch(*++fmt){
 			case 'd':
 				i=va_arg(ap,int);
-				itoa(buff,i,10);
+				itoa(buff,i);
 				*out='\0';
 				strcat(out,buff);
 				out=out+strlen(buff);
