@@ -16,7 +16,7 @@ int printf(const char *fmt, ...) {
 	while(*p){putch(*p);p++;}
 	return ret;
 	}
-void itoa(char* str,int num){
+void itoa(char* str,uint32_t num){
 	char buf[256]={0};
 	int i=0,j=0;
 	do{
@@ -29,7 +29,7 @@ void itoa(char* str,int num){
 	}
 	str[j]='\0';
 }
-void itox(char* str,int num){
+void itox(char* str,uint32_t num){
 	char buf[256]={0};
 	char map[16]={'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 	int i=0,j=0;
@@ -54,7 +54,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	else{
 		switch(*++fmt){
 			case 'd':
-				i=va_arg(ap,int);
+				i=va_arg(ap,uint32_t);
 				itoa(buff,i);
 				*out='\0';
 				strcat(out,buff);
@@ -72,14 +72,14 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				out=out+strlen(s);
 				break;
 			case 'x':
-				i=va_arg(ap,unsigned int);
+				i=va_arg(ap,uint32_t);
 				itox(buff,i);
 				*out='\0';
 				strcat(out,buff);
 				out=out+strlen(buff);
 				break;
 			case 'p':
-				i=va_arg(ap,long int);
+				i=va_arg(ap, uint32_t);
 				itox(buff,i);
 				*out='\0';
 				strcat(out,buff);
