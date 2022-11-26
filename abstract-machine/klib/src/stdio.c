@@ -7,7 +7,7 @@
 
 int printf(const char *fmt, ...) {
 	int ret=-1;
-	char buff[10000]={0};
+	char buff[6000]={0};
 	char *p=buff;
 	va_list ap;
 	va_start(ap, fmt);
@@ -17,7 +17,7 @@ int printf(const char *fmt, ...) {
 	return ret;
 	}
 void itoa(char* str,int num){
-	char buf[10000]={0};
+	char buf[6000]={0};
 	int i=0,j=0;
 	do{
 	buf[i++]=num%10+'0';
@@ -34,7 +34,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	char *t;
 	char c;
 	t=out;
-	char *s,buff[10000]={0};
+	char *s,buff[6000]={0};
 	while(*fmt != '\0'){
 	if(*fmt != '%'){*out++ = *fmt;}
 	else{
