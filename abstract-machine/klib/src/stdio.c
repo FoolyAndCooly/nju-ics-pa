@@ -7,7 +7,7 @@
 
 int printf(const char *fmt, ...) {
 	int ret=-1;
-	char buff[8192]={0};
+	char buff[4091]={0};
 	char *p=buff;
 	va_list ap;
 	va_start(ap, fmt);
@@ -34,7 +34,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	char *t;
 	char c;
 	t=out;
-	char *s,buff[8192]={0};
+	char *s,buff[4091]={0};
 	while(*fmt != '\0'){
 	if(*fmt != '%'){*out++ = *fmt;}
 	else{
