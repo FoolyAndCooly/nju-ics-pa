@@ -70,8 +70,15 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				strcat(out,s);
 				out=out+strlen(s);
 				break;
-			case 'p':
+			case 'x':
 				i=va_arg(ap,int);
+				itox(buff,i);
+				*out='\0';
+				strcat(out,buff);
+				out=out+strlen(buff);
+				break;
+			case 'p':
+				i=va_arg(ap,uint32_t);
 				itox(buff,i);
 				*out='\0';
 				strcat(out,buff);
