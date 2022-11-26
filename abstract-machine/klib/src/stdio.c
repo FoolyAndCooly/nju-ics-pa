@@ -71,14 +71,14 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				out=out+strlen(s);
 				break;
 			case 'x':
-				i=va_arg(ap,uint32_t);
+				i=va_arg(ap,unsigned int);
 				itox(buff,i);
 				*out='\0';
 				strcat(out,buff);
 				out=out+strlen(buff);
 				break;
 			case 'p':
-				i=va_arg(ap,uint32_t);
+				i=va_arg(ap,unsigned int);
 				itox(buff,i);
 				*out='\0';
 				strcat(out,buff);
