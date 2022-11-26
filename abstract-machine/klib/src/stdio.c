@@ -29,6 +29,19 @@ void itoa(char* str,int num){
 	}
 	str[j]='\0';
 }
+void itox(char* str,int num){
+	char buf[256]={0};
+	int i=0,j=0;
+	do{
+	buf[i++]=num%16+'0';
+	num/=16;
+	} while(num);
+	i--;
+	for(;i>=0;i--){
+	str[j++]=buf[i];
+	}
+	str[j]='\0';
+}
 int vsprintf(char *out, const char *fmt, va_list ap) {
 	int i;
 	char *t;
@@ -57,12 +70,12 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				strcat(out,s);
 				out=out+strlen(s);
 				break;
-			/*case 'p':
+			case 'p':
 				i=va_arg(ap,int);
-				itoa(buff,i,16);
+				itox(buff,i);
 				*out='\0';
 				strcat(out,buff);
-				out=out+strlen(buff);*/
+				out=out+strlen(buff);
 			}
 		}
 	fmt++;
