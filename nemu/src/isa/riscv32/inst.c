@@ -113,6 +113,46 @@ static int decode_exec(Decode *s) {
   INSTPAT("0100000 ????? ????? 101 ????? 01100 11", sra    , R, R(dest) = (int )src1 >> src2);
   INSTPAT("??????? ????? ????? 110 ????? 11000 11", bltu   , B, if(src1 < src2) s->dnpc = s->pc +imm);
   INSTPAT("??????? ????? ????? 111 ????? 11000 11", bgeu   , B, if(src1>=src2) s->dnpc =s->pc+imm); 
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc=cpu.csr.mepc
+);
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, 
+  switch(imm & 0x7){
+  case 0x305:
+  t=cpu.csr.mtvec;
+  cpu.csr.mtvec = t | src1;
+  R(dest) = t;break;
+  case 0x341:
+  t=cpu.csr.mepc;
+  cpu.csr.mepc = t | src1;
+  R(dest) = t;break;
+  case 0x342:
+  t=cpu.csr.mcause;
+  cpu.csr.mtvec = t | src1;
+  R(dest) = t;break;
+  case 0x300:
+  t=cpu.csr.mstatus;
+  cpu.csr.mtvec = t | src1;
+  R(dest) = t;break;
+  });
+  INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I,
+  switch(imm & 0x7){
+  case 0x305:
+  t=cpu.csr.mtvec;
+  cpu.csr.mtvec = src1;
+  R(dest) = t;break;
+  case 0x341:
+  t=cpu.csr.mepc;
+  cpu.csr.mepc = src1;
+  R(dest) = t;break;
+  case 0x342:
+  t=cpu.csr.mcause;
+  cpu.csr.mtvec = src1;
+  R(dest) = t;break;
+  case 0x300:
+  t=cpu.csr.mstatus;
+  cpu.csr.mtvec = src1;
+  R(dest) = t;break;
+  });
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
   INSTPAT_END();

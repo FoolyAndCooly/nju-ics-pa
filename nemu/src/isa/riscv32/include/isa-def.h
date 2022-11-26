@@ -25,8 +25,8 @@ typedef struct {
   struct{
   word_t mstatus;
   word_t mcause;
-  word_t mtvec;
   word_t mepc;
+  word_t mtvec;
   } csr;
 } riscv32_CPU_state;
 
