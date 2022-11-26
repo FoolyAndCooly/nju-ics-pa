@@ -116,7 +116,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc=cpu.csr.mepc
 );
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, 
-  switch(imm & 0x7){
+  switch(imm ){
   case 0x305:
   t=cpu.csr.mtvec;
   cpu.csr.mtvec = t | src1;
@@ -135,7 +135,7 @@ static int decode_exec(Decode *s) {
   R(dest) = t;break;
   });
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I,
-  switch(imm & 0x7){
+  switch(imm ){
   case 0x305:
   t=cpu.csr.mtvec;
   cpu.csr.mtvec = src1;
