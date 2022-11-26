@@ -33,6 +33,6 @@ int main() {
   yield();
 #endif
 
-  //panic("Should not reach here");
-  return 0;
+  panic("Should not reach here");
+  
 }
