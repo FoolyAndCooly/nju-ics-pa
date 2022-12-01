@@ -20,11 +20,11 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read(&phdr,phoff,sizeof(Elf_Phdr));
   if(phdr.p_type==PT_LOAD){
   ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
-  memset((void*)phdr.p_vaddr,0,phdr.p_memsz - phdr.p_filesz);
+  memset((void*)phdr.p_vaddr+ehdr.e_entry,0,phdr.p_memsz - phdr.p_filesz);
   }
   }
-  printf("%x\n %x\n",ehdr.e_entry,(void*)phdr.p_vaddr);
-  return 0;//ehdr.e_entry;
+  //printf("%x\n %x\n",ehdr.e_entry,(void*)phdr.p_vaddr);
+  return ehdr.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
