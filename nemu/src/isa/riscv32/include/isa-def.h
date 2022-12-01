@@ -21,11 +21,10 @@
 typedef struct {
   word_t gpr[32];
   vaddr_t pc;
-  word_t mepc;
   struct{
+  word_t mepc;
   word_t mstatus;
   word_t mcause;
-  word_t mepc;
   word_t mtvec;
   } csr;
 } riscv32_CPU_state;
