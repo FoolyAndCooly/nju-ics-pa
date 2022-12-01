@@ -131,6 +131,10 @@ config DTRACE
   bool "Open dtrace"
   default n
 
+config ETRACE
+  bool "Open etrace"
+  default n
+  
 config FTRACE
   bool "Open ftrace"
   default n
