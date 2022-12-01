@@ -23,7 +23,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   memset((void*)phdr.p_vaddr,0,phdr.p_memsz - phdr.p_filesz);
   }
   }
-  return 0;//ehdr.e_entry;
+  return 8;//ehdr.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
