@@ -55,6 +55,7 @@ printf("write\n");
 #endif
 }
 void sys_brk(Context *c){
+	//brk(c->GPR2);
 	c->GPRx=0;
 }
 //void sys_brk(Context *);
