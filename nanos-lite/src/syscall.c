@@ -49,7 +49,7 @@ void sys_write(Context* c){
 	for(int i=0;i<count;i++){
 	putch(*p);p++;
 	}
-	c->GPRx=count;
+	c->GPRx=0;
 	}
 #ifdef CONFIG_STRACE
 	printf("write\n");
