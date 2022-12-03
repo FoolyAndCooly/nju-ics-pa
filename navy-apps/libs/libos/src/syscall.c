@@ -73,7 +73,7 @@ extern char _end;
   if(_syscall_(SYS_brk,(intptr_t)p,0,0)==0){
   p_brk=p;
   }
-  else{return (void*)-1;}
+  //else{return (void*)-1;}
   return (void *)p_old;
 }
 

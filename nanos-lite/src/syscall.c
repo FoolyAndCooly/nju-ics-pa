@@ -49,7 +49,6 @@ void sys_write(Context* c){
 	}
 	c->GPRx=count;
 }
-printf("write\n");
 #ifdef CONFIG_STRACE
 	printf("write\n");
 #endif
