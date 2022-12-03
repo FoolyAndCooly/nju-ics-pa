@@ -35,6 +35,7 @@ void sys_yield(Context *c){
 #endif
 }
 void sys_exit(Context* c){
+	printf("%d",c->GPR2);
 	halt(c->GPR2);
 #ifdef CONFIG_STRACE
 	printf("exit\n");
@@ -49,7 +50,7 @@ void sys_write(Context* c){
 	for(int i=0;i<count;i++){
 	putch(*p);p++;
 	}
-	c->GPRx=0;
+	c->GPRx=count;
 	}
 #ifdef CONFIG_STRACE
 	printf("write\n");
