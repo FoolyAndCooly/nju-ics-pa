@@ -1,8 +1,6 @@
 #include <common.h>
 #include "syscall.h"
-#ifndef __SYSCALL_H__
-#define __SYSCALL_H__
-
+#include <unistd.h>
 enum {
   SYS_exit,
   SYS_yield,
@@ -26,7 +24,7 @@ enum {
   SYS_gettimeofday
 };
 
-#endif 
+
 void sys_yield(Context *c){
 	yield();
 	c->GPRx=0;
@@ -35,7 +33,7 @@ void sys_yield(Context *c){
 #endif
 }
 void sys_exit(Context* c){
-	printf("%d",c->GPR2);
+	//printf("%d",c->GPR2);
 	halt(c->GPR2);
 #ifdef CONFIG_STRACE
 	printf("exit\n");
@@ -51,11 +49,18 @@ void sys_write(Context* c){
 	putch(*p);p++;
 	}
 	c->GPRx=count;
-	}
+}
+/*void sys_brk(Context *c){
+	//void* addr=(void*)c->GPR2;
+	sbrk(0);
+	//brk(addr);
+	c->GPRx=0;
+}*/
 #ifdef CONFIG_STRACE
 	printf("write\n");
 #endif
 }
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -64,6 +69,7 @@ void do_syscall(Context *c) {
     case SYS_yield:sys_yield(c);break;
     case SYS_exit:sys_exit(c);break;
     case SYS_write:sys_write(c);break;
+    //case SYS_brk:sys_brk(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
