@@ -36,7 +36,6 @@ void sys_yield(Context *c){
 }
 void sys_exit(Context* c){
 	printf("%d",c->GPR2);
-	c->GPR2=0;
 	halt(c->GPR2);
 #ifdef CONFIG_STRACE
 	printf("exit\n");
