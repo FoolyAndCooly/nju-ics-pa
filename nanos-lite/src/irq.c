@@ -4,9 +4,11 @@ void do_syscall(Context *c);
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
     case EVENT_YIELD:
+    c->mepc+=4;
     printf("trapped\n");
     break;
     case EVENT_SYSCALL:
+    c->mepc+=4;
     do_syscall(c);break;
     default: panic("Unhandled event ID = %d", e.event);
   }

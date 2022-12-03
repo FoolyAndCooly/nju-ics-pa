@@ -5,9 +5,15 @@
 void sys_yield(Context *c){
 	yield();
 	c->GPRx=0;
+#ifdef CONFIG_STRACE
+	printf("yield");
+#endif
 }
 void sys_exit(Context* c){
 	halt(c->GPR2);
+#ifdef CONFIG_STRACE
+	printf("exit"));
+#endif
 }
 void do_syscall(Context *c) {
   uintptr_t a[4];

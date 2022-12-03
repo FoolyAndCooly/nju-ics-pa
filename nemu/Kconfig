@@ -130,7 +130,11 @@ config MTRACE
 config DTRACE
   bool "Open dtrace"
   default n
-
+  
+config STRACE
+  bool "Open strace"
+  default n
+  
 config ETRACE
   bool "Open etrace"
   default n
