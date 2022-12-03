@@ -43,10 +43,11 @@ void sys_exit(Context* c){
 void sys_write(Context* c){
 	int fd=c->GPR2;
 	void* buf=(void*)c->GPR3;
+	char* p=(char*)buf;
 	uint32_t count=c->GPR4;
 	if(fd==1 || fd==2){
 	for(int i=0;i<count;i++){
-	putch(*(char*)buf);(char*)buf++;
+	putch(*p);p++;
 	}
 	c->GPRx=count;
 	}
