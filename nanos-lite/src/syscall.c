@@ -1,5 +1,10 @@
 #include <common.h>
 #include "syscall.h"
+int fs_open(const char * ,int ,int);
+size_t fs_read(int ,void *, size_t );
+size_t fs_write(int ,const void *, size_t);
+size_t fs_lseek(int ,size_t, int);
+int fs_close(int );
 /*enum {
   SYS_exit,
   SYS_yield,
@@ -58,15 +63,32 @@ void sys_brk(Context *c){
 	c->GPRx=0;
 }
 //void sys_brk(Context *);
+void sys_open(Context *c){
+	c->GPRx=fs_open((char*)c->GPR2,(int)c->GPR3,(int)(c->GPR4));
+}
+void sys_read(Context* c){
+	c->GPRx=fs_read((int)c->GPR2,(void*)c->GPR3,(size_t)c->GPR4);
+}
+void sys_close(Context* c){
+	c->GPRx=fs_close((int)c->GPR2);
+}
+void sys_lseek(Context* c){
+	c->GPRx=fs_lseek((int)c->GPR2,(size_t)c->GPR3,(int)c->GPR4);
+}
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
   //printf("%d\n",a[0]);
   switch (a[0]) {
-    case SYS_yield:sys_yield(c);break;
     case SYS_exit:sys_exit(c);break;
+    case SYS_yield:sys_yield(c);break;
+    case SYS_open:sys_open(c);break;
+    case SYS_read:sys_read(c);break;
     case SYS_write:sys_write(c);break;
+    case SYS_close:sys_close(c);break;
+    case SYS_lseek:sys_lseek(c);break;
     case SYS_brk:sys_brk(c);break;
+    
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
