@@ -32,7 +32,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},
 #include "files.h"
 };
-static int num=sizeof(file_table)/sizeof(Finfo);
+static int num=sizeof(file_table)/sizeof(Finfo)-1;
 int fs_open(const char *pathname ,int flags ,int mode){
 	for(int i=0;i<num;i++){
 	if(strcmp(pathname,file_table[i].name)==0){
