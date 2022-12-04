@@ -1,6 +1,6 @@
 #include <common.h>
 #include "syscall.h"
-enum {
+/*enum {
   SYS_exit,
   SYS_yield,
   SYS_open,
@@ -21,7 +21,7 @@ enum {
   SYS_wait,
   SYS_times,
   SYS_gettimeofday
-};
+};*/
 
 
 void sys_yield(Context *c){
@@ -48,8 +48,7 @@ void sys_write(Context* c){
 	putch(*p);p++;
 	}
 	c->GPRx=count;
-}
-printf("write\n");
+	}
 #ifdef CONFIG_STRACE
 	printf("write\n");
 #endif
