@@ -56,7 +56,7 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-  //_exit(SYS_open);
+  //_write(1,"w",1);
   return _syscall_(SYS_open,(intptr_t)path,(intptr_t)flags,(intptr_t)mode);
 }
 
@@ -67,6 +67,7 @@ int _write(int fd, void *buf, size_t count) {
 extern char _end;
 static char *p_brk=&_end;
 void *_sbrk(intptr_t increment) {
+_write(1,"w",1);
   char *p_old=p_brk;
   char *p=p_brk+increment;
   if(_syscall_(SYS_brk,(intptr_t)p,0,0)==0){
