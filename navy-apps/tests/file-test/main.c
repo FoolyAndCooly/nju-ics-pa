@@ -3,7 +3,7 @@
 
 int main() {
   FILE *fp = fopen("/share/files/num", "r+");
-  printf("%p\n",fp);
+  //printf("%p\n",fp);
   //assert(fp);
 
   //fseek(fp, 0, SEEK_END);
@@ -33,9 +33,9 @@ int main() {
     assert(n == i + 1 + 1000);
   }*/
 
-  fclose(fp);
+  //fclose(fp);
 
-  printf("PASS!!!\n");
+  //printf("PASS!!!\n");
 
   return 0;
 }
