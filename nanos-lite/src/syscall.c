@@ -64,6 +64,7 @@ void sys_brk(Context *c){
 }
 //void sys_brk(Context *);
 void sys_open(Context *c){
+	printf("open\n");
 	c->GPRx=fs_open((char*)c->GPR2,(int)c->GPR3,(int)(c->GPR4));
 }
 void sys_read(Context* c){
