@@ -1,6 +1,6 @@
 #include <common.h>
 #include "syscall.h"
-//#define STRACE
+#define STRACE
 int fs_open(const char * ,int ,int);
 size_t fs_read(int ,void *, size_t );
 size_t fs_write(int ,const void *, size_t);
@@ -33,14 +33,14 @@ int fs_close(int );
 void sys_yield(Context *c){
 	yield();
 	c->GPRx=0;
-#ifdef CONFIG_STRACE
+#ifdef STRACE
 	printf("yield\n");
 #endif
 }
 void sys_exit(Context* c){
 	//printf("%d",c->GPR2);
 	halt(c->GPR2);
-#ifdef CONFIG_STRACE
+#ifdef STRACE
 	printf("exit\n");
 #endif
 }
@@ -55,39 +55,39 @@ void sys_write(Context* c){
 	}
 	c->GPRx=count;
 	}
-#ifdef CONFIG_STRACE
+#ifdef STRACE
 	printf("write\n");
 #endif
 }
 void sys_brk(Context *c){
 	//brk(c->GPR2);
 	c->GPRx=0;
-#ifdef CONFIG_STRACE
+#ifdef STRACE
 	printf("break\n");
 #endif
 }
 //void sys_brk(Context *);
 void sys_open(Context *c){
 	c->GPRx=fs_open((char*)c->GPR2,(int)c->GPR3,(int)(c->GPR4));
-#ifdef CONFIG_STRACE
+#ifdef STRACE
 	printf("open\n");
 #endif
 }
 void sys_read(Context* c){
 	c->GPRx=fs_read((int)c->GPR2,(void*)c->GPR3,(size_t)c->GPR4);
-#ifdef CONFIG_STRACE
+#ifdef STRACE
 	printf("read\n");
 #endif
 }
 void sys_close(Context* c){
 	c->GPRx=fs_close((int)c->GPR2);
-#ifdef CONFIG_STRACE
+#ifdef STRACE
 	printf("close\n");
 #endif
 }
 void sys_lseek(Context* c){
 	c->GPRx=fs_lseek((int)c->GPR2,(size_t)c->GPR3,(int)c->GPR4);
-#ifdef CONFIG_STRACE
+#ifdef STRACE
 	printf("lseek\n");
 #endif
 }
@@ -97,7 +97,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit:sys_exit(c);break;
     case SYS_yield:sys_yield(c);break;
-    case SYS_open:printf("%d\n",SYS_open);sys_open(c);break;
+    case SYS_open:sys_open(c);break;
     case SYS_read:sys_read(c);break;
     case SYS_write:sys_write(c);break;
     case SYS_close:sys_close(c);break;
