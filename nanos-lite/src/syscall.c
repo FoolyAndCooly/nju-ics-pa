@@ -83,7 +83,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit:sys_exit(c);break;
     case SYS_yield:sys_yield(c);break;
-    case SYS_open:sys_open(c);break;
+    case SYS_open:printf("%d\n",SYS_open);sys_open(c);break;
     case SYS_read:sys_read(c);break;
     case SYS_write:sys_write(c);break;
     case SYS_close:sys_close(c);break;
