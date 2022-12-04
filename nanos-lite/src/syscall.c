@@ -63,7 +63,7 @@ void sys_brk(Context *c){
 	//brk(c->GPR2);
 	c->GPRx=0;
 #ifdef STRACE
-	printf("break\n");
+	printf("brk\n");
 #endif
 }
 //void sys_brk(Context *);
