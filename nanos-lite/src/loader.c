@@ -16,6 +16,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr phdr;
   uint32_t phoff;
   int fd=fs_open(filename,0,0);
+  if(fd==-1)assert(0);
   //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
    assert(*(uint32_t*)ehdr.e_ident == 0x464c457f);
@@ -36,7 +37,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
-  uintptr_t entry = loader(pcb,"/bin/hello");
+  uintptr_t entry = loader(pcb,"/bin/hell");
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }
