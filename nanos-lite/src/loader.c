@@ -1,5 +1,6 @@
 #include <proc.h>
 #include <elf.h>
+#include <fs.h>
 
 #ifdef __LP64__
 # define Elf_Ehdr Elf64_Ehdr
@@ -14,22 +15,28 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
   uint32_t phoff;
-  ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
+  int fd=fs_open(filename,0,0);
+  //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
+  fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
    assert(*(uint32_t*)ehdr.e_ident == 0x464c457f);
   for(int i=0;i<ehdr.e_phnum;i++){
   phoff=i*ehdr.e_phentsize+ehdr.e_phoff;
-  ramdisk_read(&phdr,phoff,sizeof(Elf_Phdr));
+  //ramdisk_read(&phdr,phoff,sizeof(Elf_Phdr));
+  fs_lseek(fd,phoff,SEEK_SET);
+  fs_read(fd,&phdr,sizeof(Elf_Phdr));
   if(phdr.p_type==PT_LOAD){
-  ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
+  //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
+  fs_lseek(fd,phdr.p_offset,SEEK_SET);
+  fs_read(fd,(void*)phdr.p_vaddr,phdr.p_filesz);
   memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
   }
-  } //buggy
-  //printf("%x\n",ehdr.e_entry);*/
+  } //buggy?
+  //printf("%x\n",ehdr.e_entry);
   return ehdr.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
-  uintptr_t entry = loader(pcb, filename);
+  uintptr_t entry = loader(pcb,"/bin/dummy");
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }
