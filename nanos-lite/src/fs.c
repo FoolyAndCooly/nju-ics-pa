@@ -33,7 +33,7 @@ static Finfo file_table[] __attribute__((used)) = {
 #include "files.h"
 };
 int fs_open(const char *pathname ,int flags ,int mode){
-	for(int i=0;i<20;i++){
+	for(int i=0;i<23;i++){
 	if(strcmp(pathname,file_table[i].name)==0){
 		file_table[i].open_offset=0;
 		return i;
