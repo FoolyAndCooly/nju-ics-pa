@@ -79,7 +79,9 @@ void sys_lseek(Context* c){
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
+  printf("%d\n",SYS_open);
   //printf("%d\n",a[0]);
+   printf("open\n");
   switch (a[0]) {
     case SYS_exit:sys_exit(c);break;
     case SYS_yield:sys_yield(c);break;
