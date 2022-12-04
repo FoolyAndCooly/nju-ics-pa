@@ -39,7 +39,6 @@ void sys_yield(Context *c){
 void sys_exit(Context* c){
 	//printf("%d",c->GPR2);
 	halt(c->GPR2);
-	printf("exit\n");
 #ifdef CONFIG_STRACE
 	printf("exit\n");
 #endif
@@ -55,7 +54,6 @@ void sys_write(Context* c){
 	}
 	c->GPRx=count;
 	}
-	printf("write\n");
 #ifdef CONFIG_STRACE
 	printf("write\n");
 #endif
