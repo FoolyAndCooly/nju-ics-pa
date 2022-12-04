@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
-#include<stdio.h>
+
 // helper macros
 #define _concat(x, y) x ## y
 #define concat(x, y) _concat(x, y)
@@ -56,12 +56,12 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
+assert(0);
   //_exit(SYS_open);
   return _syscall_(SYS_open,(intptr_t)path,(intptr_t)flags,(intptr_t)mode);
 }
 
 int _write(int fd, void *buf, size_t count) {
-printf("writ\n");
   return _syscall_(SYS_write,(intptr_t)fd,(intptr_t)buf,(intptr_t)count);
 }
 extern char _end;
