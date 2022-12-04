@@ -56,7 +56,6 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-assert(0);
   //_exit(SYS_open);
   return _syscall_(SYS_open,(intptr_t)path,(intptr_t)flags,(intptr_t)mode);
 }
