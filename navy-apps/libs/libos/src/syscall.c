@@ -56,11 +56,12 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-  //_exit(SYS_open);
+  _exit(SYS_open);
   return _syscall_(SYS_open,(intptr_t)path,(intptr_t)flags,(intptr_t)mode);
 }
 
 int _write(int fd, void *buf, size_t count) {
+_exit(SYS_open);
   return _syscall_(SYS_write,(intptr_t)fd,(intptr_t)buf,(intptr_t)count);
 }
 extern char _end;
