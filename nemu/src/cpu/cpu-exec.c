@@ -24,6 +24,8 @@
  */
 #define MAX_INST_TO_PRINT -1
 
+void isa_exec_once1(Decode* s);
+int isa_exec_once2(Decode* s);
 
 CPU_state cpu = {{},0,{0,0x1800,0,0},{}};
 uint64_t g_nr_guest_inst = 0;
@@ -55,7 +57,8 @@ static void iring_display(){
 static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
   s->pc = pc;
   s->snpc = pc;
-
+  isa_exec_once1(s);
+  
 #ifdef CONFIG_ITRACE
   char*p =s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
@@ -77,7 +80,7 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   strcpy(cpu.iringbuf[*cnt], s->logbuf);
 #endif
-  isa_exec_once(s);
+  isa_exec_once2(s);
   cpu.pc = s->dnpc;
 }
 
