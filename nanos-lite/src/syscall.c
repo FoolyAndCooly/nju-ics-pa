@@ -1,6 +1,6 @@
 #include <common.h>
 #include "syscall.h"
-#define STRACE
+//#define STRACE
 int fs_open(const char * ,int ,int);
 size_t fs_read(int ,void *, size_t );
 size_t fs_write(int ,const void *, size_t);
