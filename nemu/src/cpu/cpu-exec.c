@@ -58,7 +58,7 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
   s->pc = pc;
   s->snpc = pc;
   isa_exec_once(s);
-
+  cpu.pc = s->dnpc;
   //isa_exec_once1(s);
  
 #ifdef CONFIG_ITRACE
@@ -83,7 +83,7 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
   strcpy(cpu.iringbuf[*cnt], s->logbuf);
 #endif
   //isa_exec_once2(s);
-  cpu.pc = s->dnpc;
+  //cpu.pc = s->dnpc;
 }
 
 static void execute(uint64_t n) {
