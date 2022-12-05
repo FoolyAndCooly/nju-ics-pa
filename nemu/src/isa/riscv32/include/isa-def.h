@@ -27,6 +27,7 @@ typedef struct {
   word_t mcause;
   word_t mtvec;
   } csr;
+  char iringbuf[16][128];
 } riscv32_CPU_state;
 
 // decode
