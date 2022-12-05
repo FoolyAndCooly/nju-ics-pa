@@ -46,7 +46,7 @@ void sys_exit(Context* c){
 
 }
 void sys_write(Context* c){
-	int fd=c->GPR2;
+	/*int fd=c->GPR2;
 	const void* buf=(void*)c->GPR3;
 	char* p=(char*)buf;
 	uint32_t count=c->GPR4;
@@ -55,8 +55,8 @@ void sys_write(Context* c){
 	putch(*p);p++;
 	}
 	c->GPRx=count;}
-	else{
-	c->GPRx=fs_write((int)c->GPR2,(const void*)c->GPR3,(size_t)c->GPR4);}
+	else{*/
+	c->GPRx=fs_write((int)c->GPR2,(const void*)c->GPR3,(size_t)c->GPR4);//}
 #ifdef STRACE
 	printf("write\n");
 #endif
