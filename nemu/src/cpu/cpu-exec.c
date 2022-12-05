@@ -55,8 +55,7 @@ static void iring_display(){
 static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
   s->pc = pc;
   s->snpc = pc;
-  isa_exec_once(s);
-  cpu.pc = s->dnpc;
+
 #ifdef CONFIG_ITRACE
   char*p =s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
@@ -78,6 +77,8 @@ static void exec_once(Decode *s, vaddr_t pc,int *cnt) {
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   strcpy(cpu.iringbuf[*cnt], s->logbuf);
 #endif
+  isa_exec_once(s);
+  cpu.pc = s->dnpc;
 }
 
 static void execute(uint64_t n) {
