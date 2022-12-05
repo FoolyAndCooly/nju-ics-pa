@@ -39,10 +39,11 @@ void sys_yield(Context *c){
 }
 void sys_exit(Context* c){
 	//printf("%d",c->GPR2);
-	halt(c->GPR2);
 #ifdef STRACE
 	printf("exit\n");
 #endif
+	halt(c->GPR2);
+
 }
 void sys_write(Context* c){
 	int fd=c->GPR2;
@@ -94,7 +95,6 @@ void sys_lseek(Context* c){
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
-  printf("%d\n",a[0]);
   switch (a[0]) {
     case SYS_exit:sys_exit(c);break;
     case SYS_yield:sys_yield(c);break;
