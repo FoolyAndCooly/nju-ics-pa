@@ -3,7 +3,7 @@
 
 int main() {
   //FILE *fp = fopen("/share/files/num", "r+");
-  printf("%p\n",fp);
+  printf("ui\n");
   //assert(fp);
 
   //fseek(fp, 0, SEEK_END);
