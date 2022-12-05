@@ -50,7 +50,7 @@ void sys_write(Context* c){
 	void* buf=(void*)c->GPR3;
 	char* p=(char*)buf;
 	uint32_t count=c->GPR4;
-	if(fd==1 || fd==2){
+	if(fd==1 ){
 	for(int i=0;i<count;i++){
 	putch(*p);p++;
 	}}
