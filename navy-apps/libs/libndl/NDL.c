@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
+#include <assert.h>
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
@@ -22,8 +22,11 @@ struct timeval{
 
 int NDL_PollEvent(char *buf, int len) {
   int fb=open("/dev/events",0);
-  printf("reach here\n");
-  return read(fb,buf,len);
+  //printf("reach here\n");
+  assert(fb);
+  int ret=read(fb,buf,len);
+  close(fb);
+  return ret;
   //return events_read(buf,0,len);
 }
 
