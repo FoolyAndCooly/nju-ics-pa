@@ -3,7 +3,7 @@
 int main(){
   //AM_TIMER_RTC_T rtc;
   int sec = 0.5;
-  struct timeval* tv;
+  struct timeval* tv=NULL;
   while (1) {
     gettimeofday(tv,NULL);
     while( tv->tv_sec < sec) ;

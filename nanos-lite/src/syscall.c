@@ -101,7 +101,7 @@ void sys_gettimeofday(Context* c){
 	uint64_t tv_usec;
 	};
 	struct timeval* tv = (struct timeval*)c->GPR2;
-	printf("2\n");
+	printf("tv is %p\n",tv);
 	uint64_t us=io_read(AM_TIMER_UPTIME).us;
 	printf("3\n");
 	tv->tv_sec = us / 1000000;
