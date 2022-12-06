@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+#include <sys/time.h>
 //#define STRACE
 int fs_open(const char * ,int ,int);
 size_t fs_read(int ,void *, size_t );
@@ -93,6 +94,13 @@ void sys_lseek(Context* c){
 	printf("lseek\n");
 #endif
 }
+void sys_gettimeofday(Context* c){
+	struct timeval* tv = (struct timeval*)c->GPR2;
+	uint64_t us=io_read(AM_TIMER_UPTIME).us;
+	tv->tv_sec = us / 1000000;
+	tv->tv_usec = us % 1000000;
+	c->GPR2=0;
+}
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -105,6 +113,7 @@ void do_syscall(Context *c) {
     case SYS_close:sys_close(c);break;
     case SYS_lseek:sys_lseek(c);break;
     case SYS_brk:sys_brk(c);break;
+    case SYS_gettimeofday:sys_gettimeofday(c);break;
     
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
