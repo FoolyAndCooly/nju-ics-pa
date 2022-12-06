@@ -21,10 +21,9 @@ struct timeval{
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  FILE * fp=fopen("/dev/events","r");
+  int fb=open("/dev/events",0);
   printf("reach here\n");
-  fread((void*)buf,sizeof(char),len,fp);
-  return len;
+  return read(fb,buf,len);
   //return events_read(buf,0,len);
 }
 
