@@ -97,8 +97,8 @@ void sys_lseek(Context* c){
 void sys_gettimeofday(Context* c){
 	//printf("1\n");
 	struct timeval{
-	uint64_t tv_sec;
-	uint64_t tv_usec;
+	uint32_t tv_sec;
+	uint32_t tv_usec;
 	};
 	struct timeval* tv = (struct timeval*)c->GPR2;
 	//printf("tv is %p\n",tv);
