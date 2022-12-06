@@ -1,4 +1,5 @@
 #include <fs.h>
+//#include <assert.h>
 size_t ramdisk_read(void* , size_t , size_t );
 size_t ramdisk_write(const void* , size_t , size_t );
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
@@ -34,7 +35,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},
   [FD_FB] = {"/dev/fb", 0, 0, invalid_read, invalid_write},
-  [FD_EVENT]  = {"/dev/event", 0, 0, events_read, invalid_write},
+  [FD_EVENT]  = {"/dev/events", 0, 0, events_read, invalid_write},
 #include "files.h"
 };
 static int num=sizeof(file_table)/sizeof(Finfo);
@@ -45,6 +46,8 @@ int fs_open(const char *pathname ,int flags ,int mode){
 		return i;
 	}
 	}
+	printf("can't open\n");
+	//assert(0);
 	return -1;	
 }
 size_t fs_read(int fd,void *buf, size_t len){

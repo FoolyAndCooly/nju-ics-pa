@@ -22,7 +22,7 @@ struct timeval{
 
 int NDL_PollEvent(char *buf, int len) {
   int fd=open("/dev/events",0);
-  printf("%d",fd);
+  //printf("%d",fd);
   //printf("reach here\n");
   assert(fd);
   int ret=read(fd,(void*)buf,len);
