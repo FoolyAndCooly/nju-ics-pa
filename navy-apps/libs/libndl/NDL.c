@@ -25,7 +25,7 @@ int NDL_PollEvent(char *buf, int len) {
   //printf("reach here\n");
   assert(fd);
   int ret=read(fd,(void*)buf,len);
-  printf("%s",buf);
+  //printf("%s",buf);
   close(fd);
   return ret;
   //return events_read(buf,0,len);
