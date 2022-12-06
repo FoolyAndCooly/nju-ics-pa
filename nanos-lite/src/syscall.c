@@ -97,11 +97,13 @@ void sys_lseek(Context* c){
 void sys_gettimeofday(Context* c){
 	printf("1\n");
 	struct timeval* tv = (struct timeval*)c->GPR2;
+	printf("2\n");
 	uint64_t us=io_read(AM_TIMER_UPTIME).us;
+	printf("3\n");
 	tv->tv_sec = us / 1000000;
 	tv->tv_usec = us % 1000000;
 	c->GPRx=0;
-	printf("2\n");
+	
 }
 void do_syscall(Context *c) {
   uintptr_t a[4];
