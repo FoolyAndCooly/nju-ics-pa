@@ -9,7 +9,7 @@ int main(){
     while( tv.tv_sec < sec) {;}
     //rtc = io_read(AM_TIMER_RTC);
     //printf("%d-%d-%d %02d:%02d:%02d GMT (", rtc.year, rtc.month, rtc.day, rtc.hour, rtc.minute, rtc.second);
-      printf("%d seconds).\n", sec);
+      printf("(%ld seconds).\n", tv.tv_sec);
     
     sec +=0.5;
   }
