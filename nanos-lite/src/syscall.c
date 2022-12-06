@@ -95,7 +95,7 @@ void sys_lseek(Context* c){
 #endif
 }
 void sys_gettimeofday(Context* c){
-	printf("1\n");
+	//printf("1\n");
 	struct timeval{
 	uint64_t tv_sec;
 	uint64_t tv_usec;

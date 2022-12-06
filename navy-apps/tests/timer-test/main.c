@@ -2,7 +2,7 @@
 #include <sys/time.h>
 int main(){
   //AM_TIMER_RTC_T rtc;
-  int sec = 0.5;
+  float sec = 0.5;
   struct timeval tv;
   while (1) {
     gettimeofday(&tv,NULL);
