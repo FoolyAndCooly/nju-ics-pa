@@ -1,6 +1,6 @@
 #include <common.h>
 #include "syscall.h"
-#include <sys/time.h>
+//#include <sys/time.h>
 //#define STRACE
 int fs_open(const char * ,int ,int);
 size_t fs_read(int ,void *, size_t );
@@ -96,6 +96,10 @@ void sys_lseek(Context* c){
 }
 void sys_gettimeofday(Context* c){
 	printf("1\n");
+	struct timeval{
+	uint64_t tv_sec;
+	uint64_t tv_usec;
+	};
 	struct timeval* tv = (struct timeval*)c->GPR2;
 	printf("2\n");
 	uint64_t us=io_read(AM_TIMER_UPTIME).us;
