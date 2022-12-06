@@ -21,11 +21,11 @@ struct timeval{
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  int fb=open("/dev/events",0);
+  int fd=open("/dev/events",0);
   //printf("reach here\n");
-  assert(fb);
-  int ret=read(fb,buf,len);
-  close(fb);
+  assert(fd);
+  int ret=read(fd,(void*)buf,len);
+  close(fd);
   return ret;
   //return events_read(buf,0,len);
 }
