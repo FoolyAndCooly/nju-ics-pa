@@ -101,6 +101,7 @@ void sys_gettimeofday(Context* c){
 	uint64_t us=io_read(AM_TIMER_UPTIME).us;
 	printf("3\n");
 	tv->tv_sec = us / 1000000;
+	printf("4\n");
 	tv->tv_usec = us % 1000000;
 	c->GPRx=0;
 	
