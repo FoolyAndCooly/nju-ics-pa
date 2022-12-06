@@ -20,7 +20,7 @@ struct timeval{
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  return 0;
+  return event_read(buf,0,len);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
