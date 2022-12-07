@@ -8,6 +8,7 @@ typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 size_t serial_write(const void *, size_t , size_t );
 size_t events_read(void *, size_t , size_t );
 size_t dispinfo_read(void *, size_t , size_t );
+size_t fb_write(const void *, size_t , size_t );
 
 typedef struct {
   char *name;
@@ -37,7 +38,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},
   [FD_EVENT]  = {"/dev/events", 0, 0, events_read, invalid_write},
   [FD_DISPINFO]   = {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
-  [FD_FB] = {"/dev/fb", 0, 0, invalid_read, invalid_write},
+  [FD_FB] = {"/dev/fb", 0, 0, invalid_read, fb_write},
 #include "files.h"
 };
 static int num=sizeof(file_table)/sizeof(Finfo);
