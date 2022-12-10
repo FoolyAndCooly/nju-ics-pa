@@ -4,7 +4,7 @@ int main(){
 fixedpt a = fixedpt_rconst(-1.2);
 fixedpt b = fixedpt_fromint(10);
 int c = 0;
-  c = fixedpt_toint(fixedpt_floor(a));
+  c = fixedpt_toint(fixedpt_ceil(a));
 
 printf("%d\n",c);
 }
