@@ -21,7 +21,9 @@ int SDL_WaitEvent(SDL_Event *event) {
   char* p=buf+3;
   while(1){
   NDL_PollEvent(buf,16);
+  printf("%s\n",p);
   if(*buf=='k' && *(buf+1)=='d'){
+  printf("get %s\n",p);
   event->type=SDL_KEYDOWN;
   if(strcmp(p,"DOWN")) event->key.keysym.sym=SDLK_DOWN;
   if(strcmp(p,"UP")) event->key.keysym.sym=SDLK_UP;
