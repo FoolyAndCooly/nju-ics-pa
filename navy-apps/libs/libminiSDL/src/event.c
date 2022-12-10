@@ -17,7 +17,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  char* buf=NULL;
+  char* buf=(char*)malloc(sizeof(char)*10);
   while(1){
   NDL_PollEvent(buf,2);
   if(*buf=='k' && *(buf++)=='d'){
