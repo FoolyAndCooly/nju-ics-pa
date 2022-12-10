@@ -18,10 +18,14 @@ int SDL_PollEvent(SDL_Event *ev) {
 
 int SDL_WaitEvent(SDL_Event *event) {
   char* buf=(char*)malloc(sizeof(char)*10);
+  char* p=buf+3;
   while(1){
-  NDL_PollEvent(buf,2);
-  if(*buf=='k' && *(buf++)=='d'){
-  event->type=SDL_KEYDOWN;break;
+  NDL_PollEvent(buf,16);
+  if(*buf=='k' && *(buf+1)=='d'){
+  event->type=SDL_KEYDOWN;
+  if(strcmp(p,"DOWN")) event->key.keysym.sym=SDLK_DOWN;
+  if(strcmp(p,"UP")) event->key.keysym.sym=SDLK_UP;
+  break;
   }
   }
   return 1;
