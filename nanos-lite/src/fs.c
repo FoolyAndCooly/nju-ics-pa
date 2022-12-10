@@ -57,7 +57,7 @@ size_t fs_read(int fd,void *buf, size_t len){
 	size_t t=0;
 	//printf("%d\n",fd);
 	//printf("into fs_read\n");
-	if(file_table[fd].read!=NULL){t=file_table[fd].read(buf,0,len);}
+	if(file_table[fd].read!=NULL)t=file_table[fd].write(buf,file_table[fd].open_offset,len);
 	//printf("shouldnot reach here\n");
 	size_t offset=file_table[fd].disk_offset+file_table[fd].open_offset;
 	if(t) return t;
