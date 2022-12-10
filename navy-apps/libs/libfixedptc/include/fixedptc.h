@@ -163,7 +163,7 @@ static inline fixedpt fixedpt_ceil(fixedpt A) {
 	if(A & 0xff){
 	A=(A>>8);
 	A=A<<8;
-	ret=A+1<<8;
+	ret=A+(1<<8);
 	}
 	return ret;
 }
