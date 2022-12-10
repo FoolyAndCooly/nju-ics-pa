@@ -34,8 +34,8 @@ int NDL_PollEvent(char *buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {
   printf("WIDTH : %d\nHEIGHT : %d\n",*w,*h);
-  //screen_w =*w;
-  //screen_h =*h;
+  screen_w =*w;
+  screen_h =*h;
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
@@ -59,10 +59,9 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 	printf("%d %d %d %d\n",x,y,w,h);
 	int fd=open("/dev/fb",0);
 	int h0=0,w0=0,y0=y,x0=x;
-	//printf("%x",*pixels);
 	for(;h0<h;h0++,y0++){
 	//printf("%d\n",screen_w);
-	//lseek(fd,(y0 - 1)*screen_w+x,SEEK_SET);
+	lseek(fd,(y0 - 1)*screen_w+x,SEEK_SET);
 	for(w0=0,x0=x;w0<w;w0++,x0++){
 	write(fd,pixels++,4);
 	//printf("%x\n",*pixels);
