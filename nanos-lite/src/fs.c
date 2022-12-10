@@ -44,13 +44,13 @@ static Finfo file_table[] __attribute__((used)) = {
 static int num=sizeof(file_table)/sizeof(Finfo);
 int fs_open(const char *pathname ,int flags ,int mode){
 	for(int i=0;i<num;i++){
-	printf("%s\n%s\n",pathname,file_table[i].name);
+	//printf("%s\n%s\n",pathname,file_table[i].name);
 	if(strcmp(pathname,file_table[i].name)==0){
 		file_table[i].open_offset=0;
 		return i;
 	}
 	}
-	printf("can't open %s\n",pathname);
+	//printf("can't open %s\n",pathname);
 	//assert(0);
 	return -1;	
 }
@@ -58,7 +58,7 @@ size_t fs_read(int fd,void *buf, size_t len){
 	size_t t=0;
 	//printf("%d\n",fd);
 	//printf("into fs_read\n");
-	if(file_table[fd].read!=NULL)t=file_table[fd].write(buf,file_table[fd].open_offset,len);
+	if(file_table[fd].read!=NULL)t=file_table[fd].read(buf,file_table[fd].open_offset,len);
 	//printf("shouldnot reach here\n");
 	size_t offset=file_table[fd].disk_offset+file_table[fd].open_offset;
 	if(t) return t;
