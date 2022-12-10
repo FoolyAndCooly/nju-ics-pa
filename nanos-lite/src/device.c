@@ -64,7 +64,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T t=io_read(AM_GPU_CONFIG);
   int* p=(int*)buf;
-  while(1){printf("%x\n",p++);}
+  while(1){printf("%x\n",*p++);}
   int off=offset/4;
   int x=off / t.width;
   int y=off % t.width;
