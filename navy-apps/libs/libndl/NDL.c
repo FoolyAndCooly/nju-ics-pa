@@ -7,7 +7,7 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
-
+static int W=400,H=300;
 //size_t events_read(void *, size_t , size_t );
 
 uint32_t NDL_GetTicks() {
@@ -56,7 +56,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-	printf("%d %d %d %d\n",x,y,w,h);
+	//printf("%d %d %d %d\n",x,y,w,h);
 	int fd=open("/dev/fb",0);
 	int h0=0,w0=0,y0=y,x0=x;
 	for(;h0<h;h0++,y0++){
@@ -65,7 +65,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 	write(fd,pixels++,4);
 	//printf("%x\n",*pixels);
 	}
-	lseek(fd,(400-w)*4,SEEK_CUR);
+	lseek(fd,(W-w)*4,SEEK_CUR);
 	}
 }
 

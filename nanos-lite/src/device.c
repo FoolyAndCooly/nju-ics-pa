@@ -68,8 +68,8 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   //while(1){printf("%x\n",*p++);}
   int off=offset/4;
   //printf("%d %d\n",len,off);
-  int x=off % t.width;
   int y=off / t.width;
+  int x=off - y*t.width;
   io_write(AM_GPU_FBDRAW,x,y,(void*)buf,len/4,1,true);
   //io_write(AM_GPU_FBDRAW,x,y,(void*)buf0,6,1,true);
   //printf("write  ok!\n");
