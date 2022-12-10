@@ -56,8 +56,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 	int fd=open("/dev/fb",0);
 	int h0=0,w0=0,y0=y,x0=x;
-	pixels+=100;
-	printf("%x",*pixels);
+	//printf("%x",*pixels);
 	for(;h0<h;h0++,y0++){
 	for(w0=0,x0=x;w0<w;w0++,x0++){
 	write(fd,pixels++,4);
