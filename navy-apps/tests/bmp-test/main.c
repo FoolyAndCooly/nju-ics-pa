@@ -8,7 +8,7 @@ int main() {
   NDL_Init(0);
   int w, h;
   void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
-  char* p=(int*)bmp;
+  int* p=(int*)bmp;
   assert(bmp);
   while(1){printf("%x\n",*p);p++;}
   /*//NDL_OpenCanvas(&w, &h);
