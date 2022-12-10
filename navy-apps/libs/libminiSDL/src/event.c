@@ -18,9 +18,11 @@ int SDL_PollEvent(SDL_Event *ev) {
 
 int SDL_WaitEvent(SDL_Event *event) {
   char* buf;
+  while(1){
   NDL_PollEvent(buf,2);
-  if(*buf='k' && *(buf++)='d'){
-  event->type=SDL_KEYDOWN;
+  if(*buf=='k' && *(buf++)=='d'){
+  event->type=SDL_KEYDOWN;break;
+  }
   }
   return 1;
 }
