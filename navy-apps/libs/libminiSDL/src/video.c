@@ -28,8 +28,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 printf("into\n");
   uint32_t dx,dy,dw,dh;
   printf("%d\n",dstrect);
-  if(dstrect=NULL){dw=dst->w;dh=dst->h;dx=0;dy=0;printf("NULL branch\n");}
-  else{dx=dstrect->x;dy=dstrect->y;dw=dstrect->w;dh=dstrect->h;printf("normal branch\n");}
+  if(dstrect==NULL){dw=dst->w;dh=dst->h;dx=0;dy=0;}
+  else{dx=dstrect->x;dy=dstrect->y;dw=dstrect->w;dh=dstrect->h;}
   printf("goto\n");
   uint32_t *q;
   //printf("goto1\n");
