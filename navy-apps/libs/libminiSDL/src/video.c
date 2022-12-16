@@ -9,9 +9,9 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   uint32_t sh,sw,sx,sy,dx,dy;
   if(srcrect==NULL){sh=src->h;sw=src->w;sx=0;sy=0;}
-  if(dstrect==NULL){dx=0;dy=0;}
+  else{sh=srcrect->h;sw=srcrect->w;sx=srcrect->x;sy=srcrect->y;}
+  if(dstrect==NULL){dx=0;dy=0;}else{dx=dstrect->x;dy=dstrect->y;}
   uint32_t *p,*q;
-  sh=srcrect->h;sw=srcrect->w;sx=srcrect->x;sy=srcrect->y;dx=dstrect->x;dy=dstrect->y;
   for(int i=0;i<sh;i++){
   p=(uint32_t*)src->pixels+sx+src->w * (sy+i);
   q=(uint32_t*)dst->pixels+dx+dst->w * (dy+i);
@@ -26,8 +26,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   uint32_t dx,dy,dw,dh;
-  if(dstrect=NULL){dw=dst->w;dh=dst->h;dx=0;dy=0;}
-   dx=dstrect->x;dy=dstrect->y;dw=dstrect->w;dh=dstrect->h;
+  if(dstrect=NULL){dw=dst->w;dh=dst->h;dx=0;dy=0;}else{
+   dx=dstrect->x;dy=dstrect->y;dw=dstrect->w;dh=dstrect->h;}
   //printf("goto\n");
   uint32_t *q;
   //printf("goto1\n");
