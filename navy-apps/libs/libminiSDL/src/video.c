@@ -17,7 +17,9 @@ printf("Bli\n");
   uint32_t *p,*q;
   for(int i=0;i<sh;i++){
   p=(uint32_t*)src->pixels+sx+src->w * (sy+i);
+  printf("%p\n",p);
   q=(uint32_t*)dst->pixels+dx+dst->w * (dy+i);
+  printf("%p\n",q);
 	for(int j=0;j<sw;j++){
 		*q=*p;
 		p++;
