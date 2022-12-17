@@ -75,8 +75,8 @@ int main(int argc, char *argv[], char *envp[]) {
   logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");
   assert(logo_sf);
   set_i_max();
-  SDL_FillRect(screen, NULL, 0x550055);
-printf("ritch here\n");
+  //SDL_FillRect(screen, NULL, 0x550055);
+//printf("ritch here\n");
   while (1) {
     display_menu(i_max);
 
