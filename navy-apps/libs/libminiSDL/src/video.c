@@ -13,6 +13,7 @@ printf("Bli\n");
   else{sh=srcrect->h;sw=srcrect->w;sx=srcrect->x;sy=srcrect->y;}
   printf("1\n");
   if(dstrect==NULL){dx=0;dy=0;}else{dx=dstrect->x;dy=dstrect->y;}
+  printf("2\n");
   uint32_t *p,*q;
   for(int i=0;i<sh;i++){
   p=(uint32_t*)src->pixels+sx+src->w * (sy+i);
@@ -22,8 +23,8 @@ printf("Bli\n");
 		p++;
 		q++;
 	}
-  
   }
+  printf("3\n");
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
