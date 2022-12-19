@@ -16,6 +16,7 @@ int SDL_PollEvent(SDL_Event *ev) {
   char* buf=(char*)malloc(sizeof(char)*10);
   char* p=buf+3;
   if(NDL_PollEvent(buf,16) == 0) return 0;
+  printf("%s",buf);
   if(*buf=='k' && *(buf+1)=='d'){
   ev->type=SDL_KEYDOWN;
   if(strcmp(p,"DOWN")){ ev->key.keysym.sym=SDLK_DOWN;printf("DOWN\n");}
