@@ -88,15 +88,23 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  void* buf=(void*)malloc(32*sizeof(char));
-  int a,b;
+  char buf[32]
+  int a,b,cnt;
+  char *p,*q;
   int fd=open("/proc/dispinfo",0);
   read(fd,buf,32);
   printf("%s",(char*)buf);
-  sscanf(buf,"WIDTH : %d\nHEIGHT : %d\n",&a,&b);
+  /*for(int i=0;i<32;i++){
+  if(buf[i]==' '){cnt++;
+  if(cnt==2)p=buf+i+1;
+  if(cnt==4)q=buf+i+1;
+  }
+  if(buf[i]=='\n')buf[i]=0;
+  }*/
+  sscanf("WIDTH : %d\nHEIGHT : %d\n ",&a,&b);
   screen_w=a;
   screen_h=b;
-  printf("WIDTH : %d\nHEIGHT : %d\n ",&a,&b);
+  printf("WIDTH : %d\nHEIGHT : %d\n ",a,b);
   return 0;
 }
 
