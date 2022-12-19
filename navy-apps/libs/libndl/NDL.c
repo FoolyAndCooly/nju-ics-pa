@@ -52,7 +52,8 @@ void NDL_OpenCanvas(int *w, int *h) {
     close(fbctl);
   }
   if(*h == 0 && *w == 0){
-  ;
+  *w=screen_w;
+  *h=screen_h;
   }
 }
 
@@ -93,7 +94,6 @@ int NDL_Init(uint32_t flags) {
   char *p,*q;
   int fd=open("/proc/dispinfo",0);
   read(fd,buf,32);
-  printf("%s",(char*)buf);
   for(int i=0;i<32;i++){
   if(buf[i]==' '){cnt++;
   if(cnt==2)p=buf+i+1;
