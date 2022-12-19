@@ -89,7 +89,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  char buf[32];
+  /*char buf[32];
   int cnt;
   char *p,*q;
   int fd=open("/proc/dispinfo",0);
@@ -103,7 +103,7 @@ int NDL_Init(uint32_t flags) {
   }
   screen_w=atoi(p);
   screen_h=atoi(q);
-  printf("WIDTH : %d\nHEIGHT : %d\n ",screen_w,screen_h);
+  printf("WIDTH : %d\nHEIGHT : %d\n ",screen_w,screen_h);*/
   return 0;
 }
 
