@@ -17,9 +17,9 @@ int SDL_PollEvent(SDL_Event *ev) {
   char* p=buf+3;
   if(NDL_PollEvent(buf,16) == 0) return 0;
   if(*buf=='k' && *(buf+1)=='d'){
-  event->type=SDL_KEYDOWN;
-  if(strcmp(p,"DOWN")) event->key.keysym.sym=SDLK_DOWN;
-  if(strcmp(p,"UP")) event->key.keysym.sym=SDLK_UP;
+  ev->type=SDL_KEYDOWN;
+  if(strcmp(p,"DOWN")) ev->key.keysym.sym=SDLK_DOWN;
+  if(strcmp(p,"UP")) ev->key.keysym.sym=SDLK_UP;
   }
   return 1;
 }
