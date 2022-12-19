@@ -32,9 +32,8 @@ int NDL_PollEvent(char *buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
-  printf("WIDTH : %d\nHEIGHT : %d\n",*w,*h);
-  screen_w =*w;
-  screen_h =*h;
+  //printf("WIDTH : %d\nHEIGHT : %d\n",*w,*h);
+  //screen_w = *w; screen_h = *h;
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
@@ -51,6 +50,9 @@ void NDL_OpenCanvas(int *w, int *h) {
       if (strcmp(buf, "mmap ok") == 0) break;
     }
     close(fbctl);
+  }
+  if(*h == 0 && *w == 0){
+  ;
   }
 }
 
@@ -86,6 +88,14 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  char buf[32];
+  int a,b;
+  int fd=open("/proc/dispinfo",0);
+  read(fd,buf,32);
+  sscanf(buf,"WIDTH : %d\nHEIGHT : %d\n",&a,&b);
+  screen_w=a;
+  screen_h=b;
+  printf("WIDTH : %d\nHEIGHT : %d\n",&a,&b);
   return 0;
 }
 

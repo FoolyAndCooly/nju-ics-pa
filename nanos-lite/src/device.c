@@ -51,7 +51,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T t=io_read(AM_GPU_CONFIG);
   char buf0[32]={0};
   char* p=buf0;
-  int len0=sprintf(p,"WIDTH : %d\n HEIGHT : %d\n",t.width,t.height);
+  int len0=sprintf(p,"WIDTH : %d\nHEIGHT : %d\n",t.width,t.height);
   if(len0 <= len) {strcpy(buf,buf0);return len0;}
   else{
   for(int i=0;i<len;i++){
