@@ -48,6 +48,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+printf("1\n");
   AM_GPU_CONFIG_T t=io_read(AM_GPU_CONFIG);
   char buf0[32]={0};
   char* p=buf0;
