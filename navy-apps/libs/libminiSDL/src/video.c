@@ -47,11 +47,18 @@ if(dst->format->BitsPerPixel==32){
   }
  }
 if(dst->format->BitsPerPixel==8){
+  uint32_t n=dst->format->palette->ncolors;
+  for(uint8_t index=0;index<n;index++){
+  if(dst->format->palette->colors[index].a == color & 0xff000000 &&
+  dst->format->palette->colors[index].r == color & 0x00ff0000 &&
+  dst->format->palette->colors[index].g == color & 0x0000ff00 &&
+  dst->format->palette->colors[index].b == color & 0x000000ff )break;
+  }
   uint8_t *q;
   for(int i=0;i<dh;i++){
   q=(uint8_t*)dst->pixels+dx+dst->w * (dy+i);
   	for(int j;j<dw;j++){
-  	*q++ = color;
+  	*q++ = index;
   	}
   }
 }
