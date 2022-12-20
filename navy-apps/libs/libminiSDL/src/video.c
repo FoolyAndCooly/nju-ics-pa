@@ -77,6 +77,7 @@ printf("Up\n");
   }
   if(s->format->BitsPerPixel==8){
   uint32_t* pixels = (uint32_t*)malloc(w*h*sizeof(uint32_t));
+    printf("here\n");
   for(int i=0;i<h;i++){
   	for(int j=0;j<w;j++){
   	uint32_t offset=j+x+(i+y) * s->w;
@@ -85,7 +86,6 @@ printf("Up\n");
   	pixels[j+i*w]=(a<<24)|(r<<16)|(g<<8)|b;
   	}
   }
-  printf("here\n");
   NDL_DrawRect(pixels, x, y, w, h);
   }
   
