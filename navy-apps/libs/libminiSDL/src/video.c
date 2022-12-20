@@ -21,7 +21,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 	}
   }
   }
-  if(dst->format->BitsPerPixel==8){
+  if(dst->format->BitsPerPixel==8){printf("here0\n");
   uint8_t *p,*q;
   for(int i=0;i<sh;i++){
   p=(uint8_t*)src->pixels+sx+src->w * (sy+i);
@@ -35,7 +35,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   uint32_t dx,dy,dw,dh;
-  printf("Fil\n");
   if(dstrect==NULL){dw=dst->w;dh=dst->h;dx=0;dy=0;}
   else{dx=dstrect->x;dy=dstrect->y;dw=dstrect->w;dh=dstrect->h;}
 if(dst->format->BitsPerPixel==32){
@@ -70,12 +69,12 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   w=s->w;
   h=s->h;
   }
-  printf("UpdateRect");
+  printf("UpdateRect\n");
   if(s->format->BitsPerPixel==32){
   uint32_t* pixels = (uint32_t*)s->pixels;
   NDL_DrawRect(pixels, x, y, w, h);
   }
-  if(s->format->BitsPerPixel==8){
+  if(s->format->BitsPerPixel==8){printf("here\n");
   uint32_t* pixels = (uint32_t*)malloc(w*h*sizeof(uint32_t));
   for(int i=0;i<h;i++){
   	for(int j=0;j<w;j++){
