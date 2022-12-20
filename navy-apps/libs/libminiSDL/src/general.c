@@ -23,5 +23,5 @@ printf("ShowCursor not suppote\n");
 }
 
 void SDL_WM_SetCaption(const char *title, const char *icon) {
-printf("WM_SetCaption not suppote\n");
+  
 }
