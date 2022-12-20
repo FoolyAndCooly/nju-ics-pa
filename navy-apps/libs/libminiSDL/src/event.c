@@ -40,6 +40,7 @@ printf("PeepEvent not suppote\n");
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
+printf("%p",numkeys);
   if(!numkeys){
   *numkeys=0;
   for(int i=0;i<83;i++){
