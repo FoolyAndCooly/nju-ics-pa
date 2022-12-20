@@ -17,5 +17,9 @@ uint32_t SDL_GetTicks() {
 }
 
 void SDL_Delay(uint32_t ms) {
-printf("Delay not suppote\n");
+uint32_t time=NDL_GetTicks();
+uint32_t now=time;
+while(now-time < ms){
+	now=NDL_GetTicks();
+}
 }
