@@ -83,7 +83,7 @@ printf("Up\n");
   	SDL_Color color=s->format->palette->colors[s->pixels[offset]];
   	uint32_t a=color.a,r=color.r,g=color.g,b=color.b;
   	pixels[j+i*w]=(a<<24)|(r<<16)|(g<<8)|b;
-  	printf("%x\n",pixels[j+i*w]);
+  	//printf("%x\n",pixels[j+i*w]);
   	}
   }
   NDL_DrawRect(pixels, x, y, w, h);
