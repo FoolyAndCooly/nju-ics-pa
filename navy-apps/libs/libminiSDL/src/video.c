@@ -85,6 +85,7 @@ printf("Up\n");
   	pixels[j+i*w]=(a<<24)|(r<<16)|(g<<8)|b;
   	}
   }
+  printf("here\n");
   NDL_DrawRect(pixels, x, y, w, h);
   }
   
