@@ -13,12 +13,15 @@ char *SDL_GetError() {
 }
 
 int SDL_SetError(const char* fmt, ...) {
+printf("SetError not suppote\n");
   return -1;
 }
 
 int SDL_ShowCursor(int toggle) {
+printf("ShowCursor not suppote\n");
   return 0;
 }
 
 void SDL_WM_SetCaption(const char *title, const char *icon) {
+printf("WM_SetCaption not suppote\n");
 }

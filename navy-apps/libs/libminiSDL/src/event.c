@@ -9,6 +9,7 @@ static const char *keyname[] = {
 };
 
 int SDL_PushEvent(SDL_Event *ev) {
+printf("PushEvent not suppote\n");
   return 0;
 }
 
@@ -31,9 +32,11 @@ int SDL_WaitEvent(SDL_Event *event) {
 }
 
 int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
+printf("PeepEvent not suppote\n");
   return 0;
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
+printf("GetKeyState not suppote\n");
   return NULL;
 }
