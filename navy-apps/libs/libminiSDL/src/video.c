@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {printf("Bil\n");
+void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {//printf("Bil\n");
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   uint32_t sh,sw,sx,sy,dx,dy;
@@ -35,7 +35,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   uint32_t dx,dy,dw,dh;
-  printf("Fil\n");
+  //printf("Fil\n");
   if(dstrect==NULL){dw=dst->w;dh=dst->h;dx=0;dy=0;}
   else{dx=dstrect->x;dy=dstrect->y;dw=dstrect->w;dh=dstrect->h;}
 if(dst->format->BitsPerPixel==32){
@@ -66,7 +66,7 @@ if(dst->format->BitsPerPixel==8){
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-printf("Up\n");
+//printf("Up\n");
   if(!x && !y && !w && !h){
   w=s->w;
   h=s->h;
