@@ -67,7 +67,6 @@ if(dst->format->BitsPerPixel==8){
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 printf("Up\n");
-  printf("%d",s->format->BitsPerPixel);
   if(!x && !y && !w && !h){
   w=s->w;
   h=s->h;
