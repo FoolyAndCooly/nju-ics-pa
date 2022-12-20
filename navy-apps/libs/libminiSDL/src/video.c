@@ -216,7 +216,7 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors, int firstcolor
       uint8_t g = colors[i].g;
       uint8_t b = colors[i].b;
     }
-    printf("setok\n");
+    //printf("setok\n");
     SDL_UpdateRect(s, 0, 0, 0, 0);
   }
 }
