@@ -18,8 +18,9 @@ int SDL_PollEvent(SDL_Event *ev) {
   char* p=buf+3;
   int n=sizeof(keyname)/sizeof(char*);
   if(NDL_PollEvent(buf,16) == 0) return 0;
-  if(*buf=='k' && *(buf+1)=='d'){
-  ev->type=SDL_KEYDOWN;
+  if(*buf=='k'){
+  if(*(buf+1)=='d')ev->type=SDL_KEYDOWN;
+  if(*(buf+1)=='u')ev->type=SDL_KEYUP;
   for(int i=0;i<n;i++){
   if(strcmp(p,keyname[i])){ ev->key.keysym.sym=i;break;}}
   }
