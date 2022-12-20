@@ -17,7 +17,8 @@ struct timeval{
 };
     struct timeval tv;
     gettimeofday(&tv,NULL);
-    return tv.tv_usec;
+    uint32_t val=tv.tv_sec*1000+tv.tv_usec/1000;
+    return val;
 }
 
 int NDL_PollEvent(char *buf, int len) {
