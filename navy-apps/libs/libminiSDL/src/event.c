@@ -2,7 +2,7 @@
 #include <SDL.h>
 
 #define keyname(k) #k,
-
+uint8_t keystate[83]={0};
 static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
@@ -17,14 +17,16 @@ int SDL_PollEvent(SDL_Event *ev) {
   char* buf=(char*)malloc(sizeof(char)*10);
   char* p=buf+3;
   int n=sizeof(keyname)/sizeof(char*);
+  int i=0;
   if(NDL_PollEvent(buf,16) == 0) return 0;
   if(*buf=='k'){
-  if(*(buf+1)=='d')ev->type=SDL_KEYDOWN;
-  if(*(buf+1)=='u')ev->type=SDL_KEYUP;
-  for(int i=0;i<n;i++){
-  if(strcmp(p,keyname[i])){ ev->key.keysym.sym=i;break;}}
+  for(i=0;i<n;i++){
+  if(strcmp(p,keyname[i])){ ev->key.keysym.sym=i;break;}
   }
+  if(*(buf+1)=='d'){ev->type=SDL_KEYDOWN;keystate[i]=1;}
+  if(*(buf+1)=='u'){ev->type=SDL_KEYUP;keystate[i]=0;}
   return 1;
+}
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
@@ -38,6 +40,9 @@ printf("PeepEvent not suppote\n");
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-printf("GetKeyState not suppote\n");
-  return NULL;
+  *numkeys=0;
+  for(int i=0;i<83;i++){
+  if(keystate[i]) (*numkeys)++;
+  } 
+  return keystate;
 }
