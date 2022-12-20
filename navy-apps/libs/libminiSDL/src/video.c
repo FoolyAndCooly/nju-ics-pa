@@ -81,10 +81,11 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   for(int i=0;i<h;i++){
   	for(int j=0;j<w;j++){
   	uint32_t offset=j+x+(i+y) * s->w;
-  	uint32_t a=s->format->palette->colors[offset].a;
-  	uint32_t r=s->format->palette->colors[offset].r;
-  	uint32_t g=s->format->palette->colors[offset].g;
-  	uint32_t b=s->format->palette->colors[offset].b;
+  	SDL_Color color=s->format->palette->colors[s->pixels[offset]];
+  	uint32_t a=color.a;
+  	uint32_t r=color.r;
+  	uint32_t g=color.g;
+  	uint32_t b=color.b;
   	pixels[j+i*w]=(a<<24)|(r<<16)|(g<<8)|b;
   	}
   }
