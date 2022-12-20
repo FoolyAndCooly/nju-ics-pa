@@ -71,13 +71,13 @@ printf("Up\n");
   w=s->w;
   h=s->h;
   }
+  printf("%d",s->format->BitsPerPixel);
   if(s->format->BitsPerPixel==32){
   uint32_t* pixels = (uint32_t*)s->pixels;
   NDL_DrawRect(pixels, x, y, w, h);
   }
   if(s->format->BitsPerPixel==8){
   uint32_t* pixels = (uint32_t*)malloc(w*h*sizeof(uint32_t));
-    printf("here\n");
   for(int i=0;i<h;i++){
   	for(int j=0;j<w;j++){
   	uint32_t offset=j+x+(i+y) * s->w;
