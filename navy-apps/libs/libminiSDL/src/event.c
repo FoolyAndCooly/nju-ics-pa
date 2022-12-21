@@ -2,11 +2,12 @@
 #include <SDL.h>
 
 #define keyname(k) #k,
-static uint8_t keystate[83]={0};
 static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
 };
+static int n=sizeof(keyname)/sizeof(char*);
+static uint8_t keystate[83]={0};
 
 int SDL_PushEvent(SDL_Event *ev) {
 printf("PushEvent not suppote\n");
@@ -16,7 +17,6 @@ printf("PushEvent not suppote\n");
 int SDL_PollEvent(SDL_Event *ev) {
   char* buf=(char*)malloc(sizeof(char)*10);
   char* p=buf+3;
-  int n=sizeof(keyname)/sizeof(char*);
   int i=0;
   if(NDL_PollEvent(buf,16) == 0) {free(buf);return 0;}
   if(*buf=='k'){
