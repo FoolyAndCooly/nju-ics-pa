@@ -26,7 +26,7 @@ static void sh_handle_cmd(const char *cmd) {
 	char buf[strlen(cmd)];
 	strcpy(buf,cmd);
 	strtok(buf,"\n");
-	if(!strcmp(cmd,"quit")) SDL_Quit();
+	if(!strcmp(buf,"quit")) SDL_Quit();
 	execve(buf,NULL,NULL);
 }
 
