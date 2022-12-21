@@ -21,7 +21,8 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   switch_boot_pcb();
-  naive_uload(NULL, NULL);
+  const char* filename="bin/menu";
+  naive_uload(NULL, filename);
   Log("Initializing processes...");
 
   // load program here
