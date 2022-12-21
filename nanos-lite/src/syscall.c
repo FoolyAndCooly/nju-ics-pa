@@ -1,5 +1,8 @@
 #include <common.h>
 #include "syscall.h"
+#include <proc.h>
+#include <elf.h>
+#include <fs.h>
 //#include <sys/time.h>
 //#define STRACE
 int fs_open(const char * ,int ,int);
@@ -7,6 +10,7 @@ size_t fs_read(int ,void *, size_t );
 size_t fs_write(int ,const void *, size_t);
 size_t fs_lseek(int ,size_t, int);
 int fs_close(int );
+void naive_uload(PCB *, const char *);
 /*enum {
   SYS_exit,
   SYS_yield,
@@ -108,6 +112,10 @@ void sys_gettimeofday(Context* c){
 	c->GPRx=0;
 	
 }
+void sys_execve(Context* c){
+	naive_uload(NULL,(const char *)c->GPR2);
+	c->GPRx=-1;
+}
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -121,7 +129,7 @@ void do_syscall(Context *c) {
     case SYS_lseek:sys_lseek(c);break;
     case SYS_brk:sys_brk(c);break;
     case SYS_gettimeofday:sys_gettimeofday(c);break;
-    
+    case SYS_execve:sys_execve(c);break;    
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
