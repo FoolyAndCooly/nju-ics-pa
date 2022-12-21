@@ -26,7 +26,8 @@ static void sh_handle_cmd(const char *cmd) {
 	char buf[strlen(cmd)];
 	strcpy(buf,cmd);
 	strtok(buf,"\n");
-	printf("%s\n",buf);
+	char* p=buf;
+	while(*p)printf("%c\n",*p++);
 	execve(buf,NULL,NULL);
 }
 
