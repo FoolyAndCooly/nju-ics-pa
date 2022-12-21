@@ -17,12 +17,11 @@ printf("PushEvent not suppote\n");
 int SDL_PollEvent(SDL_Event *ev) {
   char buf[16]={0};
   char* p=buf+3;
-  printf("%s",p);
   if(NDL_PollEvent(buf,16) == 0) {return 0;}
   if(*buf=='k'){
   for(int i=0;i<n;i++){
   printf("now %d\n",i);
-  if(strcmp(p,keyname[i])){
+  if(!strcmp(p,keyname[i])){
    ev->key.keysym.sym=i;printf("%d\n",i);
   if(*(buf+1)=='d'){ev->type=SDL_KEYDOWN;keystate[i]=1;}
   if(*(buf+1)=='u'){ev->type=SDL_KEYUP;keystate[i]=0;}
