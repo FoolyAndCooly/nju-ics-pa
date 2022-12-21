@@ -27,8 +27,8 @@ static void sh_handle_cmd(const char *cmd) {
 	strcpy(buf,cmd);
 	strtok(buf,"\n");
 	printf("%s\n",buf);
-	if(!strcmp(buf,"quit")) printf("here\n");SDL_Quit();
-	execve(buf,NULL,NULL);
+	if(!strcmp(buf,"quit")) {SDL_Quit();}
+	else{execve(buf,NULL,NULL);}
 }
 
 void builtin_sh_run() {
