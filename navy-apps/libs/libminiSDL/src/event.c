@@ -15,9 +15,10 @@ printf("PushEvent not suppote\n");
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  char* buf=(char*)malloc(sizeof(char)*10);
+  char buf[16]={0};
   char* p=buf+3;
-  if(NDL_PollEvent(buf,16) == 0) {free(buf);return 0;}
+  printf("%s",p);
+  if(NDL_PollEvent(buf,16) == 0) {return 0;}
   if(*buf=='k'){
   for(int i=0;i<n;i++){
   printf("now %d\n",i);
@@ -27,7 +28,6 @@ int SDL_PollEvent(SDL_Event *ev) {
   if(*(buf+1)=='u'){ev->type=SDL_KEYUP;keystate[i]=0;}
   break;}
   }
-  free(buf);
   return 1;
 }
 }
