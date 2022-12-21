@@ -128,8 +128,8 @@ void do_syscall(Context *c) {
     case SYS_close:sys_close(c);break;
     case SYS_lseek:sys_lseek(c);break;
     case SYS_brk:sys_brk(c);break;
-    case SYS_gettimeofday:sys_gettimeofday(c);break;
-    case SYS_execve:sys_execve(c);break;    
+    case SYS_execve:sys_execve(c);break; 
+    case SYS_gettimeofday:sys_gettimeofday(c);break;   
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
