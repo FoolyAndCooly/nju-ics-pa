@@ -21,11 +21,12 @@ int SDL_PollEvent(SDL_Event *ev) {
   if(NDL_PollEvent(buf,16) == 0) {free(buf);return 0;}
   if(*buf=='k'){
   for(i=0;i<n;i++){
-  if(strcmp(p,keyname[i])){ ev->key.keysym.sym=i;break;}
-  }
-  printf("%d\n",i);
+  if(strcmp(p,keyname[i])){
+   ev->key.keysym.sym=i;printf("%d\n",i);
   if(*(buf+1)=='d'){ev->type=SDL_KEYDOWN;keystate[i]=1;}
   if(*(buf+1)=='u'){ev->type=SDL_KEYUP;keystate[i]=0;}
+  break;}
+  }
   free(buf);
   return 1;
 }
