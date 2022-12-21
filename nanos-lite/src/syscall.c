@@ -48,7 +48,7 @@ void sys_exit(Context* c){
 	printf("exit\n");
 #endif
 	//halt(c->GPR2);
-	naive_uload(NULL, "/bin/menu");
+	naive_uload(NULL, "/bin/nterm");
         c->GPRx = c->GPR2;
 }
 void sys_write(Context* c){

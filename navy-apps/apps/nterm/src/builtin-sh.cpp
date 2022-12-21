@@ -28,13 +28,14 @@ static void sh_handle_cmd(const char *cmd) {
 	strtok(buf,"\n");
 	printf("%s\n",buf);
 	if(!strcmp(buf,"quit")) {SDL_Quit();}
-	else{execve(buf,NULL,NULL);}
+	char* argv[]={buf,NULL,NULL};
+	execvp(buf,argv);
 }
 
 void builtin_sh_run() {
   sh_banner();
   sh_prompt();
-
+  setenv("PATH", "/bin", 0);
   while (1) {
     SDL_Event ev;
     if (SDL_PollEvent(&ev)) {

@@ -21,7 +21,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   switch_boot_pcb();
-  const char* filename="/bin/menu";
+  const char* filename="/bin/nterm";
   naive_uload(NULL, filename);
   Log("Initializing processes...");
 
