@@ -2,7 +2,7 @@
 #include <SDL.h>
 
 #define keyname(k) #k,
-uint8_t keystate[83]={0};
+static uint8_t keystate[83]={0};
 static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
