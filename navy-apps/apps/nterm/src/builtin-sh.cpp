@@ -24,7 +24,7 @@ static void sh_prompt() {
 
 static void sh_handle_cmd(const char *cmd) {
 	printf("%s\n",cmd);
-	execve(cmd,NULL,NULL);
+	execve("/bin/bird",NULL,NULL);
 }
 
 void builtin_sh_run() {
