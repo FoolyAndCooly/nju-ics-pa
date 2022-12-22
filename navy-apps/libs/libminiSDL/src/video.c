@@ -27,12 +27,14 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   }
   if(dst->format->BitsPerPixel==8){
   uint8_t *p,*q;
+  p=(uint8_t*)src->pixels+sx+src->w*sy;
+  q=(uint8_t*)src->pixels+dx+dst->w*dy;
   for(int i=0;i<sh;i++){
-  p=(uint8_t*)src->pixels+sx+src->w * (sy+i);
-  q=(uint8_t*)dst->pixels+dx+dst->w * (dy+i);
 	for(int j=0;j<sw;j++){
 		*q++=*p++;
 	}
+  p+=src->w -sw;
+  q+=dst->w -sw;
   }
   }
 }
@@ -44,11 +46,13 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   else{dx=dstrect->x;dy=dstrect->y;dw=dstrect->w;dh=dstrect->h;}
 if(dst->format->BitsPerPixel==32){
   uint32_t *q;
+  q=(uint32_t*)dst->pixels+dx+dst->w * dy;
   for(int i=0;i<dh;i++){
-  q=(uint32_t*)dst->pixels+dx+dst->w * (dy+i);
+  //q=(uint32_t*)dst->pixels+dx+dst->w * (dy+i);
   	for(int j;j<dw;j++){
   	*q++ = color;
   	}
+  q+=dst->w - dw;
   }
  }
 if(dst->format->BitsPerPixel==8){
@@ -58,15 +62,16 @@ if(dst->format->BitsPerPixel==8){
   if(colour.a << 24 | colour.r << 16 | colour.g << 8 | colour.b == color)break;
   }
   uint8_t *q;
+  q=(uint8_t*)dst->pixels+dx+dst->w * dy;
   for(int i=0;i<dh;i++){
-  q=(uint8_t*)dst->pixels+dx+dst->w * (dy+i);
-  	for(int j=0;j<dw;j++){
-  	*q++ = index;
+  //q=(uint32_t*)dst->pixels+dx+dst->w * (dy+i);
+  	for(int j;j<dw;j++){
+  	*q++ = color;
   	}
+  q+=dst->w - dw;
   }
 }
 }
-
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 //printf("Up\n");
   if(!x && !y && !w && !h){
@@ -79,12 +84,14 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   if(s->format->BitsPerPixel==8){
   uint32_t* pixels = (uint32_t*)malloc(w*h*sizeof(uint32_t));
+  uint32_t* p=pixels;
   for(int i=0;i<h;i++){
   	for(int j=0;j<w;j++){
   	uint32_t offset=j+x+(i+y) * s->w;
   	SDL_Color color=s->format->palette->colors[s->pixels[offset]];
   	uint32_t a=color.a,r=color.r,g=color.g,b=color.b;
-  	pixels[j+i*w]=(a<<24)|(r<<16)|(g<<8)|b;
+  	//pixels[j+i*w]=(a<<24)|(r<<16)|(g<<8)|b;
+  	*p++=(a<<24)|(r<<16)|(g<<8)|b;
   	//printf("%x\n",pixels[j+i*w]);
   	}
   }
