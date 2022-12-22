@@ -23,6 +23,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 	}
   p+=src->w -sw;
   q+=dst->w -sw;
+  printf("%p %p\n",q,(uint32_t*)dst->pixels+dx+dst->w * (dy+i));
   }
   }
   if(dst->format->BitsPerPixel==8){
@@ -53,7 +54,6 @@ if(dst->format->BitsPerPixel==32){
   	*q++ = color;
   	}
   q+=dst->w - dw;
-  printf("%p %p\n",q,(uint32_t*)dst->pixels+dx+dst->w * (dy+i));
   }
  }
 if(dst->format->BitsPerPixel==8){
