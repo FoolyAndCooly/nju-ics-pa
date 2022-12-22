@@ -23,18 +23,12 @@ struct timeval{
 
 int NDL_PollEvent(char *buf, int len) {
   int fd=open("/dev/events",0);
-  //printf("%d",fd);
-  //printf("reach here\n");
   int ret=read(fd,(void*)buf,len);
-  //printf("%s",buf);
   close(fd);
   return ret;
-  //return events_read(buf,0,len);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
-  //printf("WIDTH : %d\nHEIGHT : %d\n",*w,*h);
-  //screen_w = *w; screen_h = *h;
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
@@ -59,14 +53,11 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-	//printf("%d %d %d %d\n",x,y,w,h);
 	int fd=open("/dev/fb",0);
 	int h0=0,w0=0,y0=y,x0=x;
 	for(;h0<h;h0++,y0++){
-	//printf("%d\n",screen_w);
 	for(w0=0,x0=x;w0<w;w0++,x0++){
 	write(fd,pixels++,4);
-	//printf("%x\n",*pixels);
 	}
 	lseek(fd,(W-w)*4,SEEK_CUR);
 	}

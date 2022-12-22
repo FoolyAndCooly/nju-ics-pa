@@ -50,7 +50,7 @@ int fs_open(const char *pathname ,int flags ,int mode){
 		return i;
 	}
 	}
-	//printf("can't open %s\n",pathname);
+	printf("can't open %s\n",pathname);
 	//assert(0);
 	return -1;	
 }

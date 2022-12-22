@@ -118,9 +118,7 @@ void sys_execve(Context* c){
 	c->GPRx=-1;
 }
 void do_syscall(Context *c) {
-  uintptr_t a[4];
-  a[0] = c->GPR1;
-  switch (a[0]) {
+  switch (c->GPR1) {
     case SYS_exit:sys_exit(c);break;
     case SYS_yield:sys_yield(c);break;
     case SYS_open:sys_open(c);break;
@@ -131,7 +129,7 @@ void do_syscall(Context *c) {
     case SYS_brk:sys_brk(c);break;
     case SYS_execve:sys_execve(c);break; 
     case SYS_gettimeofday:sys_gettimeofday(c);break;   
-    default: panic("Unhandled syscall ID = %d", a[0]);
+    default: panic("Unhandled syscall ID = %d", c->GPR1);
   }
 }
 
