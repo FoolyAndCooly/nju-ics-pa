@@ -29,7 +29,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   if(dst->format->BitsPerPixel==8){
   uint8_t *p,*q;
   p=(uint8_t*)src->pixels+sx+src->w*sy;
-  q=(uint8_t*)src->pixels+dx+dst->w*dy;
+  q=(uint8_t*)dst->pixels+dx+dst->w*dy;
   for(int i=0;i<sh;i++){
 	for(int j=0;j<sw;j++){
 		*q++=*p++;
@@ -74,7 +74,6 @@ if(dst->format->BitsPerPixel==8){
 }
 }
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-printf("Up\n");
   if(!x && !y && !w && !h){
   w=s->w;
   h=s->h;
