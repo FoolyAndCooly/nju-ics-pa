@@ -53,6 +53,7 @@ if(dst->format->BitsPerPixel==32){
   	*q++ = color;
   	}
   q+=dst->w - dw;
+  printf("%p %p\n",q,(uint32_t*)dst->pixels+dx+dst->w * (dy+i));
   }
  }
 if(dst->format->BitsPerPixel==8){
