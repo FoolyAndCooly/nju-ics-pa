@@ -28,7 +28,20 @@ void init_proc() {
   // load program here
 
 }
+void context_kload(PCB* pcb,void (*entry)(void *), void *arg){
+  Area area;
+  area.start=pcb->stack;
+  area.end=&pcb->stack[STACK_SIZE];
+  pcb->cp=kcontext(area,entry,arg); 
+}
 
 Context* schedule(Context *prev) {
-  return NULL;
+// save the context pointer
+current->cp = prev;
+
+// always select pcb[0] as the new process
+current = &pcb[0];
+
+// then return the new context
+return current->cp;
 }

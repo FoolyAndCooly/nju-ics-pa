@@ -5,6 +5,7 @@ static Context* do_event(Event e, Context* c) {
   switch (e.event) {
     case EVENT_YIELD:
     c->mepc+=4;
+    schedule(c);
     printf("trapped\n");
     break;
     case EVENT_SYSCALL:
