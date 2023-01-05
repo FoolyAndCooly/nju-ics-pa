@@ -21,10 +21,11 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  /*context_kload(&pcb[0], hello_fun, NULL);
-  switch_boot_pcb();*/
-  char* argv[2]={"/bin/exec-test",NULL};
-  printf("%s\n",argv[0]);
+  context_kload(&pcb[0], hello_fun, NULL);
+  context_kload(&pcb[0], hello_fun, (void*)1);
+  switch_boot_pcb();
+  //char* argv[2]={"/bin/exec-test",NULL};
+  //printf("%s\n",argv[0]);
   /*const char* filename="/bin/nterm";
   naive_uload(NULL, filename);*/
   Log("Initializing processes...");
@@ -44,8 +45,8 @@ Context* schedule(Context *prev) {
 current->cp = prev;
 
 // always select pcb[0] as the new process
-current = &pcb[0];
-
+//current = &pcb[0];
+current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 // then return the new context
 return current->cp;
 }
