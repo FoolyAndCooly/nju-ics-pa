@@ -20,9 +20,13 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  switch_boot_pcb();
-  const char* filename="/bin/nterm";
-  naive_uload(NULL, filename);
+  //switch_boot_pcb();
+  //const char* filename="/bin/nterm";
+  //naive_uload(NULL, filename);
+  char* str="/bin/exec";
+  printf("%p\n%s\n",str,str);
+  char* argv[2]={str,NULL};
+  printf("%p\n",argv[1]);
   Log("Initializing processes...");
 
   // load program here
