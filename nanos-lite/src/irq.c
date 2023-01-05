@@ -7,7 +7,7 @@ static Context* do_event(Event e, Context* c) {
     case EVENT_YIELD:
     c->mepc+=4;
     c=schedule(c);
-    printf("trapped\n");
+    //printf("trapped\n");
     break;
     case EVENT_SYSCALL:
     c->mepc+=4;
