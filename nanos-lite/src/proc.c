@@ -26,7 +26,7 @@ void init_proc() {
   char* str="/bin/exec";
   printf("%p\n%s\n",str,str);
   char* argv[2]={str,NULL};
-  printf("%p\n",argv[1]);
+  printf("%p\n",argv[0]);
   Log("Initializing processes...");
 
   // load program here
