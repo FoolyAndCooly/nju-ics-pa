@@ -2,6 +2,7 @@
 
 #define MAX_NR_PROC 4
 void naive_uload(PCB*, const char *);
+void context_kload(PCB* pcb,void (*entry)(void *), void *arg);
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
@@ -20,9 +21,10 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
+ context_kload(&pcb[0], hello_fun, NULL);
   switch_boot_pcb();
-  const char* filename="/bin/nterm";
-  naive_uload(NULL, filename);
+  /*const char* filename="/bin/nterm";
+  naive_uload(NULL, filename);*/
   Log("Initializing processes...");
 
   // load program here
