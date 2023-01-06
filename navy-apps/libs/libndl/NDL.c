@@ -87,6 +87,7 @@ int NDL_Init(uint32_t flags) {
   char *p,*q;
   int fd=open("/proc/dispinfo",0);
   read(fd,buf,32);
+  printf("1\n");
   for(int i=0;i<32;i++){
   if(buf[i]==' '){cnt++;
   if(cnt==2)p=buf+i+1;
