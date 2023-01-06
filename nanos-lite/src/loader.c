@@ -45,6 +45,7 @@ char* set_NULL(char* p){
 }
 
 void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]){
+  printf("uload\n");	
   Area area;
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
