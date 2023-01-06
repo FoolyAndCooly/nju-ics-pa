@@ -67,7 +67,9 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   p-=strlen(argv[i])+1;
   strcpy(p,argv[i]);
   args[i]=p;
+  printf("%s\n",args[i]);
   }
+  
   p=set_NULL(p);
   for(int i=envc-1;i>=0;i--){
   p-=int_size;
