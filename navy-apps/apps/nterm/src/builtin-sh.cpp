@@ -28,7 +28,9 @@ static void sh_handle_cmd(const char *cmd) {
 	strtok(buf,"\n");
 	printf("%s\n",buf);
 	if(!strcmp(buf,"quit")) {SDL_Quit();}
-	char* argv[]={buf,NULL,NULL};
+	char* p=buf;
+	while(*p++ !=' ');
+	char* argv[]={buf,p,NULL};
 	execvp(buf,argv);
 }
 
