@@ -40,7 +40,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 char* set_NULL(char* p){
   int int_size=sizeof(int);
   p-=int_size;
-  memset(p,0,int_size);
+  *(uint32_t*)p=0;
   return p;
 }
 
