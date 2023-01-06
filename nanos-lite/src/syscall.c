@@ -119,6 +119,7 @@ void sys_execve(Context* c){
 	//context_uload(current,"/bin/pal",NULL,NULL);
 	context_uload(current,(const char*)c->GPR2,(char**)c->GPR3,(char**)c->GPR4);
 	switch_boot_pcb();
+	yield();
 	c->GPRx=-1;
 }
 void do_syscall(Context *c) {
