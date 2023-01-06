@@ -77,12 +77,12 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   *(uint32_t*)p=(uint32_t)envs[i];
   }
   p=set_NULL(p);
-  assert(0);
+  
   for(int i=argc-1;i>=0;i--){
   p-=int_size;
   *(uint32_t*)p=(uint32_t)args[i];
   }
- 
+ assert(0);
   p-=int_size;
   *(uint32_t*)p=argc;
   pcb->cp->GPRx=(uintptr_t)p;
