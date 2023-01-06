@@ -26,11 +26,12 @@ static void sh_handle_cmd(const char *cmd) {
 	char buf[strlen(cmd)];
 	strcpy(buf,cmd);
 	strtok(buf,"\n");
-	printf("%s\n",buf);
+	//printf("%s\n",buf);
 	if(!strcmp(buf,"quit")) {SDL_Quit();}
 	char* p=buf;
 	while(*p++ !=' ');
 	strtok(buf," ");
+	printf("%s\n%s\n",buf,p);
 	char* argv[]={buf,p,NULL};
 	execvp(buf,argv);
 }
