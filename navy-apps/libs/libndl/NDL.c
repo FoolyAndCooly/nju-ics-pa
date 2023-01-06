@@ -86,7 +86,7 @@ int NDL_Init(uint32_t flags) {
   char *p,*q;
   int fd=open("/proc/dispinfo",0);
   read(fd,buf,32);
-  assert(0);
+  
   for(int i=0;i<32;i++){
   if(buf[i]==' '){cnt++;
   if(cnt==2)p=buf+i+1;
@@ -94,6 +94,7 @@ int NDL_Init(uint32_t flags) {
   }
   if(buf[i]=='\n')buf[i]=0;
   }
+  assert(0);
   screen_w=atoi(p);
   screen_h=atoi(q);
   printf("WIDTH : %d\nHEIGHT : %d\n ",screen_w,screen_h);
