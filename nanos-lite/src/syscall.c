@@ -11,6 +11,7 @@ size_t fs_write(int ,const void *, size_t);
 size_t fs_lseek(int ,size_t, int);
 int fs_close(int );
 void naive_uload(PCB *, const char *);
+void switch_boot_pcb();
 void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]);
 /*enum {
   SYS_exit,
@@ -116,6 +117,7 @@ void sys_gettimeofday(Context* c){
 void sys_execve(Context* c){
 	//printf("execve\n");
 	context_uload(current,(const char*)c->GPR2,(char**)c->GPR3,(char**)c->GPR4);
+	switch_boot_pcb();
 	c->GPRx=-1;
 }
 void do_syscall(Context *c) {
