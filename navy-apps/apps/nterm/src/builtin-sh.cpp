@@ -32,8 +32,8 @@ static void sh_handle_cmd(const char *cmd) {
 	while(*p++ !=' ');
 	strtok(buf," ");
 	printf("%s\n%s\n",buf,p);
-	char* argv[]={buf,NULL,NULL};
-	execvp(buf,argv);
+	char* argv[]={"/bin/pal",NULL,NULL};
+	execvp("/bin/pal",argv);
 }
 
 void builtin_sh_run() {
