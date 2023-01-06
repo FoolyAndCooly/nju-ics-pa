@@ -117,7 +117,7 @@ void sys_gettimeofday(Context* c){
 void sys_execve(Context* c){
 	//printf("execve\n");
 	//context_uload(current,"/bin/pal",NULL,NULL);
-	//printf("%s\n%p\n\n",c->GPR2,argv[1]);
+	printf("%s\n",c->GPR2);
 	context_uload(current,(const char*)c->GPR2,(char**)c->GPR3,(char**)c->GPR4);
 	switch_boot_pcb();
 	yield();
