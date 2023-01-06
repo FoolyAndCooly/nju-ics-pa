@@ -30,6 +30,7 @@ static void sh_handle_cmd(const char *cmd) {
 	if(!strcmp(buf,"quit")) {SDL_Quit();}
 	char* p=buf;
 	while(*p++ !=' ');
+	strtok(buf," ");
 	char* argv[]={buf,p,NULL};
 	execvp(buf,argv);
 }
