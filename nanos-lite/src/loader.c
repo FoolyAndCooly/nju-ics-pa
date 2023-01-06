@@ -49,9 +49,9 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   Area area;
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
-  void* entry=(void*)loader(pcb,filename);
   char** q=(char**)argv;
   if(argv!=NULL)printf("%p\n%s\n",q,*q);
+  void* entry=(void*)loader(pcb,filename);
   pcb->cp=ucontext(NULL,area,entry);
   char* p=new_page(8);
   int argc_count=0,envp_count=0;
