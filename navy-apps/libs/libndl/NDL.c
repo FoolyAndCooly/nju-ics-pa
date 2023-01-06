@@ -95,6 +95,7 @@ int NDL_Init(uint32_t flags) {
   }
   screen_w=atoi(p);
   screen_h=atoi(q);
+  assert(0);
   printf("WIDTH : %d\nHEIGHT : %d\n ",screen_w,screen_h);
   return 0;
 }
