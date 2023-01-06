@@ -36,13 +36,53 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //printf("%x\n",ehdr.e_entry);
   return ehdr.e_entry;
 }
-void context_uload(PCB* pcb ,char* filename){
+
+char* set_NULL(char* p){
+  int int_size=sizeof(int);
+  p-=int_size;
+  memset(p,0,int_size);
+  return p;
+}
+
+void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]){
   Area area;
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
   void* entry=(void*)loader(pcb,filename);
   pcb->cp=ucontext(NULL,area,entry);
-  pcb->cp->GPRx=(uintptr_t)heap.end;
+  char* p=heap.end;
+  int argc_count=0,envp_count=0;
+  if(argv != NULL){while(argv[argc_count++]);}else{argc_count=1;}
+  if(envp != NULL){while(envp[envp_count++]);}else{envp_count=1;}
+  int argc=--argc_count,envc=--envp_count;
+  char* args[argc],*envs[envc];
+  int int_size=sizeof(int);
+  for(int i=0;i<envc;i++){
+  p-=strlen(envp[i])+1;
+  strcpy(p,envp[i]);
+  envs[i]=p;
+  }
+  
+  for(int i=0;i<argc;i++){
+  p-=strlen(argv[i])+1;
+  strcpy(p,argv[i]);
+  args[i]=p;
+  }
+  p=set_NULL(p);
+  for(int i=envc-1;i>=0;i--){
+  p-=int_size;
+  *(uint32_t*)p=(uint32_t)envs[i];
+  }
+  p=set_NULL(p);
+  
+  for(int i=argc-1;i>=0;i--){
+  p-=int_size;
+  *(uint32_t*)p=(uint32_t)args[i];
+  }
+  p-=int_size;
+  *(uint32_t*)p=argc;
+  
+  pcb->cp->GPRx=(uintptr_t)p;
 }
 void naive_uload(PCB *pcb, const char *filename) {
   //printf("%s\n",filename);

@@ -3,7 +3,7 @@
 #define MAX_NR_PROC 4
 void naive_uload(PCB*, const char *);
 void context_kload(PCB* pcb,void (*entry)(void *), void *arg);
-void context_uload(PCB* pcb ,char* filename);
+void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]);
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
@@ -22,11 +22,11 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  //context_kload(&pcb[0], hello_fun, NULL);
-  //context_uload(&pcb[1], "/bin/pal");
+  context_kload(&pcb[0], hello_fun, NULL);
+  char* argv[3]={"--skip",NULL,NULL};
+  context_uload(&pcb[1], "/bin/pal",argv,NULL);
   switch_boot_pcb();
-  char* argv[2]={"/bin/exec-test",NULL};
-  printf("%s\n",argv[0]);
+  //printf("%s\n",argv[0]);
   /*const char* filename="/bin/nterm";
   naive_uload(NULL, filename);*/
   Log("Initializing processes...");
