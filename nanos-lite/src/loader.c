@@ -11,8 +11,9 @@
 #endif
 size_t ramdisk_read(void* , size_t , size_t );
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
-static uintptr_t loader(PCB *pcb, const char *filename) {
+static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   //TODO();
+  printf("%p\n%s\n",q,*q);
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
   uint32_t phoff;
@@ -46,14 +47,12 @@ char* set_NULL(char* p){
 
 void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]){
   printf("uload\n");
-  uint32_t ps=0x81e49f78;
-  printf("%s\n",(char*)ps);
   Area area;
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
-  //char** q=(char**)argv;
+  char** q=(char**)argv;
   //if(argv!=NULL)printf("%p\n%s\n",q,*q);
-  void* entry=(void*)loader(pcb,filename);//here
+  void* entry=(void*)loader(pcb,filename,q);//here
   pcb->cp=ucontext(NULL,area,entry);
   char* p=new_page(8);
   int argc_count=0,envp_count=0;
@@ -94,8 +93,8 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
 }
 void naive_uload(PCB *pcb, const char *filename) {
   //printf("%s\n",filename);
-  uintptr_t entry = loader(pcb,filename);
-  Log("Jump to entry = %p", entry);
-  ((void(*)())entry) ();
+  //uintptr_t entry = loader(pcb,filename);
+  //Log("Jump to entry = %p", entry);
+  //((void(*)())entry) ();
 }
 
