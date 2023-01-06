@@ -23,8 +23,8 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   context_kload(&pcb[0], hello_fun, NULL);
-  char* argv[3]={"--skip",NULL,NULL};
-  context_uload(&pcb[1], "/bin/pal",argv,NULL);
+  char* argv[]={"/bin/exec-test",NULL,NULL};
+  context_uload(&pcb[1], "/bin/exec-test",argv,NULL);
   switch_boot_pcb();
   //printf("%s\n",argv[0]);
   /*const char* filename="/bin/nterm";

@@ -11,6 +11,7 @@ size_t fs_write(int ,const void *, size_t);
 size_t fs_lseek(int ,size_t, int);
 int fs_close(int );
 void naive_uload(PCB *, const char *);
+void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]);
 /*enum {
   SYS_exit,
   SYS_yield,
@@ -114,7 +115,7 @@ void sys_gettimeofday(Context* c){
 	
 }
 void sys_execve(Context* c){
-	naive_uload(NULL,(const char *)c->GPR2);
+	context_uload(current,(const char*)c->GPR2,(char**)c->GPR3,(char**)c->GPR4);
 	c->GPRx=-1;
 }
 void do_syscall(Context *c) {
