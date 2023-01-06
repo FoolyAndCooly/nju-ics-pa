@@ -114,7 +114,7 @@ void sys_gettimeofday(Context* c){
 	
 }
 void sys_execve(Context* c){
-	printf("execve\n");
+	//printf("execve\n");
 	context_uload(current,(const char*)c->GPR2,(char**)c->GPR3,(char**)c->GPR4);
 	c->GPRx=-1;
 }
