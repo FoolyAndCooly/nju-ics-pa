@@ -82,7 +82,7 @@ int NDL_Init(uint32_t flags) {
     evtdev = 3;
   }
   char buf[32];
-  int cnt;
+  int cnt=0;
   char *p,*q;
   int fd=open("/proc/dispinfo",0);
   read(fd,buf,32);
@@ -94,6 +94,7 @@ int NDL_Init(uint32_t flags) {
   }
   if(buf[i]=='\n')buf[i]=0;
   }
+  printf("%s\n%s\n",p,q);
   screen_w=atoi(p);
   screen_h=atoi(q);
   assert(0);
