@@ -92,7 +92,7 @@ int NDL_Init(uint32_t flags) {
   if(cnt==2)p=buf+i+1;
   if(cnt==4)q=buf+i+1;
   }
-  printf("2\n");
+  assert(0);
   if(buf[i]=='\n')buf[i]=0;
   }
   screen_w=atoi(p);
