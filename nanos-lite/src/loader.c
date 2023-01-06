@@ -62,7 +62,7 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   strcpy(p,envp[i]);
   envs[i]=p;
   }
-
+  printf("%d\n",argc);
   for(int i=0;i<argc;i++){
   p-=strlen(argv[i])+1;
   strcpy(p,argv[i]);
