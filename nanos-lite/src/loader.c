@@ -22,6 +22,7 @@ static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
    assert(*(uint32_t*)ehdr.e_ident == 0x464c457f);
+  if(q!=NULL)printf("%p\n%s\n",q,*q);
   for(int i=0;i<ehdr.e_phnum;i++){
   phoff=i*ehdr.e_phentsize+ehdr.e_phoff;
   //ramdisk_read(&phdr,phoff,sizeof(Elf_Phdr));
@@ -31,10 +32,10 @@ static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
   fs_lseek(fd,phdr.p_offset,SEEK_SET);
   fs_read(fd,(void*)phdr.p_vaddr,phdr.p_filesz);
-  if(q!=NULL)printf("%p\n%s\n",q,*q);
   memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
   }
-  } //buggy?
+  }
+    if(q!=NULL)printf("%p\n%s\n",q,*q); //buggy?
   //printf("%x\n",ehdr.e_entry);
   return ehdr.e_entry;
 }
