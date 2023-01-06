@@ -54,7 +54,7 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   char* p=new_page(8);
   int argc_count=0,envp_count=0;
   char** q=(char**)argv;
-  if(argv!=NULL)printf("%s\n%p\n",*q,argv[1]);
+  if(argv!=NULL)printf("%p\n%x\n",q,*q);
   if(argv != NULL){while(argv[argc_count++]);}else{argc_count=1;}
   if(envp != NULL){while(envp[envp_count++]);}else{envp_count=1;}
   int argc=--argc_count,envc=--envp_count;
