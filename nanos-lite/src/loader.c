@@ -13,7 +13,7 @@ size_t ramdisk_read(void* , size_t , size_t );
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
 static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   //TODO();
-  printf("%p\n%s\n",q,*q);
+  if(q!=NULL)printf("%p\n%s\n",q,*q);
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
   uint32_t phoff;
