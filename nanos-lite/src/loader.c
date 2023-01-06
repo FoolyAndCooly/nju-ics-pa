@@ -13,7 +13,7 @@ size_t ramdisk_read(void* , size_t , size_t );
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
 static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   //TODO();
-  if(q!=NULL)printf("%p\n%s\n",q,*q);
+  
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
   uint32_t phoff;
@@ -31,6 +31,7 @@ static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
   fs_lseek(fd,phdr.p_offset,SEEK_SET);
   fs_read(fd,(void*)phdr.p_vaddr,phdr.p_filesz);
+  if(q!=NULL)printf("%p\n%s\n",q,*q);
   memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
   }
   } //buggy?
