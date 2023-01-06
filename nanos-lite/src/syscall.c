@@ -49,8 +49,6 @@ void sys_exit(Context* c){
 	printf("exit\n");
 #endif
 	//halt(c->GPR2);
-	  char* argv[]={"/bin/exec-test",NULL,NULL};
-  context_uload(current, "/bin/exec-test",argv,NULL);
         c->GPRx = c->GPR2;
 }
 void sys_write(Context* c){
