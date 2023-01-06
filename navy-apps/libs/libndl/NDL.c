@@ -94,10 +94,10 @@ int NDL_Init(uint32_t flags) {
   }
   if(buf[i]=='\n')buf[i]=0;
   }
-  printf("%s\n%s\n",p,q);
+  //printf("%s\n%s\n",p,q);
   screen_w=atoi(p);
   screen_h=atoi(q);
-  assert(0);
+  //assert(0);
   printf("WIDTH : %d\nHEIGHT : %d\n ",screen_w,screen_h);
   return 0;
 }
