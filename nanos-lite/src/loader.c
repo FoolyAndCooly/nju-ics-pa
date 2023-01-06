@@ -53,6 +53,7 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   pcb->cp=ucontext(NULL,area,entry);
   char* p=new_page(8);
   int argc_count=0,envp_count=0;
+  printf("%p\n%p\n",argv,envp);
   if(argv != NULL){while(argv[argc_count++]);}else{argc_count=1;}
   if(envp != NULL){while(envp[envp_count++]);}else{envp_count=1;}
   int argc=--argc_count,envc=--envp_count;
