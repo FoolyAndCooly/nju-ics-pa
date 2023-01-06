@@ -13,8 +13,6 @@ size_t ramdisk_read(void* , size_t , size_t );
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  char* p=(char*)0x81e49f78;
-  printf("%s\n",p);
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
   uint32_t phoff;
@@ -48,6 +46,8 @@ char* set_NULL(char* p){
 
 void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]){
   printf("uload\n");
+  uint32_t ps=0x81e49f78;
+  printf("%s\n",(char*)ps);
   Area area;
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
