@@ -29,14 +29,16 @@ static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   fs_lseek(fd,phoff,SEEK_SET);
 
   fs_read(fd,&phdr,sizeof(Elf_Phdr));
-  if(q!=NULL)printf("%p\n%s\n",q,*q);
+  
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
+  if(q!=NULL)printf("%p\n%s\n",q,*q);
   fs_lseek(fd,phdr.p_offset,SEEK_SET);
   fs_read(fd,(void*)phdr.p_vaddr,phdr.p_filesz);
   memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
-  }
   if(q!=NULL)printf("%p\n%s\n\n",q,*q);
+  }
+  
   }
   //buggy?
   //printf("%x\n",ehdr.e_entry);
