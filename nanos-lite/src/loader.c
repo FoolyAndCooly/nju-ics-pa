@@ -10,6 +10,7 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 size_t ramdisk_read(void* , size_t , size_t );
+Context *ucontext(AddrSpace *as, Area kstack, void *entry);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   Elf_Ehdr ehdr;
@@ -35,7 +36,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //printf("%x\n",ehdr.e_entry);
   return ehdr.e_entry;
 }
-
+void context_uload(PCB* pcb ,char* filename){
+  Area area;
+  area.start=pcb->stack;
+  area.end=&pcb->stack[STACK_SIZE];
+  void* entry=(void*)loader(pcb,filename);
+  pcb->cp=ucontext(NULL,area,entry);
+}
 void naive_uload(PCB *pcb, const char *filename) {
   //printf("%s\n",filename);
   uintptr_t entry = loader(pcb,filename);
