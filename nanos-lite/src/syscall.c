@@ -119,6 +119,8 @@ void sys_execve(Context* c){
 	//context_uload(current,"/bin/pal",NULL,NULL);
 	//char** p=(char**)c->GPR3;
 	//printf("%p\n%s\n",p,(uintptr_t)*p);
+	int fd=fs_open((const char *)c->GPR2,0,0);
+	if(fd<0){c->GPRx=-2;return;}
 	context_uload(current,(const char*)c->GPR2,(char**)c->GPR3,(char**)c->GPR4);
 	switch_boot_pcb();
 	yield();
