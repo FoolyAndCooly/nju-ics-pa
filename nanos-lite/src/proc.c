@@ -24,7 +24,7 @@ void hello_fun(void *arg) {
 void init_proc() {
   context_kload(&pcb[0], hello_fun, NULL);
   //char* argv[]={"--skip",NULL};
-  context_uload(&pcb[1], "/bin/busybox",NULL,NULL);
+  context_uload(&pcb[1], "/bin/nterm",NULL,NULL);
   switch_boot_pcb();
   //printf("%s\n",argv[0]);
   //const char* filename="/bin/nterm";
