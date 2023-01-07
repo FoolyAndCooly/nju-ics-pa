@@ -33,7 +33,7 @@ static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
   fs_lseek(fd,phdr.p_offset,SEEK_SET);
-  if(q!=NULL)printf("%p\n%s\n%p\n%x\n",q,*q,(void*)phdr.p_vaddr,phdr.p_filesz);
+  if(q!=NULL)printf("%p\n%s\n%p\n%x\n",*q,*q,(void*)phdr.p_vaddr,phdr.p_filesz);
   fs_read(fd,(void*)phdr.p_vaddr,phdr.p_filesz);//here is wrong
   //if(q!=NULL)printf("%p\n%s\n\n",q,*q);
   memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
@@ -59,7 +59,7 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
   char** q=(char**)argv;
-  if(argv!=NULL)printf("%p\n%s\n",*q,*q);
+  //if(argv!=NULL)printf("%p\n%s\n",*q,*q);
   void* entry=(void*)loader(pcb,filename,q);//here
   pcb->cp=ucontext(NULL,area,entry);
   char* p=new_page(8);
