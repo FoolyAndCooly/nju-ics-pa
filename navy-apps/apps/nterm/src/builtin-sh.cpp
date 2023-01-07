@@ -32,7 +32,7 @@ static void sh_handle_cmd(const char *cmd) {
 	while(*p++ !=' ');
 	strtok(buf," ");
 	printf("%s\n%s\n",buf,p);
-	char* argv[]={"/bin/pal",NULL,NULL};
+	char* argv[]={NULL,NULL,NULL};
 	execvp("/bin/pal",argv);
 }
 
