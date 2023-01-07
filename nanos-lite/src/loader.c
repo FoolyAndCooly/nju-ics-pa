@@ -61,7 +61,7 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   char** q=(char**)argv;
   //if(argv!=NULL)printf("%p\n%s\n",*q,*q);
   void* entry=(void*)loader(pcb,filename,q);//here
-  printf("get entry%p\n",entry);
+  printf("get entry %p\n",entry);
   pcb->cp=ucontext(NULL,area,entry);
   char* p=new_page(8);
   int argc_count=0,envp_count=0;
