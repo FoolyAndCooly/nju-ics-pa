@@ -11,7 +11,7 @@
 #endif
 size_t ramdisk_read(void* , size_t , size_t );
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
-static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
+static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   
   Elf_Ehdr ehdr;
@@ -22,7 +22,6 @@ static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
    assert(*(uint32_t*)ehdr.e_ident == 0x464c457f);
-  //if(q!=NULL)printf("%p\n%s\n",q,*q);
   for(int i=0;i<ehdr.e_phnum;i++){
   phoff=i*ehdr.e_phentsize+ehdr.e_phoff;
   //ramdisk_read(&phdr,phoff,sizeof(Elf_Phdr));
@@ -33,9 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename,char** q) {
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
   fs_lseek(fd,phdr.p_offset,SEEK_SET);
-  if(q!=NULL)printf("%p\n%s\n%p\n%x\n",*q,*q,(void*)phdr.p_vaddr,phdr.p_filesz);
   fs_read(fd,(void*)phdr.p_vaddr,phdr.p_filesz);//here is wrong
-  //if(q!=NULL)printf("%p\n%s\n\n",q,*q);
   memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
   
   }
@@ -58,11 +55,6 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   Area area;
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
-  char** q=(char**)argv;
-  //if(argv!=NULL)printf("%p\n%s\n",*q,*q);
-  void* entry=(void*)loader(pcb,filename,q);//here
-  printf("get entry %p\n",entry);
-  pcb->cp=ucontext(NULL,area,entry);
   char* p=new_page(8);
   int argc_count=0,envp_count=0;
   if(argv != NULL){while(argv[argc_count++]);}else{argc_count=1;}
@@ -79,10 +71,9 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   for(int i=0;i<argc;i++){
   p-=strlen(argv[i])+1;
   strcpy(p,argv[i]);
-  args[i]=p;
+  args[i]=p;}
   //printf("send %s to stack\n",args[i]);
-  }
-  
+ 
   p=set_NULL(p);
   //printf("%s\n",args[0]);
   for(int i=envc-1;i>=0;i--){
@@ -98,6 +89,8 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
 
   p-=int_size;
   *(uint32_t*)p=argc;
+  void* entry=(void*)loader(pcb,filename);
+  pcb->cp=ucontext(NULL,area,entry);
   pcb->cp->GPRx=(uintptr_t)p;
 }
 void naive_uload(PCB *pcb, const char *filename) {
