@@ -58,13 +58,12 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   char* p=new_page(8);
   if(argv!=NULL && envp!=NULL)printf("%x\n%s\n",argv[1],*envp);
   int argc_count=0,envp_count=0;
-  if(argv != NULL){while(argv[argc_count++]!=0)printf("%s\n",argv[argc_count-1]);}else{argc_count=1;}
-  printf("%x\n",argc_count);
+  if(argv != NULL){while(argv[argc_count++]!=0);}else{argc_count=1;}
   if(envp != NULL){while(envp[envp_count++]!=0);}else{envp_count=1;}
   int argc=--argc_count,envc=--envp_count;
   char* args[argc],*envs[envc];
   int int_size=sizeof(int);
-  printf("%d\n%d\n",argv,envp);
+  printf("%d\n%d\n",argc,envc);
   for(int i=0;i<envc;i++){
   p-=strlen(envp[i])+1;
   strcpy(p,envp[i]);
