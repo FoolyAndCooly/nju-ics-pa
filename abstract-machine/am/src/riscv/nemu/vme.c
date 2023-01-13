@@ -68,7 +68,8 @@ void __am_switch(Context *c) {
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
   uintptr_t vpn1=(uintptr_t)va>>22,vpn0=((uintptr_t)va>>12)&0x3ff;
-  uintptr_t* pte_p=(uintptr_t*)as->ptr+vpn1;
+  uintptr_t* a=(uintptr_t*)as->ptr;
+  uintptr_t* pte_p=a+vpn1;
   if(*pte_p == 0) *pte_p=(uintptr_t)pgalloc_usr(PGSIZE);
   uintptr_t* leafpte_p=(uintptr_t*)*(pte_p + vpn0);
   if(*leafpte_p == 0) *leafpte_p=((uintptr_t)pa & ~0x3ff) | prot | PTE_V;
