@@ -46,7 +46,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       uintptr_t offset = phdr.p_vaddr & 0xfff; 
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
       fs_read(fd, pa-num*PGSIZE + offset, phdr.p_filesz);
-      printf("%x %x\n",va,va_end);
+      printf("%x %x\n",va-num*PGSIZE,va_end);
   }
   
   }
