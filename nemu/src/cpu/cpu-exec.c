@@ -27,7 +27,7 @@
 void isa_exec_once1(Decode* s);
 int isa_exec_once2(Decode* s);
 
-CPU_state cpu = {{},0,{0,0x1800,0,0,0},{}};
+CPU_state cpu = {{},0,{0,0x1800,0,0,0},0,{}};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
@@ -108,6 +108,9 @@ static void execute(uint64_t n) {
 	//IFDEF(CONFIG_ITRACE,iring_display());
     break;}
     IFDEF(CONFIG_DEVICE, device_update());
+    word_t intr = isa_query_intr();
+    if (intr != INTR_EMPTY) {cpu.pc = isa_raise_intr(intr, cpu.pc);}
+
   }
 }
 

@@ -18,7 +18,10 @@ __am_get_cur_as(c);
       ev.event = EVENT_YIELD;
       }
       break;
-      
+      case 0X80000007:
+        ev.event = EVENT_IRQ_TIMER;
+        printf("EVENT_IRQ_TIMER\n");
+        break;
       default: ev.event = EVENT_ERROR; break;
     }
 
@@ -44,7 +47,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context* context=kstack.end-sizeof(Context);
   context->mepc = (uintptr_t)entry;
-  context->mstatus = 0x1800;
+  context->mstatus = 0x1880;
   context->mcause = 0xb;
   context->GPRx=(uintptr_t)arg;
   context->pdir=NULL;

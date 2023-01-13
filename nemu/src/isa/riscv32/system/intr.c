@@ -14,16 +14,23 @@
 ***************************************************************************************/
 
 #include <isa.h>
-
+#define IRQ_TIMER 0x80000007
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
   cpu.csr.mepc = epc;
   cpu.csr.mcause = NO;
+  if ((cpu.csr.mstatus & 0x8) != 0) {cpu.csr.mstatus |= 0x80;}
+  else{cpu.csr.mstatus &= ~0x80;}
+  cpu.csr.mstatus &= ~0x8;
   return cpu.csr.mtvec;
 }
 
 word_t isa_query_intr() {
+ if (cpu.INTR == true && ((cpu.csr.mstatus & 0x8) != 0)) {
+    cpu.INTR = false;
+    return IRQ_TIMER;
+  }
   return INTR_EMPTY;
 }
