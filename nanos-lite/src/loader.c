@@ -86,39 +86,30 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   for(int i=0;i<envc;i++){
   len=strlen(envp[i])+1;
   p-=len;
-  //v-=len;
   strcpy(p,envp[i]);
   envs[i]=p;
   }
   for(int i=0;i<argc;i++){
   len=strlen(argv[i])+1;
   p-=len;
-  //v-=len;
   strcpy(p,argv[i]);
   args[i]=p;}
-  //printf("send %s to stack\n",args[i]);
  
-  //v-=int_size;
   p-=int_size;
   *(uint32_t*)p=0;
-  //printf("%s\n",args[0]);
   for(int i=envc-1;i>=0;i--){
   p-=int_size;
-  //v-=int_size;
   *(uint32_t*)p=(uint32_t)envs[i];
   }
-  //v-=int_size;
   p-=int_size;
   *(uint32_t*)p=0;
   
   for(int i=argc-1;i>=0;i--){
   p-=int_size;
-  //v-=int_size;
   *(uint32_t*)p=(uint32_t)args[i];
   }
 
   p-=int_size;
-  //v-=int_size;
   *(uint32_t*)p=argc;
 
   pcb->cp->GPRx=(uintptr_t)p;
