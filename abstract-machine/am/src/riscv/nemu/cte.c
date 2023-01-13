@@ -12,7 +12,7 @@ __am_get_cur_as(c);
     switch (c->mcause) {
       case 0xb:
       //printf("handle %d\n",c->GPR1);
-      if ((int)c->GPR1 > 0 ) {
+      if ((int)c->GPR1 >= 0 ) {
           ev.event = EVENT_SYSCALL;
       }else{
       ev.event = EVENT_YIELD;
