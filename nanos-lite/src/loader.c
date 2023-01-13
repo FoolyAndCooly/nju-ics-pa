@@ -32,7 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
-      uintptr_t va =  phdr.p_vaddr & (~0xfff); // clear low 12 bit, first page
+      uintptr_t va =  phdr.p_vaddr; // clear low 12 bit, first page
       uintptr_t va_end = (phdr.p_vaddr + phdr.p_memsz - 1) & (~0xfff);
       int num = ((va_end - va) >> 12)+1;
       void* pa = new_page(num);
