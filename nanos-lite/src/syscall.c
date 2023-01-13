@@ -12,6 +12,7 @@ size_t fs_lseek(int ,size_t, int);
 int fs_close(int );
 void naive_uload(PCB *, const char *);
 void switch_boot_pcb();
+int mm_brk(uintptr_t brk);
 void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]);
 /*enum {
   SYS_exit,
@@ -70,7 +71,7 @@ void sys_write(Context* c){
 }
 void sys_brk(Context *c){
 	//brk(c->GPR2);
-	c->GPRx=0;
+	c->GPRx=mm_brk(c->GPR2);
 #ifdef STRACE
 	printf("brk\n");
 #endif
