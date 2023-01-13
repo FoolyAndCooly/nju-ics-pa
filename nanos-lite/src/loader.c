@@ -21,7 +21,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   if(fd==-1)assert(0);
   //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
-   assert(*(uint32_t*)ehdr.e_ident == 0x464c457f);
+  assert(*(uint32_t*)ehdr.e_ident == 0x464c457f);
+  int prot=0xe;
   for(int i=0;i<ehdr.e_phnum;i++){
   phoff=i*ehdr.e_phentsize+ehdr.e_phoff;
   //ramdisk_read(&phdr,phoff,sizeof(Elf_Phdr));
@@ -31,15 +32,12 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
-      uintptr_t va = phdr.p_vaddr; // clear low 12 bit, first page
-      uintptr_t round = ROUNDUP(phdr.p_vaddr + phdr.p_memsz,PGSIZE)-PGSIZE; // last page start
-      int page_num = ((round - va) >> 12) + 1;
+      uintptr_t va = ROUNDUP(phdr.p_vaddr,PGSIZE)-PGSIZE; // clear low 12 bit, first page
+      uintptr_t va_end = ROUNDUP(phdr.p_vaddr + phdr.p_memsz ,PGSIZE);
+      int page_num = ((va_end - va) >> 12);
       uintptr_t page_ptr = (uintptr_t)new_page(page_num);
       for (int j = 0; j < page_num; ++ j) {
-        map(&pcb->as, 
-            (void*)(va+ (j << 12)), 
-            (void*)(page_ptr    + (j << 12)), 
-            MMAP_READ|MMAP_WRITE);
+        map(&pcb->as, (void*)(va+ (j << 12)), (void*)(page_ptr    + (j << 12)),prot);
         // Log("map 0x%8lx -> 0x%8lx", vpage_start + (j << 12), page_ptr    + (j << 12));
       }
       void* page_off = (void *)(phdr.p_vaddr & 0xfff); // we need the low 12 bit
