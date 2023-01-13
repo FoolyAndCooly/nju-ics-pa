@@ -23,10 +23,6 @@ void free_page(void *p) {
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
 //printf("brk %x %x\n",current->max_brk,brk);
- if (current->max_brk == 0) {
-    current->max_brk = brk;
-    return 0;
-  }
   int prot = 0xe;
   for (; current->max_brk <= ROUNDUP(brk, PGSIZE); current->max_brk += PGSIZE) {
     void* pa = pg_alloc(PGSIZE);
