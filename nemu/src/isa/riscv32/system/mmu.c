@@ -17,7 +17,7 @@
 #include <memory/paddr.h>
 #include <memory/vaddr.h>
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
-  uint32_t vpn1 = (uint32_t)vaddr >> 22 & 0x3ff;
+  uint32_t vpn1 = (uint32_t)vaddr >> 22;
   uint32_t vpn2 = (uint32_t)vaddr >> 12 & 0x3ff;
   uint32_t offset = (uint32_t)vaddr & 0xfff;
   paddr_t pdir = cpu.csr.satp << 12;
