@@ -21,6 +21,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
   uint32_t offset=vaddr & 0xfff;
   uint32_t PTESIZE=4;
   paddr_t a=cpu.csr.satp<<12;
+  printf("%x\n",a);
   uint32_t pte=paddr_read(a+vpn1*PTESIZE,PTESIZE);
   uint32_t leaf_pte=paddr_read(pte+vpn0*PTESIZE,PTESIZE);
   assert(leaf_pte & 1);
