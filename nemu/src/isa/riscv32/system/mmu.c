@@ -18,10 +18,10 @@
 #include <memory/vaddr.h>
 
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
-  uint32_t vpn1=vaddr>>22,vpn0=vaddr>>12 & 0x3ff,ppn=cpu.csr.satp>>12;
+  uint32_t vpn1=vaddr>>22,vpn0=vaddr>>12 & 0x3ff;
   uint32_t offset=vaddr & 0xfff;
-  uint32_t PGSIZE=1<<12,PTESIZE=4;
-  paddr_t a=ppn*PGSIZE;
+  uint32_t PTESIZE=4;
+  paddr_t a=cpu.csr.satp << 12;
   uint32_t pte=paddr_read(a+vpn1*PTESIZE,PTESIZE);
   uint32_t leaf_pte=paddr_read(pte+vpn0*PTESIZE,PTESIZE);
   assert(leaf_pte & 1);
