@@ -31,28 +31,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
-      /*uintptr_t va = phdr.p_vaddr ;
-      uintptr_t round = ROUNDUP(phdr.p_vaddr + phdr.p_memsz,PGSIZE);
-      int num = ((round - va) >> 12) + 1;
-      void* pa = new_page(num);
-      int prot=0xf;
-      for (int j = 0; j < num; ++ j) {
-        map(&pcb->as, (void*)va, (void*)pa, prot);
-	va+=PGSIZE;
-	pa+=PGSIZE;
-      }
-      uintptr_t offset = (va & 0xfff);
-      fs_lseek(fd, phdr.p_offset, SEEK_SET);
-      fs_read(fd, pa-num*PGSIZE + offset, phdr.p_filesz);*/ 
-  
-  
-       uintptr_t vpage_start = phdr.p_vaddr & (~0xfff); // clear low 12 bit, first page
+      uintptr_t va = phdr.p_vaddr; // clear low 12 bit, first page
       uintptr_t vpage_end = (phdr.p_vaddr + phdr.p_memsz - 1) & (~0xfff); // last page start
-      int page_num = ((vpage_end - vpage_start) >> 12) + 1;
+      int page_num = ((vpage_end - va) >> 12) + 1;
       uintptr_t page_ptr = (uintptr_t)new_page(page_num);
       for (int j = 0; j < page_num; ++ j) {
         map(&pcb->as, 
-            (void*)(vpage_start + (j << 12)), 
+            (void*)(va+ (j << 12)), 
             (void*)(page_ptr    + (j << 12)), 
             MMAP_READ|MMAP_WRITE);
         // Log("map 0x%8lx -> 0x%8lx", vpage_start + (j << 12), page_ptr    + (j << 12));
