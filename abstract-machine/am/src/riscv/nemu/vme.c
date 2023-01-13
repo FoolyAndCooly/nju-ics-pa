@@ -67,12 +67,21 @@ void __am_switch(Context *c) {
 }
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
-  uintptr_t vpn1=(uintptr_t)va>>22,vpn0=((uintptr_t)va>>12)&0x3ff;
-  uintptr_t* pte_p=(uintptr_t*)as->ptr+vpn1;
-  if(*pte_p == 0) *pte_p=(uintptr_t)pgalloc_usr(PGSIZE);
-  uintptr_t* leafpte_p=(uintptr_t*)*((uintptr_t*)pte_p + vpn0);
-  if(*leafpte_p == 0) *leafpte_p=((uintptr_t)pa & ~0x3ff) | prot | PTE_V;
-  printf("%p %p %x\n" ,pte_p,leafpte_p,*leafpte_p);
+  uint32_t vpn1 = (uint32_t)va >> 22 & 0x3ff;
+  uint32_t vpn2 = (uint32_t)va >> 12 & 0x3ff;
+  uintptr_t* kp_dir = as->ptr;
+  if (*(kp_dir + vpn1) == 0) {
+    *(kp_dir + vpn1) = (uintptr_t)pgalloc_usr(PGSIZE);
+  }
+
+  uintptr_t* kp_table = (uintptr_t*)*(kp_dir + vpn1);
+
+  if (*(kp_table + vpn2) == 0) {
+    *(kp_table + vpn2) = (((uint32_t)pa >> 10) << 10) | PTE_V | PTE_R | PTE_W | PTE_X;
+  }
+  else {
+    pgfree_usr(NULL);
+  }
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
