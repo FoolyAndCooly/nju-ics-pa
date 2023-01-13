@@ -88,14 +88,14 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   p-=len;
   v-=len;
   strcpy(p,envp[i]);
-  envs[i]=v;
+  envs[i]=p;
   }
   for(int i=0;i<argc;i++){
   len=strlen(argv[i])+1;
   p-=len;
   v-=len;
   strcpy(p,argv[i]);
-  args[i]=v;}
+  args[i]=p;}
   //printf("send %s to stack\n",args[i]);
  
   v-=int_size;

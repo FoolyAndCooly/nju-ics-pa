@@ -8,7 +8,7 @@ void call_main(uintptr_t *args) {
   //char *empty[] =  {NULL };
   int argc=*args;
   char** argv=(char**)(args+1);
-  printf("%x\n",args);
+  printf("%s\n",*argv);
   char** envp=(char**)(args+argc+2);
   environ = envp;
   exit(main(0, NULL, NULL));
