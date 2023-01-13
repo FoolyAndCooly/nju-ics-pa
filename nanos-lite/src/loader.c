@@ -45,8 +45,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       uintptr_t offset = phdr.p_vaddr & 0xfff;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
       fs_read(fd, old_pa+ offset, phdr.p_filesz); 
-      // at present, we are still at kernel mem map, so use page allocated instead of user virtual address
-      // new_page already zeroed the mem
       pcb->max_brk = va_end + PGSIZE; 
   }
   
