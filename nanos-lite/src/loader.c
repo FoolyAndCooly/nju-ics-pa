@@ -107,7 +107,7 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   p-=int_size;
   *(uint32_t*)p=argc;
   void* entry=(void*)loader(pcb,filename);
-  pcb->cp=ucontext(NULL,area,entry);
+  pcb->cp=ucontext(adds,area,entry);
   pcb->cp->GPRx=(uintptr_t)p;
 }
 void naive_uload(PCB *pcb, const char *filename) {
