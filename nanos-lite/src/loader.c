@@ -45,7 +45,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       uintptr_t offset = phdr.p_vaddr & 0xfff;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
       fs_read(fd, old_pa+ offset, phdr.p_filesz); 
-      pcb->max_brk = va_end + PGSIZE; 
+      pcb->max_brk = va; 
   }
   
   }
