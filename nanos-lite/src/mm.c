@@ -5,6 +5,7 @@ static void *pf = NULL;
 void* new_page(size_t nr_page) {
   void* pre_pf=pf;
   pf+=nr_page * PGSIZE;
+  assert(pf<heap.end);
   memset(pre_pf,0,nr_page*PGSIZE);
   return pre_pf;
 }
