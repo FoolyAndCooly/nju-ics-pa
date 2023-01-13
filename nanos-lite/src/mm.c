@@ -24,10 +24,15 @@ void free_page(void *p) {
 int mm_brk(uintptr_t brk) {
 //printf("brk %x %x\n",current->max_brk,brk);
   int prot = 0xe;
-  for (; current->max_brk <= ROUNDUP(brk, PGSIZE); current->max_brk += PGSIZE) {
-    void* pa = new_page(1);
-    map(&current->as, (void*)current->max_brk, pa, prot);
-  }
+      uintptr_t va = ROUNDDOWN(current->max_brk,PGSIZE); 
+      uintptr_t va_end = ROUNDDOWN(brk- 1,PGSIZE); 
+      int num = ((va_end - va) >> 12) + 1;
+      void* pa=new_page(num);
+      for(int j=0;j<num;j++){
+      map(&current->as,(void*)va,pa,prot);
+      va+=PGSIZE;
+      pa+=PGSIZE;
+      }
   return 0;
 }
 
