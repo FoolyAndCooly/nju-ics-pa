@@ -22,7 +22,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
   assert(*(uint32_t*)ehdr.e_ident == 0x464c457f);
-  //int prot=0xe;
+  int prot=0xe;
   for(int i=0;i<ehdr.e_phnum;i++){
   phoff=i*ehdr.e_phentsize+ehdr.e_phoff;
   //ramdisk_read(&phdr,phoff,sizeof(Elf_Phdr));
@@ -32,24 +32,19 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
-      uintptr_t vpage_start = phdr.p_vaddr & (~0xfff); // clear low 12 bit, first page
-      uintptr_t vpage_end = (phdr.p_vaddr + phdr.p_memsz - 1) & (~0xfff); // last page start
-      int page_num = ((vpage_end - vpage_start) >> 12) + 1;
-      uintptr_t page_ptr = (uintptr_t)new_page(page_num);
-      for (int j = 0; j < page_num; ++ j) {
-        map(&pcb->as, 
-            (void*)(vpage_start + (j << 12)), 
-            (void*)(page_ptr    + (j << 12)), 
-            MMAP_READ|MMAP_WRITE);
-        // Log("map 0x%8lx -> 0x%8lx", vpage_start + (j << 12), page_ptr    + (j << 12));
+      uintptr_t va = phdr.p_vaddr & (~0xfff);
+      uintptr_t va_end = (phdr.p_vaddr + phdr.p_memsz - 1) & (~0xfff);
+      int cnt=-1;
+      void* pa=NULL; 
+      for (;va<=va_end;va+=PGSIZE) {
+        pa=new_page(1);
+        map(&pcb->as, (void*)va,pa,prot);
+        cnt++;
       }
-      void* page_off = (void *)(phdr.p_vaddr & 0xfff); // we need the low 12 bit
+      uintptr_t offset = phdr.p_vaddr & 0xfff;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
-      fs_read(fd, page_ptr + page_off, phdr.p_filesz); 
-      // at present, we are still at kernel mem map, so use page allocated instead of user virtual address
-      // new_page already zeroed the mem
-      pcb->max_brk = vpage_end + PGSIZE; 
-      printf("%x %x\n",vpage_start,vpage_end);
+      fs_read(fd, pa -cnt*PGSIZE +offset, phdr.p_filesz); 
+      pcb->max_brk = va_end + PGSIZE; 
   }
   
   }
