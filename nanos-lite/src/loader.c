@@ -34,7 +34,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
       uintptr_t va = phdr.p_vaddr ;
       uintptr_t va_end = ROUNDUP(phdr.p_vaddr + phdr.p_memsz,PGSIZE)-PGSIZE;
-      int num = ((va_end - va) >> 12)+1;
+      int num;
+      if(va_end-va > 0){ num = ((va_end - va) >> 12)+1;}
+      else{num=1;assert(0);}
       void* pa = new_page(num);
       for (int j = 0; j < num; ++ j) {
         map(&pcb->as, (void*)va, (void*)pa,prot);
