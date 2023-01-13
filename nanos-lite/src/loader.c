@@ -32,13 +32,12 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
-      uintptr_t va = ROUNDUP(phdr.p_vaddr,PGSIZE)-PGSIZE; // clear low 12 bit, first page
-      uintptr_t va_end = ROUNDUP(phdr.p_vaddr + phdr.p_memsz ,PGSIZE);
+      uintptr_t va =  phdr.p_vaddr & (~0xfff); // clear low 12 bit, first page
+      uintptr_t va_end = (phdr.p_vaddr + phdr.p_memsz - 1) & (~0xfff);
       int page_num = ((va_end - va) >> 12);
       uintptr_t page_ptr = (uintptr_t)new_page(page_num);
       for (int j = 0; j < page_num; ++ j) {
-        map(&pcb->as, (void*)(va+ (j << 12)), (void*)(page_ptr    + (j << 12)),prot);
-        // Log("map 0x%8lx -> 0x%8lx", vpage_start + (j << 12), page_ptr    + (j << 12));
+        map(&pcb->as, (void*)(va+ (j << 12)), (void*)(page_ptr + (j << 12)),prot);
       }
       void* page_off = (void *)(phdr.p_vaddr & 0xfff); // we need the low 12 bit
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
