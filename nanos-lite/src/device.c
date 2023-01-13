@@ -25,7 +25,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   //printf("getinto\n");
-  yield();
+  //yield();
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   if (ev.keycode == AM_KEY_NONE) {return 0;}
   //printf("get it !\n");
@@ -64,7 +64,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  yield();
+  //yield();
   AM_GPU_CONFIG_T t=io_read(AM_GPU_CONFIG);
   int off=offset/4;
   //printf("%d %d\n",len,off);
