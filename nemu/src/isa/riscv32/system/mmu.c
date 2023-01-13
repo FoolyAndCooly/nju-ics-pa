@@ -26,6 +26,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
   uint32_t leaf_pte=paddr_read(pte+vpn0*PTESIZE,PTESIZE);
   assert(leaf_pte & 1);
   paddr_t paddr = (pte & ~0xfff) | offset;
-  assert(vaddr==paddr);
+  printf("%x %x\n",vaddr,paddr);
+  //assert(vaddr==paddr);
   return paddr;
 }
