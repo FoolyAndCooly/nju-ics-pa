@@ -62,7 +62,7 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   AddrSpace* adds=&pcb->as;
 
   protect(adds);
-  int prot=0xf;
+  int prot=0xe;
   char* pa=new_page(8);
   char* va=adds->area.end-8*PGSIZE;
   for(int i=0;i<8;i++){

@@ -20,7 +20,7 @@ __am_get_cur_as(c);
       break;
       case 0X80000007:
         ev.event = EVENT_IRQ_TIMER;
-        printf("EVENT_IRQ_TIMER\n");
+        //printf("EVENT_IRQ_TIMER\n");
         break;
       default: ev.event = EVENT_ERROR; break;
     }
