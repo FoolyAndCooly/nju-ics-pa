@@ -77,7 +77,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   uintptr_t* kp_table = (uintptr_t*)*(kp_dir + vpn1);
 
   if (*(kp_table + vpn2) == 0) {
-    *(kp_table + vpn2) = (((uint32_t)pa >> 10) << 10) | PTE_V | PTE_R | PTE_W | PTE_X;
+    *(kp_table + vpn2) = ((uint32_t)pa & 0xfff) | PTE_V | PTE_R | PTE_W | PTE_X;
   }
 }
 
