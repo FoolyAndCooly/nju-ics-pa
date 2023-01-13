@@ -34,7 +34,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
       uintptr_t va =  phdr.p_vaddr; // clear low 12 bit, first page
       uintptr_t va_end = ROUNDUP(phdr.p_vaddr + phdr.p_memsz,PGSIZE);
-      int num = ((va_end - va) >> 12)+1;
+      int num = ((va_end - va) >> 12);
       void* pa = new_page(num);
       for (int j = 0; j < num; ++ j) {
         map(&pcb->as, (void*)va, (void*)pa,prot);
