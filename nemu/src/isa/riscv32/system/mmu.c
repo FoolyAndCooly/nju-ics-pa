@@ -22,9 +22,9 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
   uint32_t vpn0 = vaddr >> 12 & 0x3ff;
   uint32_t offset = vaddr & 0xfff;
   paddr_t pdir = cpu.csr.satp << 12;
-  paddr_t ptable = paddr_read(pdir + vpn1 * PTESIZE, PTESIZE);
-  uint32_t pte = paddr_read(ptable + vpn0 * PTESIZE, PTESIZE);
+  paddr_t pte = paddr_read(pdir + vpn1 * PTESIZE, PTESIZE);
+  uint32_t leaf_pte = paddr_read(pte + vpn0 * PTESIZE, PTESIZE);
   assert(pte & 1);
-  paddr_t pa = (pte & ~0xfff) | offset;
+  paddr_t pa = (leaf_pte & ~0xfff) | offset;
   return pa;
 }
