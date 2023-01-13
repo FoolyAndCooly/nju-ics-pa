@@ -69,15 +69,16 @@ void __am_switch(Context *c) {
 void map(AddrSpace *as, void *va, void *pa, int prot) {
   uint32_t vpn1 = (uint32_t)va >> 22 & 0x3ff;
   uint32_t vpn2 = (uint32_t)va >> 12 & 0x3ff;
-  uintptr_t* kp_dir = as->ptr;
-  if (*(kp_dir + vpn1) == 0) {
-    *(kp_dir + vpn1) = (uintptr_t)pgalloc_usr(PGSIZE);
+  uintptr_t* pdir = as->ptr;
+  uintptr_t* pte_p=pdir + vpn1;
+  if (*pte_p == 0) {
+    *pte_p = (uintptr_t)pgalloc_usr(PGSIZE);
   }
 
-  uintptr_t* kp_table = (uintptr_t*)*(kp_dir + vpn1);
+  uintptr_t* pte = (uintptr_t*)*pte_p;
 
-  if (*(kp_table + vpn2) == 0) {
-    *(kp_table + vpn2) = ((uint32_t)pa & ~0x3ff) | PTE_V | PTE_R | PTE_W | PTE_X;
+  if (*(pte + vpn2) == 0) {
+    *(pte + vpn2) = ((uint32_t)pa & ~0x3ff) | PTE_V | prot;
   }
 }
 
