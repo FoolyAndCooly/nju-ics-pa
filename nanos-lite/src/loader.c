@@ -32,7 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
       uintptr_t va = phdr.p_vaddr; // clear low 12 bit, first page
-      uintptr_t round = ROUNDUP(phdr.p_vaddr + phdr.p_memsz,PGSIZE); // last page start
+      uintptr_t round = ROUNDUP(phdr.p_vaddr + phdr.p_memsz-1,PGSIZE); // last page start
       int page_num = ((round - va) >> 12) + 1;
       uintptr_t page_ptr = (uintptr_t)new_page(page_num);
       for (int j = 0; j < page_num; ++ j) {
