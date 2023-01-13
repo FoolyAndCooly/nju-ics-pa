@@ -17,16 +17,15 @@
 #include <memory/paddr.h>
 #include <memory/vaddr.h>
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
-  uint32_t vpn1 = (uint32_t)vaddr >> 22;
-  uint32_t vpn2 = (uint32_t)vaddr >> 12 & 0x3ff;
-  uint32_t offset = (uint32_t)vaddr & 0xfff;
+  uint32_t vpn1 = vaddr >> 22;
+  uint32_t vpn2 = vaddr >> 12 & 0x3ff;
+  uint32_t offset = vaddr & 0xfff;
   paddr_t pdir = cpu.csr.satp << 12;
   assert(pdir);
   paddr_t ptable = paddr_read(pdir + vpn1 * 4, 4);
   assert(ptable);
   uint32_t pte = paddr_read(ptable + vpn2 * 4, 4);
-  int valid = pte & 1;
-  assert(valid);
+  assert(pte & 1);
   paddr_t pa = (pte & ~0xfff) | offset;
   return pa;
 }
