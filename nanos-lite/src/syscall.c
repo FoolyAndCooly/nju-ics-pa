@@ -71,6 +71,7 @@ void sys_write(Context* c){
 }
 void sys_brk(Context *c){
 	//brk(c->GPR2);
+	printf("brk\n");
 	c->GPRx=mm_brk(c->GPR2);
 #ifdef STRACE
 	printf("brk\n");
