@@ -11,6 +11,7 @@ void call_main(uintptr_t *args) {
   printf("%s\n",*argv);
   char** envp=(char**)(args+argc+2);
   environ = envp;
+  printf("%s\n",*argv);
   exit(main(argc, argv, envp));
   assert(0);
 }
