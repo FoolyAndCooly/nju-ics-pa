@@ -52,18 +52,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   return ehdr.e_entry;
 }
 
-char* set_NULL(char* p){
-  int int_size=sizeof(int);
-  p-=int_size;
-  *(uint32_t*)p=0;
-  return p;
-}
 
 void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const envp[]){
   Area area;
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
   AddrSpace* adds=&pcb->as;
+
   protect(adds);
   int prot=0xf;
   char* pa=new_page(8);
@@ -74,37 +69,50 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   va+=PGSIZE;
   }
   char *p=pa;
+  char *v=va;
   int argc_count=0,envp_count=0;
   if(argv != NULL){while(argv[argc_count++]!=0);}else{argc_count=1;}
   if(envp != NULL){while(envp[envp_count++]!=0);}else{envp_count=1;}
   int argc=--argc_count,envc=--envp_count;
   char* args[argc],*envs[envc];
   int int_size=sizeof(int);
+  int len;
   for(int i=0;i<envc;i++){
-  p-=strlen(envp[i])+1;
+  len=strlen(envp[i])+1;
+  p-=len;
+  v-=len;
   strcpy(p,envp[i]);
-  envs[i]=p;
+  envs[i]=v;
   }
   for(int i=0;i<argc;i++){
-  p-=strlen(argv[i])+1;
+  len=strlen(argv[i])+1;
+  p-=len;
+  v-=len;
   strcpy(p,argv[i]);
-  args[i]=p;}
+  args[i]=v;}
   //printf("send %s to stack\n",args[i]);
  
-  p=set_NULL(p);
+  v-=int_size;
+  p-=int_size;
+  *(uint32_t*)p=0;
   //printf("%s\n",args[0]);
   for(int i=envc-1;i>=0;i--){
   p-=int_size;
+  v-=int_size;
   *(uint32_t*)p=(uint32_t)envs[i];
   }
-  p=set_NULL(p);
+  v-=int_size;
+  p-=int_size;
+  *(uint32_t*)p=0;
   
   for(int i=argc-1;i>=0;i--){
   p-=int_size;
+  v-=int_size;
   *(uint32_t*)p=(uint32_t)args[i];
   }
 
   p-=int_size;
+  v-=int_size;
   *(uint32_t*)p=argc;
   void* entry=(void*)loader(pcb,filename);
   pcb->cp=ucontext(adds,area,entry);
