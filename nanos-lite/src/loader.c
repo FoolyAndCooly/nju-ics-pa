@@ -36,6 +36,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       uintptr_t va_end = ROUNDDOWN(phdr.p_vaddr + phdr.p_memsz - 1,PGSIZE); 
       int num = ((va_end - va) >> 12) + 1;
       void* pa=new_page(num);
+      void* old_pa=pa;
       for(int j=0;j<num;j++){
       map(&pcb->as,(void*)va,pa,prot);
       va+=PGSIZE;
@@ -43,7 +44,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       }
       uintptr_t offset = phdr.p_vaddr & 0xfff;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
-      fs_read(fd, pa-num*PGSIZE + offset, phdr.p_filesz); 
+      fs_read(fd, old_pa+ offset, phdr.p_filesz); 
       // at present, we are still at kernel mem map, so use page allocated instead of user virtual address
       // new_page already zeroed the mem
       pcb->max_brk = va_end + PGSIZE; 
