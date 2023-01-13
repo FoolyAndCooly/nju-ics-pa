@@ -33,7 +33,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
       uintptr_t va = ROUNDDOWN(phdr.p_vaddr,PGSIZE); 
-      uintptr_t va_end = ROUNDDOWN(phdr.p_vaddr + phdr.p_memsz,PGSIZE); 
+      uintptr_t va_end = ROUNDDOWN(phdr.p_vaddr + phdr.p_memsz-1,PGSIZE); 
       int num = ((va_end - va) >> 12) + 1;
       void* pa=new_page(num);
       void* old_pa=pa;

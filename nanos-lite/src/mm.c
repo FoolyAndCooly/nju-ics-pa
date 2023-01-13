@@ -25,7 +25,7 @@ int mm_brk(uintptr_t brk) {
 //printf("brk %x %x\n",current->max_brk,brk);
   int prot = 0xe;
       uintptr_t va = ROUNDDOWN(current->max_brk,PGSIZE); 
-      uintptr_t va_end = ROUNDDOWN(brk,PGSIZE); 
+      uintptr_t va_end = ROUNDDOWN(brk-1,PGSIZE); 
       int num = ((va_end - va) >> 12) + 1;
       void* pa=new_page(num);
       for(int j=0;j<num;j++){
