@@ -18,7 +18,6 @@
 #include <memory/vaddr.h>
 #define PTESIZE 4
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
-  printf("%x\n",vaddr);
   uint32_t vpn1 = vaddr >> 22 ;
   uint32_t vpn0 = vaddr >> 12 & 0x3ff;
   uint32_t offset = vaddr & 0xfff;
