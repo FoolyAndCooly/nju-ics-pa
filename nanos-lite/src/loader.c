@@ -31,10 +31,19 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
-  fs_lseek(fd,phdr.p_offset,SEEK_SET);
-  fs_read(fd,(void*)phdr.p_vaddr,phdr.p_filesz);//here is wrong
-  memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
-  
+      uintptr_t va = phdr.p_vaddr ;
+      uintptr_t round = ROUNDUP(phdr.p_vaddr + phdr.p_memsz,PGSIZE);
+      int num = ((round - va) >> 12) + 1;
+      void* pa = new_page(num);
+      int prot=0xf;
+      for (int j = 0; j < num; ++ j) {
+        map(&pcb->as, (void*)va, (void*)pa, prot);
+	va+=PGSIZE;
+	pa+=PGSIZE;
+      }
+      uintptr_t offset = (va & 0xfff);
+      fs_lseek(fd, phdr.p_offset, SEEK_SET);
+      fs_read(fd, pa-num*PGSIZE + offset, phdr.p_filesz); 
   }
   
   }
@@ -54,7 +63,17 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
   Area area;
   area.start=pcb->stack;
   area.end=&pcb->stack[STACK_SIZE];
-  char* p=new_page(8);
+  AddrSpace* adds=&pcb->as;
+  protect(adds);
+  int prot=0xf;
+  char* pa=new_page(8);
+  char* va=adds->area.end-8*PGSIZE;
+  for(int i=0;i<8;i++){
+  map(adds,pa,va,prot);
+  pa+=PGSIZE;
+  va+=PGSIZE;
+  }
+  char *p=pa;
   int argc_count=0,envp_count=0;
   if(argv != NULL){while(argv[argc_count++]!=0);}else{argc_count=1;}
   if(envp != NULL){while(envp[envp_count++]!=0);}else{envp_count=1;}
