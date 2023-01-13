@@ -24,8 +24,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
   paddr_t pdir = cpu.csr.satp << 12;
   paddr_t ptable = paddr_read(pdir + vpn1 * PTESIZE, PTESIZE);
   uint32_t pte = paddr_read(ptable + vpn2 * PTESIZE, PTESIZE);
-  int valid = pte & 1;
-  assert(valid);
+  assert(pte & 1);
   paddr_t pa = ((pte >> 12) << 12) | offset;
   return pa;
 }
