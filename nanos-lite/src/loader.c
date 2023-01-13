@@ -34,14 +34,16 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
       uintptr_t va =  phdr.p_vaddr & (~0xfff); // clear low 12 bit, first page
       uintptr_t va_end = (phdr.p_vaddr + phdr.p_memsz - 1) & (~0xfff);
-      int page_num = ((va_end - va) >> 12)+1;
-      uintptr_t page_ptr = (uintptr_t)new_page(page_num);
-      for (int j = 0; j < page_num; ++ j) {
-        map(&pcb->as, (void*)(va+ (j << 12)), (void*)(page_ptr + (j << 12)),prot);
+      int num = ((va_end - va) >> 12)+1;
+      void* pa = new_page(num);
+      for (int j = 0; j < num; ++ j) {
+        map(&pcb->as, (void*)va, (void*)pa,prot);
+        va+=PGSIZE;
+        pa+=PGSIZE;
       }
-      void* page_off = (void *)(phdr.p_vaddr & 0xfff); // we need the low 12 bit
+      uintptr_t page_off = phdr.p_vaddr & 0xfff; 
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
-      fs_read(fd, page_ptr + page_off, phdr.p_filesz); 
+      fs_read(fd, pa-num*PGSIZE + page_off, phdr.p_filesz); 
   }
   
   }
