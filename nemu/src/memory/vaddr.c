@@ -31,6 +31,6 @@ printf("read\n");
 void vaddr_write(vaddr_t addr, int len, word_t data) {
 printf("write\n");
   int check=isa_mmu_check(addr,len,0);
-  if (check == MMU_DIRECT) {paddr_write(addr, len,data);}
+  if (check == MMU_DIRECT) {paddr_write(addr, len,data);assert(0);}
   else {paddr_write(isa_mmu_translate(addr,len,0),len,data);}
 }
