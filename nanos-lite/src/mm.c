@@ -32,7 +32,7 @@ int mm_brk(uintptr_t brk) {
       map(&current->as,(void*)va,pa,prot);
       va+=PGSIZE;
       pa+=PGSIZE;
-      }
+      }//copy from load.c
   return 0;
 }
 
