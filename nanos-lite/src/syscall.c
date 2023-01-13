@@ -49,7 +49,7 @@ void sys_exit(Context* c){
 #ifdef STRACE
 	printf("exit\n");
 #endif
-	//halt(c->GPR2);
+	halt(c->GPR2);
         c->GPRx = c->GPR2;
 }
 void sys_write(Context* c){
