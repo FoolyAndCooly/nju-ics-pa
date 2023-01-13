@@ -22,9 +22,9 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  context_kload(&pcb[0], hello_fun, NULL);
+  //context_kload(&pcb[0], hello_fun, NULL);
   //char* argv[]={"--skip",NULL};
-  context_uload(&pcb[1], "/bin/dummy",NULL,NULL);
+  context_uload(&pcb[0], "/bin/dummy",NULL,NULL);
   switch_boot_pcb();
   //printf("%s\n",argv[0]);
   //const char* filename="/bin/nterm";
@@ -46,8 +46,8 @@ Context* schedule(Context *prev) {
 current->cp = prev;
 
 // always select pcb[0] as the new process
-//current = &pcb[0];
-current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+current = &pcb[0];
+//current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 // then return the new context
 return current->cp;
 }
