@@ -25,7 +25,7 @@ int mm_brk(uintptr_t brk) {
 //printf("brk %x %x\n",current->max_brk,brk);
   int prot = 0xe;
   for (; current->max_brk <= ROUNDUP(brk, PGSIZE); current->max_brk += PGSIZE) {
-    void* pa = pg_alloc(PGSIZE);
+    void* pa = new_page(1);
     map(&current->as, (void*)current->max_brk, pa, prot);
   }
   return 0;
