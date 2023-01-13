@@ -73,7 +73,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   if(*pte_p == 0) *pte_p=(uintptr_t)pgalloc_usr(PGSIZE);
   uintptr_t* leafpte_p=(uintptr_t*)*(pte_p + vpn0);
   if(*leafpte_p == 0) *leafpte_p=((uintptr_t)pa & ~0x3ff) | prot | PTE_V;
-  printf("%p %p %x\n" ,pte_p,*leafpte_p);
+  printf("%p %p %x\n" ,a+1,*leafpte_p);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
