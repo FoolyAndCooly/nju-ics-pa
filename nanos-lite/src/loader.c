@@ -32,18 +32,18 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   if(phdr.p_type==PT_LOAD){
   //ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
-      uintptr_t va =  ROUNDUP(phdr.p_vaddr,PGSIZE)-PGSIZE;
-      uintptr_t va_end = ROUNDUP(phdr.p_vaddr + phdr.p_memsz,PGSIZE);
-      int num = ((va_end - va) >> 12)-1;
+      uintptr_t va = phdr.p_vaddr ;
+      uintptr_t va_end = ROUNDUP(phdr.p_vaddr + phdr.p_memsz,PGSIZE)-PGSIZE;
+      int num = ((va_end - va) >> 12)+1;
       void* pa = new_page(num);
       for (int j = 0; j < num; ++ j) {
         map(&pcb->as, (void*)va, (void*)pa,prot);
         va+=PGSIZE;
         pa+=PGSIZE;
       }
-      uintptr_t page_off = phdr.p_vaddr & 0xfff; 
+      uintptr_t offset = phdr.p_vaddr & 0xfff; 
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
-      fs_read(fd, pa-num*PGSIZE + page_off, phdr.p_filesz); 
+      fs_read(fd, pa-num*PGSIZE + offset, phdr.p_filesz); 
   }
   
   }
