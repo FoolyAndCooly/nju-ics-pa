@@ -46,7 +46,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
       fs_read(fd, old_pa+ offset, phdr.p_filesz); 
       pcb->max_brk = va;
-/*In this way ,the data section is not near by the code section in paddr. But we don't care. Because when we read data or infetch code we use vaddr. This way is easy to achieve and debug.*/
+/*In this way ,the data section is not near by the code section in paddr. 
+But we don't care.
+ Because when we read data or infetch code we use vaddr. 
+ This way is easy to achieve and debug.*/
   }
   
   }
