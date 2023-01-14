@@ -37,7 +37,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       int num = ((va_end - va) >> 12) + 1;
       void* pa=new_page(num);
       void* old_pa=pa;
-      for(int j=0;j<num;j++){
+      for(int j=0 ;j < num; j++){
       map(&pcb->as,(void*)va,pa,prot);
       va+=PGSIZE;
       pa+=PGSIZE;
