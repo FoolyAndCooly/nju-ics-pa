@@ -24,7 +24,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
   uint32_t offset = vaddr & 0xfff;
   paddr_t pdir = cpu.csr.satp * PGSIZE;
   paddr_t pte = paddr_read(pdir + vpn1 * PTESIZE, PTESIZE);
-  uint32_t leafpte = paddr_read(pte + vpn0 * PTESIZE, PTESIZE);
+  paddr_t leafpte = paddr_read(pte + vpn0 * PTESIZE, PTESIZE);
   assert(leafpte & 1);
   paddr_t pa = (leafpte & ~0xfff) | offset;
   return pa;
