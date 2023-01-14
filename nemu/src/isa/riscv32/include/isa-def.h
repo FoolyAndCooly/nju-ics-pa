@@ -27,6 +27,7 @@ typedef struct {
   word_t mcause;
   word_t mtvec;
   word_t satp;
+  word_t mscratch;
   } csr;
   bool INTR;
   char iringbuf[16][128];
