@@ -68,7 +68,7 @@ void __am_switch(Context *c) {
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
   uint32_t vpn1 = (uint32_t)va >> 22;
-  uint32_t vpn0 = (uint32_t)va >> 12 & 0x3ff;
+  uint32_t vpn0 = (uint32_t)va >>12 & 0x3ff;
   uintptr_t* pdir = as->ptr;
   uintptr_t* pte_p=pdir + vpn1;
   if (*pte_p == 0) {
