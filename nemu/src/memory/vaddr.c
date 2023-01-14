@@ -17,18 +17,21 @@
 #include <memory/paddr.h>
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type);
 word_t vaddr_ifetch(vaddr_t addr, int len) {
-  int check=isa_mmu_check(addr,len,0),ret;
+  int check=isa_mmu_check(addr,len,MEM_TYPE_IFETCH),ret;
   if (check == MMU_DIRECT) {ret=paddr_read(addr, len);}
-  else {ret = paddr_read(isa_mmu_translate(addr,len,0),len);}
+  else {ret = paddr_read(isa_mmu_translate(addr,len,MEM_TYPE_IFETCH),len);}
   return ret;
 }
 
 word_t vaddr_read(vaddr_t addr, int len) {
-  return vaddr_ifetch(addr,len);
+  int check=isa_mmu_check(addr,len,MEM_TYPE_READ),ret;
+  if (check == MMU_DIRECT) {ret=paddr_read(addr, len);}
+  else {ret = paddr_read(isa_mmu_translate(addr,len,MEM_TYPE_READ),len);}
+  return ret;
 }
 
 void vaddr_write(vaddr_t addr, int len, word_t data) {
-  int check=isa_mmu_check(addr,len,0);
+  int check=isa_mmu_check(addr,len,MEM_TYPE_WRITE);
   if (check == MMU_DIRECT) {paddr_write(addr, len,data);}
-  else {paddr_write(isa_mmu_translate(addr,len,0),len,data);}
+  else {paddr_write(isa_mmu_translate(addr,len,MEM_TYPE_WRITE),len,data);}
 }
