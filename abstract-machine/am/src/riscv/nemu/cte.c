@@ -14,7 +14,7 @@ void display_context(Context *c,bool flag)
   else printf("out of cte\n");
   for (int i = 0; i < sizeof(c->gpr) / sizeof(c->gpr[0]); i++)
   printf("gpr %d is %x\n", i, c->gpr[i]);
-  printf("c->np\n",c->np);
+  printf("c->np %d\n",c->np);
   printf("mcause, mstatus, mepc is %x, %x, %x\n\n", c->mcause, c->mstatus, c->mepc);
 }
 
