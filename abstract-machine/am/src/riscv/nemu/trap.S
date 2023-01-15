@@ -15,7 +15,7 @@
 #define REGS(f) \
       f( 1)       f( 3) f( 4) f( 5) f( 6) f( 7) f( 8) f( 9) \
 f(10) f(11) f(12) f(13) f(14) f(15) f(16) f(17) f(18) f(19) \
-f(20) f(21) f(22) f(23) f(24) f(25) f(26) f(27) f(28) f(29) \
+f(20) f(21) f(22) f(23) f(24) f(25) f(26) f(27)       f(29) \
 f(30) f(31)
 
 #define PUSH(n) STORE concat(x, n), (n * XLEN)(sp);
@@ -43,17 +43,22 @@ __am_asm_trap:
 maintain_np:
   addi   sp, sp, -CONTEXT_SIZE
   STORE  t3, OFFSET_T3(sp)     # store t3 first to free it
-  csrr   t3, mscratch          # the msratch is csr reg, so we shouldn't use mv
+  csrr   t3, mscratch          
   STORE  t3, OFFSET_SP(sp)     # c->sp = $sp
-
-  bnez   sp, L1                # $t3 = (ksp == 0 ? KERNEL : USER) right now sp stores ksp
+  
+  addi   t3, sp,  CONTEXT_SIZE
+  csrw   mscratch, t3
+  bnez   t3, L1                # $t3 = (ksp == 0 ? KERNEL : USER)
   li     t3, KERNEL
+  jal    change_np  
 L1:
   li     t3, USER
+  
+change_np:
   STORE  t3, OFFSET_NP(sp)     # c->np = $t3
   
   li     t3, 0
-  csrrw  t3, mscratch, t3       # ksp = 0
+  csrw   mscratch, t3          # ksp = 0
   
   
 save_context:
@@ -76,22 +81,22 @@ save_context:
   
   jal __am_irq_handle
   
-restore_context:
   mv    sp, a0  
   
+  LOAD  t3, OFFSET_NP(sp)            # if(c->np == USER){
+  bnez  t3, L2                       #   ksp = $sp;
+  jal   store_context                # }
+L2:
+  addi  t3 ,sp ,CONTEXT_SIZE
+  csrw  mscratch ,t3
+store_context:
   LOAD  t1, OFFSET_STATUS(sp)
   LOAD  t2, OFFSET_EPC(sp)
   csrw  mstatus, t1
   csrw  mepc, t2
   MAP(REGS,POP)
-  
-  addi  sp, sp, CONTEXT_SIZE
-  csrrw sp, mscratch, sp   # if(t3 != 0){
-  bnez  t3, L2             #   $sp = ksp;  if !=0 code jump
-  csrr  sp, mscratch	   # }
-L2:
-  addi  sp, sp, -CONTEXT_SIZE
-  LOAD  sp, OFFSET_SP(sp)  
+  LOAD  t3, OFFSET_T3(sp)
+  LOAD  sp, OFFSET_SP(sp)          # $sp = c->sp
   
 return_from_trap:
   mret
