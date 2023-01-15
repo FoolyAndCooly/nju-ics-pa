@@ -77,7 +77,7 @@ save_context:
   jal __am_irq_handle
   
 restore_context:
-  mv sp,a0  
+  mv    sp, a0  
   LOAD  t1, OFFSET_STATUS(sp)
   LOAD  t2, OFFSET_EPC(sp)
   LOAD  t3, OFFSET_NP(sp)
