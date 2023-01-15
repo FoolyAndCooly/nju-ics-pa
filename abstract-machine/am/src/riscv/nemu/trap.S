@@ -46,13 +46,14 @@ maintain_np:
   csrr   t3, mscratch          # the msratch is csr reg, so we shouldn't use mv
   STORE  t3, OFFSET_SP(sp)     # c->sp = $sp
 
-  bnez   sp, L1               # $t3 = (ksp == 0 ? KERNEL : USER) right now sp stores ksp
+  bnez   sp, L1                # $t3 = (ksp == 0 ? KERNEL : USER) right now sp stores ksp
   li     t3, KERNEL
 L1:
   li     t3, USER
-  STORE  t3, OFFSET_NP(sp)    # c->np = $t3
+  STORE  t3, OFFSET_NP(sp)     # c->np = $t3
   
-  csrw     mscratch,  x0         # ksp = 0
+  li     t3, 0
+  csrrw  t3, mscratch, t3       # ksp = 0
   
   
 save_context:
