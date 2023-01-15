@@ -7,16 +7,18 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 void __am_get_cur_as(Context *c);
 void __am_switch(Context *c);
 
-void display_context(Context *c)
+void display_context(Context *c,bool flag)
 {
+  if(flag) printf("into cte\n");
+  else printf("out of cte\n");
   for (int i = 0; i < sizeof(c->gpr) / sizeof(c->gpr[0]); i++)
   printf("gpr %d is %x\n", i, c->gpr[i]);
-  printf("mcause, mstatus, mepc is %x, %x, %x\n", c->mcause, c->mstatus, c->mepc);
+  printf("mcause, mstatus, mepc is %x, %x, %x\n\n", c->mcause, c->mstatus, c->mepc);
 }
 
 Context* __am_irq_handle(Context *c) {
   __am_get_cur_as(c);
-  display_context(c);
+  display_context(c,1);
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
@@ -39,7 +41,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
   __am_switch(c);
-  display_context(c);
+  display_context(c,0);
   return c;
 }
 
