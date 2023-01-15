@@ -78,8 +78,6 @@ save_context:
   
 restore_context:
   mv    sp, a0  
-  LOAD  t3, OFFSET_NP(sp)
-  addi  sp, sp, CONTEXT_SIZE
   
   LOAD  t1, OFFSET_STATUS(sp)
   LOAD  t2, OFFSET_EPC(sp)
