@@ -88,7 +88,6 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   context->mcause = 0xb;
   context->pdir=as->ptr;
   context->np = 1;
-  context->gpr[2] = (uintptr_t)context;
   //context->GPRx=(uintptr_t)arg;
   return context;
 }
