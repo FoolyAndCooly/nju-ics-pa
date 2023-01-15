@@ -85,9 +85,8 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   Context* context=kstack.end-sizeof(Context);
   context->mepc = (uintptr_t)entry;
   context->mstatus = 0x1880;
-  context->mcause = 0xb;
   context->pdir=as->ptr;
-  context->np = 0;
+  context->np = 1;
   //context->gpr[2] = (uintptr_t)context;
   //context->GPRx=(uintptr_t)arg;
   return context;
