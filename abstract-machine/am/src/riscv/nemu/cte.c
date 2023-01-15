@@ -9,7 +9,7 @@ void __am_switch(Context *c);
 
 void display_context(Context *c)
 {
-printf("%d\n",0xffffffbc);
+printf("%d\n",(int)0xffffffbc);
   for (int i = 0; i < sizeof(c->gpr) / sizeof(c->gpr[0]); i++)
   printf("gpr %d is %x\n", i, c->gpr[i]);
   printf("mcause, mstatus, mepc is %x, %x, %x\n", c->mcause, c->mstatus, c->mepc);
