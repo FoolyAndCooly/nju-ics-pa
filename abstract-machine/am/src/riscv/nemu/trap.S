@@ -46,9 +46,7 @@ maintain_np:
   csrr   t3, mscratch          
   STORE  t3, OFFSET_SP(sp)     # c->sp = $sp
   
-  addi   sp, sp,  CONTEXT_SIZE
-  mv     t3, sp
-  addi   sp, sp, -CONTEXT_SIZE
+  addi   t3, sp,  CONTEXT_SIZE
   csrw   mscratch, t3
   bnez   t3, L1                # $t3 = (ksp == 0 ? KERNEL : USER)
   li     t3, KERNEL
@@ -89,9 +87,7 @@ save_context:
   bnez  t3, L2                       #   ksp = $sp;
   jal   store_context                # }
 L2:
-  addi   sp, sp,  CONTEXT_SIZE
-  mv     t3, sp
-  addi   sp, sp, -CONTEXT_SIZE
+  addi  t3, sp,  CONTEXT_SIZE
   csrw  mscratch ,t3
 store_context:
   LOAD  t1, OFFSET_STATUS(sp)
