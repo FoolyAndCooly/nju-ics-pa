@@ -52,7 +52,7 @@ L1:
   li     t3, USER
   STORE  t3, OFFSET_NP(sp)    # c->np = $t3
   
-  csrw     mscratch,  0         # ksp = 0
+  csrw     mscratch,  x0         # ksp = 0
   
   
 save_context:
