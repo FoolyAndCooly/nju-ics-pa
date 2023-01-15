@@ -84,7 +84,6 @@ restore_context:
   csrw  mstatus, t1
   csrw  mepc, t2
   
-  addi sp, sp, CONTEXT_SIZE
   csrrw sp, mscratch, sp   # if(t3 != 0){
   bnez  t3, L2             #   $sp = ksp;  if !=0 code jump
   csrr  sp, mscratch	   # }
