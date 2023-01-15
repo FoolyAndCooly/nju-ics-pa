@@ -18,7 +18,7 @@ void display_context(Context *c,bool flag)
 
 Context* __am_irq_handle(Context *c) {
   __am_get_cur_as(c);
-  //display_context(c,1);
+  display_context(c,1);
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
@@ -41,7 +41,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
   __am_switch(c);
-  //display_context(c,0);
+  display_context(c,0);
   return c;
 }
 
