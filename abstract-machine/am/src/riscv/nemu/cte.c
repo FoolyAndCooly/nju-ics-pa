@@ -9,10 +9,6 @@ void __am_switch(Context *c);
 
 void display_context(Context *c)
 {
-uint32_t a=0xffffffbc;
-int b;
-b=(int)a;
-printf("%d\n",b);
   for (int i = 0; i < sizeof(c->gpr) / sizeof(c->gpr[0]); i++)
   printf("gpr %d is %x\n", i, c->gpr[i]);
   printf("mcause, mstatus, mepc is %x, %x, %x\n", c->mcause, c->mstatus, c->mepc);
