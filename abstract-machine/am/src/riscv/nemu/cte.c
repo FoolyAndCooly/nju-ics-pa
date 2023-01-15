@@ -19,12 +19,6 @@ void display_context(Context *c,bool flag)
 
 Context* __am_irq_handle(Context *c) {
   __am_get_cur_as(c);
-  //display_context(c,1);
-  uintptr_t mscratch;
-  uintptr_t kas = 0;
-  asm volatile("csrr %0, mscratch" : "=r"(mscratch));
-  c->np = (mscratch == 0 ? KERNEL : USER);
-  asm volatile("csrw mscratch, %0" : : "r"(kas));
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
@@ -71,7 +65,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   context->GPRx=(uintptr_t)arg;
   context->pdir=NULL;
   context->gpr[2] = (uintptr_t)context;
-  context->np =1 ;
+  context->np =0 ;
   return context;
 }
 
