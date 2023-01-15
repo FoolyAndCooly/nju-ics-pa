@@ -12,7 +12,7 @@ void display_context(Context *c,bool flag)
 {
   if(flag) printf("into cte\n");
   else printf("out of cte\n");
-  for (int i = 0; i < sizeof(c->gpr) / sizeof(c->gpr[0]); i++)
+  for (int i = 0; i < 31; i++)
   printf("gpr %d is %x\n", i, c->gpr[i]);
   printf("c->np %d\n",c->np);
   printf("mcause, mstatus, mepc is %x, %x, %x\n\n", c->mcause, c->mstatus, c->mepc);
@@ -20,7 +20,7 @@ void display_context(Context *c,bool flag)
 
 Context* __am_irq_handle(Context *c) {
   __am_get_cur_as(c);
-  display_context(c,1);
+  //display_context(c,1);
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
@@ -42,7 +42,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
   __am_switch(c);
-  display_context(c,0);
+  //display_context(c,0);
   return c;
 }
 
