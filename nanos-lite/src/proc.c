@@ -7,7 +7,7 @@ void context_uload(PCB* pcb ,const char* filename,char* const argv[],char* const
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
-
+extern int fg_pcb;
 void switch_boot_pcb() {
   current = &pcb_boot;
 }
@@ -24,7 +24,9 @@ void hello_fun(void *arg) {
 void init_proc() {
   char* argv[]={NULL};
   context_uload(&pcb[0], "/bin/hello",argv,NULL);
-  context_uload(&pcb[1], "/bin/nterm",argv,NULL);
+  context_uload(&pcb[1], "/bin/nslider",argv,NULL);
+  context_uload(&pcb[0], "/bin/bird",argv,NULL);
+  context_uload(&pcb[0], "/bin/pal",argv,NULL);
   switch_boot_pcb();
   //printf("%s\n",argv[0]);
   //const char* filename="/bin/nterm";
@@ -47,7 +49,7 @@ current->cp = prev;
 
 // always select pcb[0] as the new process
 //current = &pcb[0];
-current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+current = (current == &pcb[0] ? &pcb[fg_pcb] : &pcb[0]);
 // then return the new context
 return current->cp;
 }

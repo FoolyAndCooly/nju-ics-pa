@@ -9,6 +9,7 @@
 #define NAME(key) \
   [AM_KEY_##key] = #key,
 void yield();
+int fg_pcb;
 static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
   AM_KEYS(NAME)
@@ -28,6 +29,17 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   //yield();
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   if (ev.keycode == AM_KEY_NONE) {return 0;}
+  switch(ev.keycode){
+    case AM_KEY_F1:
+      fg_pcb = 1;
+      break;
+    case AM_KEY_F2:
+      fg_pcb = 2;
+      break;
+    case AM_KEY_F3:
+      fg_pcb = 3;
+      break;
+    }
   //printf("get it !\n");
   char buf0[16]={0};
   char* p=buf0;
