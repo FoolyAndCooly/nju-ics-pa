@@ -25,8 +25,8 @@ void init_proc() {
   char* argv[]={NULL};
   context_uload(&pcb[0], "/bin/hello",argv,NULL);
   context_uload(&pcb[1], "/bin/nslider",argv,NULL);
-  context_uload(&pcb[0], "/bin/bird",argv,NULL);
-  context_uload(&pcb[0], "/bin/pal",argv,NULL);
+  context_uload(&pcb[2], "/bin/bird",argv,NULL);
+  context_uload(&pcb[3], "/bin/pal",argv,NULL);
   switch_boot_pcb();
   //printf("%s\n",argv[0]);
   //const char* filename="/bin/nterm";
