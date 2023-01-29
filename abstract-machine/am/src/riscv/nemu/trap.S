@@ -52,7 +52,7 @@ maintain_np:
   STORE t3, OFFSET_SP(sp)  # c->sp = $sp 
   
   li t3, USER
-  STORE t3,OFFSET_NP(sp)  #c->np = (ksp == 0 ?--- KERNEL : USER);
+  STORE t3,OFFSET_NP(sp)  #c->np = (ksp == 0 ? KERNEL : USER);
   csrr t3, mscratch
   addi t4, sp ,CONTEXT_SIZE
   bne t4, t3, save_context
@@ -86,8 +86,8 @@ save_context:
 
 
   LOAD t3, OFFSET_NP(sp)  
-  addi t4, sp, CONTEXT_SIZE
   beqz t3, restore_context
+  addi t4, sp, CONTEXT_SIZE
   csrw mscratch, t4       # if (c->np == USER) {ksp = $sp;}
 
 restore_context:
