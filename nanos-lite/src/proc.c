@@ -23,7 +23,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   char* argv[]={NULL};
-  context_kload(&pcb[0], hello_fun,NULL);
+  context_kload(&pcb[1], hello_fun,NULL);
   context_uload(&pcb[1], "/bin/nslider",argv,NULL);
   context_uload(&pcb[2], "/bin/bird",argv,NULL);
   context_uload(&pcb[3], "/bin/pal",argv,NULL);
