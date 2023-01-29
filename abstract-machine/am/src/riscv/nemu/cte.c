@@ -65,7 +65,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   context->mstatus = 0x1880;
   context->GPRx=(uintptr_t)arg;
   context->pdir=NULL;
-  context->gpr[2] =(uintptr_t)context+sizeof(Context);
+  context->gpr[2] = (uintptr_t)kstack.end;
   context->np =0 ;
   return context;
 }
