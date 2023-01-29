@@ -23,10 +23,10 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   char* argv[]={NULL};
-  context_uload(&pcb[0], "/bin/protect",argv,NULL);
-  //context_uload(&pcb[1], "/bin/nslider",argv,NULL);
-  //context_uload(&pcb[2], "/bin/bird",argv,NULL);
-  //context_uload(&pcb[3], "/bin/pal",argv,NULL);
+  context_uload(&pcb[0], "/bin/",argv,NULL);
+  context_uload(&pcb[1], "/bin/nslider",argv,NULL);
+  context_uload(&pcb[2], "/bin/bird",argv,NULL);
+  context_uload(&pcb[3], "/bin/pal",argv,NULL);
   switch_boot_pcb();
   //printf("%s\n",argv[0]);
   //const char* filename="/bin/nterm";
@@ -49,7 +49,7 @@ current->cp = prev;
 
 // always select pcb[0] as the new process
 //current = &pcb[0];
-current = (current == &pcb[0] ? &pcb[0] : &pcb[0]);
+current = (current == &pcb[0] ? &pcb[fg_pcb] : &pcb[0]);
 // then return the new context
 return current->cp;
 }
